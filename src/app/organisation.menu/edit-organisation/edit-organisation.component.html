@@ -1,0 +1,58 @@
+<mat-toolbar></mat-toolbar>
+
+
+
+    <form [formGroup]="formGrp">
+        <mat-card>
+        <mat-form-field>
+            <input type="text"
+                   matInput
+                   formControlName="name">
+        </mat-form-field>
+
+
+        <mat-form-field>
+      <textarea type="text"
+                matInput
+                formControlName="address"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="2"
+                cdkAutosizeMaxRows="5">
+          </textarea>
+        </mat-form-field>
+
+
+        <mat-form-field>
+            <mat-label>organisation type</mat-label>
+            <input type="text" placeholder="Exibition space etc ..."matInput formControlName="orgType">
+        </mat-form-field>
+
+
+        <mat-form-field>
+            <input type="text" matInput formControlName="sector">
+        </mat-form-field>
+            <mat-card-actions>
+                <button mat-stroked-button (click)="onCancel()">CANCEL</button>
+                <button mat-stroked-button (click)="reset()">CLEAR</button>
+                <button mat-stroked-button (click)="onSave()">SAVE</button>
+            </mat-card-actions>
+
+        </mat-card>
+    </form>
+
+
+
+
+
+<!--
+
+{
+            address: ['178 defoe'],
+            emails: [['sim@sim.org.co']],
+            name: ['SimonCo', Validators.required],
+            OrgType: ['commercial'],
+            sector: ['law'],
+            telNos: [['0203 123']],
+            web: [['www.si.co.uk']],
+-->

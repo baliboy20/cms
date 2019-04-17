@@ -1,0 +1,17 @@
+mat-card {
+//margin: 10 0;
+  width: 80%;
+
+    display: flex;
+    flex-flow: column;
+  //align-content: center;
+  //justify-items: center;
+  align-items: center;
+
+  & mat-form-field {
+    display: flex;flex-flow: row wrap;
+    justify-items: center;
+    //background-color: blue;
+    width: 60%;
+  }
+}

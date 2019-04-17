@@ -1,0 +1,52 @@
+<mat-toolbar>
+  <button mat-button routerLink="/">Home</button>
+  <button mat-button routerLink="../organisation-menu">Organisations</button>
+  <button mat-button routerLink="../campaign-menu">Campaigns</button>
+</mat-toolbar>
+
+<mat-drawer-container class="draw-container" autosize>
+  <mat-drawer #drawer class="drawer-sidenav" mode="side">
+
+    <ul>
+      <li>
+        <a mat-button [routerLink]="['/']">DASHBOARD</a>
+      </li>
+      <li>
+        <a mat-button  routerLink="add">ADD</a>
+      </li>
+
+      <li>
+        <a mat-button routerLink="/">FIND</a>
+      </li>
+
+
+
+      <li>
+        <!--<a mat-button routerLink="\">ADD PEOPLE</a>-->
+      </li>
+
+      <li>
+        <!--<a mat-button routerLink="\">HOME</a>-->
+      </li>
+
+
+    </ul>
+    <button (click)="showFiller = !showFiller" mat-raised-button>
+      open close
+    </button>
+  </mat-drawer>
+
+  <div class="main-nav-content">
+    <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button>
+    <p>
+      organisation.menu works!
+    </p>
+    <router-outlet></router-outlet>
+
+  </div>
+
+</mat-drawer-container>
+
+
