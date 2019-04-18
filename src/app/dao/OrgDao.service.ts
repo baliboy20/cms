@@ -1,8 +1,11 @@
 import {Injectable} from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {ReplaySubject} from 'rxjs/index';
+import {AngularFirestore, DocumentChangeAction} from '@angular/fire/firestore';
+import {of, pipe, ReplaySubject} from 'rxjs/index';
 import {DbCollections} from './collections.enum';
 import {Vo} from '../model/contact.classes';
+import { map, mergeMap, reduce, tap, toArray} from 'rxjs/internal/operators';
+
+
 
 @Injectable({
     providedIn: 'root'
@@ -13,13 +16,34 @@ export class OrgDaoService {
     constructor(private firestore: AngularFirestore) {
         this.firestore.collection(DbCollections.ORGANISATIONS).snapshotChanges().subscribe(a => this.data.next(a));
 
-        this.firestore.collection(DbCollections.ORGANISATIONS).snapshotChanges().subscribe(console.log);
+        this.firestore.collection(DbCollections.ORGANISATIONS).snapshotChanges().subscribe(a => console.log('helluva', a));
 
     }
 
     getOrgs() {
+        return  this.firestore.collection(DbCollections.ORGANISATIONS).snapshotChanges()
+            .pipe(
 
-        return this.firestore.collection(DbCollections.ORGANISATIONS).snapshotChanges();
+                map((arg: DocumentChangeAction<any>[]) => {
+                 const retval =  arg.map( a => {
+                        return {
+                            id: a.payload.doc.id,
+                            ...a.payload.doc.data(),
+                        };
+                    });
+                // console.log('mapped', retval);
+                return retval;
+
+
+
+                } ),
+                 // reduce((a, b) => {
+                 //     a.push(b);
+                 //     console.log('reduce',  a);
+                 //     return a;
+                 // }, [ ]),
+                 // tap(x => console.log('x', x))
+            );
     }
 
 

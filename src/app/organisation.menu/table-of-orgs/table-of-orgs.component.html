@@ -1,0 +1,54 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="address">
+    <th mat-header-cell *matHeaderCellDef> Address </th>
+    <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+  </ng-container>
+
+  <!-- Sector Column -->
+  <ng-container matColumnDef="orgType">
+    <th mat-header-cell *matHeaderCellDef> Orgn. Type </th>
+    <td mat-cell *matCellDef="let element"> {{element.orgType}} </td>
+  </ng-container>
+
+  <!-- Type Column -->
+  <ng-container matColumnDef="sector">
+    <th mat-header-cell *matHeaderCellDef> Sector </th>
+    <td mat-cell *matCellDef="let element"> {{element.sector}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="edits">
+    <th mat-header-cell *matHeaderCellDef>  </th>
+    <td mat-cell *matCellDef="let element">
+    <button mat-stroked-button>del</button>
+    <button mat-stroked-button>edit</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+<!--
+name: string;
+    address: string;
+    emails: IEmail[];
+    web: IWebSite[];
+    telephoneNos: ITelNo[];
+    OrgType: string;
+    sector: string; //
+    id: string;
+}
+
+-->

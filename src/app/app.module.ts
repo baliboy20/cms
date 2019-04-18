@@ -10,16 +10,20 @@ import {OrganisationMenuModule} from './organisation.menu/organisation.menu.modu
 import {CampaignMenuModule} from './campaign.menu/campaign.menu.module';
 import {MaterialzModule} from './materialz/materialz.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { TableOfOrgsComponent } from './organisation.menu/table-of-orgs/table-of-orgs.component';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent
+    MainComponent,
+
   ],
   imports: [
     BrowserModule,
       BrowserAnimationsModule,
       AngularFireModule.initializeApp(environment.firebaseConfig),
+      AngularFirestoreModule,
       AppRoutingModule,
       OrganisationMenuModule,
       CampaignMenuModule,

@@ -12,7 +12,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
     selector: 'app-edit-organisation',
     templateUrl: './edit-organisation.component.html',
     styleUrls: ['./edit-organisation.component.scss'],
-    providers: [ AngularFirestore, OrgDaoService]
+
 })
 export class EditOrganisationComponent implements OnInit {
 
