@@ -31,7 +31,7 @@
     <th mat-header-cell *matHeaderCellDef>  </th>
     <td mat-cell *matCellDef="let element">
     <button mat-stroked-button>del</button>
-    <button mat-stroked-button>edit</button>
+    <a mat-stroked-button [routerLink]="['../add',{parmval: 'sdfds'}]">edit</a>
     </td>
   </ng-container>
 

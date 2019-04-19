@@ -6,7 +6,7 @@ export interface IOrganisation {
     address: string;
     emails: IEmail[];
     web: IWebSite[];
-    telephoneNos: ITelNo[];
+    telNos: ITelNo[];
     orgType: string;
     sector: string; //
     id: string;

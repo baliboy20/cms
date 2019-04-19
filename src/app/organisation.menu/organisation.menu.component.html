@@ -3,10 +3,14 @@
   <button mat-button routerLink="../organisation-menu">Organisations</button>
   <button mat-button routerLink="../campaign-menu">Campaigns</button>
 </mat-toolbar>
+<mat-toolbar>
+  <button (click)="leftPanel.toggle()">toggle left</button>
+  <!--<button (click)="toggle('right')">toggle right</button>-->
+</mat-toolbar>
 
-<mat-drawer-container class="draw-container" autosize>
-  <mat-drawer #drawer class="drawer-sidenav" mode="side">
-
+<mat-sidenav-container>
+  <mat-sidenav opened  mode="side" #leftPanel style="height: 1000px; background-color: lightgrey">
+    whats going on
     <ul>
       <li>
         <a mat-button [routerLink]="['/']">DASHBOARD</a>
@@ -31,22 +35,16 @@
 
 
     </ul>
-    <button (click)="showFiller = !showFiller" mat-raised-button>
-      open close
-    </button>
-  </mat-drawer>
-
-  <div class="main-nav-content">
-    <button type="button" mat-button (click)="drawer.toggle()">
-      Toggle sidenav
-    </button>
-    <p>
-      organisation.menu works!
-    </p>
+  </mat-sidenav>
+  <mat-sidenav   mode="over" #rightPanel position="end" style="width: 100%">
+    <app-edit-organisation></app-edit-organisation>
+    sdjfds
+  </mat-sidenav>
+  <mat-sidenav-content style="height: 1000px; background-color:  grey">
     <router-outlet></router-outlet>
+    some content
+  </mat-sidenav-content>
 
-  </div>
-
-</mat-drawer-container>
+</mat-sidenav-container>
 
 

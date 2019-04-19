@@ -1,48 +1,65 @@
-<mat-toolbar></mat-toolbar>
+<div [formGroup]="formGrp" novalidate (submit)="$event.preventDefault()">
+    <mat-card>
+        <mat-card-title>
 
+        </mat-card-title>
+        <mat-card-content>
 
+            <!--NAME-->
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input type="text"
+                       matInput
+                       formControlName="name">
+            </mat-form-field>
 
-    <form [formGroup]="formGrp">
-        <mat-card>
-        <mat-form-field>
-            <input type="text"
-                   matInput
-                   formControlName="name">
-        </mat-form-field>
+            <!--ADDRESS-->
+            <mat-form-field>
+                <mat-label>Address</mat-label>
 
-
-        <mat-form-field>
-      <textarea type="text"
-                matInput
-                formControlName="address"
-                cdkTextareaAutosize
-                #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="2"
-                cdkAutosizeMaxRows="5">
+                <textarea type="text"
+                          matInput
+                          formControlName="address"
+                          cdkTextareaAutosize
+                          #autosize="cdkTextareaAutosize"
+                          cdkAutosizeMinRows="2"
+                          cdkAutosizeMaxRows="5">
           </textarea>
-        </mat-form-field>
+            </mat-form-field>
+
+            <!--ORGTYPE-->
+            <mat-form-field>
+                <mat-label>organisation Type</mat-label>
+                <input type="text" matInput formControlName="orgType">
+            </mat-form-field>
+
+            <!--SECTOR-->
+
+            <mat-form-field>
+                <mat-label>Sector</mat-label>
+                <mat-select
+                        formControlName="sector"
+
+                      >
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let sec of sectors"  [value]="sec.type">
+                        {{sec.type}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="formGrp.controls.sector.hasError('required')">Please choose a Sector</mat-error>
+                <mat-hint>'Sector of the organisation'</mat-hint>
+            </mat-form-field>
+        </mat-card-content>
 
 
-        <mat-form-field>
-            <mat-label>organisation type</mat-label>
-            <input type="text" placeholder="Exibition space etc ..."matInput formControlName="orgType">
-        </mat-form-field>
+        <mat-card-actions>
+            <button mat-stroked-button (click)="onCancel()">CANCEL</button>
+            <button mat-stroked-button (click)="reset()">CLEAR</button>
+            <button mat-stroked-button (click)="onSave()">SAVE</button>
+        </mat-card-actions>
 
-
-        <mat-form-field>
-            <input type="text" matInput formControlName="sector">
-        </mat-form-field>
-            <mat-card-actions>
-                <button mat-stroked-button (click)="onCancel()">CANCEL</button>
-                <button mat-stroked-button (click)="reset()">CLEAR</button>
-                <button mat-stroked-button (click)="onSave()">SAVE</button>
-            </mat-card-actions>
-
-        </mat-card>
-    </form>
-
-
-
+    </mat-card>
+</div>
 
 
 <!--
