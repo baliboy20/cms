@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ContactsFactory, IEmail, ITelNo, IWebSite} from '../../model/contact.classes';
+import {ContactsFactory, IEmail, IWebSite} from '../../model/contact.classes';
 import {OrgDaoService} from '../../dao/OrgDao.service';
 import {EditStates, ORG_SECTORS, ORG_TYPES} from '../../dao/collections.enum';
 import {ActivatedRoute} from '@angular/router';
@@ -20,12 +20,11 @@ const constTestData: any = {
 };
 
 @Component({
-    selector: 'app-edit-organisation',
-    templateUrl: './edit-organisation.component.html',
-    styleUrls: ['./edit-organisation.component.scss'],
-
+  selector: 'app-edit-person',
+  templateUrl: './edit-person.component.html',
+  styleUrls: ['./edit-person.component.scss']
 })
-export class EditOrganisationComponent implements OnInit {
+export class EditPersonComponent implements OnInit {
 
     formGrp: FormGroup;
     validations;
@@ -33,9 +32,9 @@ export class EditOrganisationComponent implements OnInit {
     orgTypes = ORG_TYPES;
     sectors = ORG_SECTORS;
     @Input() data: any;
-    newTelNo: ITelNo = ContactsFactory.instOfTelnos();
-    newEmailAdd: IEmail = ContactsFactory.instOfEmail();
-    newWebItem: IWebSite = ContactsFactory.instOfWebsite();
+    newTelNo = ContactsFactory.instOfTelnos();
+    newEmailAdd: IEmail = {address: '', note: '', id: ''};
+    newWebItem: IWebSite = {address: '', id: '', note: ''};
 
     constructor(private builder: FormBuilder,
                 private route: ActivatedRoute,
@@ -47,18 +46,27 @@ export class EditOrganisationComponent implements OnInit {
         const webArr: FormArray = builder.array([builder.group(this.newWebItem)]);
 
         const org: any = {
-            id: 'xx',
-            address: [''],
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
+            nickName: ['', Validators.required],
+            title: ['', Validators.required],
             emails: emailsArr,
-            name: ['', Validators.required],
-            orgType: ['', Validators.required],
-            sector: [''],
             telNos: telNosArr,
             web: webArr,
         };
         this.formGrp = builder.group(org);
     }
 
+    /*
+    firstName: string;
+    nickName: string;
+    lastName: string;
+    title: string;
+    emails: IEmail[];
+    websites: IWebSite[];
+    telephoneNos: ITelNo[];
+    id: string;
+     */
     initGroup() {
         const builder = this.builder;
         const emailsArr: FormArray = builder.array([builder.group(this.newEmailAdd)]);

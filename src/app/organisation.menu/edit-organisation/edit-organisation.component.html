@@ -1,67 +1,145 @@
-<div [formGroup]="formGrp" novalidate (submit)="$event.preventDefault()">
-    <mat-card>
-        <mat-card-title>
 
-        </mat-card-title>
-        <mat-card-content>
 
-            <!--NAME-->
-            <mat-form-field>
-                <mat-label>Name</mat-label>
-                <input type="text"
-                       matInput
-                       formControlName="name">
-            </mat-form-field>
+<div eoc-container>
+    <div [formGroup]="formGrp" novalidate (submit)="$event.preventDefault()" class="orgEditContainer">
+        <mat-card>
+            <mat-card-title>
+Edit
+                <mat-icon>account_balance</mat-icon>
+                <button mat-stroked-button matTooltipng ="Add a person" (click)="navToPerson()">
+                    <mat-icon>person_add</mat-icon>
+                </button>
+            </mat-card-title>
+            <mat-card-content>
 
-            <!--ADDRESS-->
-            <mat-form-field>
-                <mat-label>Address</mat-label>
+                <!--NAME-->
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input type="text"
+                           matInput
+                           formControlName="name">
+                </mat-form-field>
 
-                <textarea type="text"
-                          matInput
-                          formControlName="address"
-                          cdkTextareaAutosize
-                          #autosize="cdkTextareaAutosize"
-                          cdkAutosizeMinRows="2"
-                          cdkAutosizeMaxRows="5">
+                <!--ADDRESS-->
+                <mat-form-field>
+                    <mat-label>Address</mat-label>
+
+                    <textarea type="text"
+                              matInput
+                              formControlName="address"
+                              cdkTextareaAutosize
+                              #autosize="cdkTextareaAutosize"
+                              cdkAutosizeMinRows="2"
+                              cdkAutosizeMaxRows="5">
           </textarea>
-            </mat-form-field>
+                </mat-form-field>
 
-            <!--ORGTYPE-->
-            <mat-form-field>
-                <mat-label>organisation Type</mat-label>
-                <input type="text" matInput formControlName="orgType">
-            </mat-form-field>
+                <!--ORGTYPE-->
+                <mat-form-field>
+                    <mat-label>organisation Type</mat-label>
+                    <input type="text" matInput formControlName="orgType">
+                </mat-form-field>
 
-            <!--SECTOR-->
+                <!--SECTOR-->
 
-            <mat-form-field>
-                <mat-label>Sector</mat-label>
-                <mat-select
-                        formControlName="sector"
+                <mat-form-field>
+                    <mat-label>Sector</mat-label>
+                    <mat-select
+                            formControlName="sector"
 
-                      >
-                    <mat-option>--</mat-option>
-                    <mat-option *ngFor="let sec of sectors"  [value]="sec.type">
-                        {{sec.type}}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="formGrp.controls.sector.hasError('required')">Please choose a Sector</mat-error>
-                <mat-hint>'Sector of the organisation'</mat-hint>
-            </mat-form-field>
-        </mat-card-content>
+                    >
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let sec of sectors" [value]="sec.type">
+                            {{sec.type}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formGrp.controls.sector.hasError('required')">Please choose a Sector</mat-error>
+                    <mat-hint>Sector of the organisation</mat-hint>
+                </mat-form-field>
+
+                <!--tel nos-->
+                <app-subform-table [formGroup]="formGrp"
+                                   [formArrayName]="'telNos'"
+                                   [newItem]="newTelNo"
+                                   [template]="telEditTemplate"></app-subform-table>
+
+                <app-subform-table [formGroup]="formGrp"
+                                   [formArrayName]="'emails'"
+                                   [newItem]="newEmailAdd"
+                                   [template]="emailEditTemplate"></app-subform-table>
+                <!---->
+                <app-subform-table [formGroup]="formGrp"
+                                   [formArrayName]="'web'"
+                                   [newItem]="newWebItem"
+                                   [template]="webEditTemplate"></app-subform-table>
+
+            </mat-card-content>
 
 
-        <mat-card-actions>
-            <button mat-stroked-button (click)="onCancel()">CANCEL</button>
-            <button mat-stroked-button (click)="reset()">CLEAR</button>
-            <button mat-stroked-button (click)="onSave()">SAVE</button>
-        </mat-card-actions>
+            <mat-card-actions>
+                <button mat-stroked-button (click)="onCancel()">CANCEL</button>
+                <button mat-stroked-button (click)="reset()">CLEAR</button>
+                <button mat-stroked-button (click)="onSave()">SAVE</button>
+                <button mat-stroked-button (click)="addDummye()">ADD DUMMYE</button>
+            </mat-card-actions>
+            <mat-card-footer>
 
-    </mat-card>
+            </mat-card-footer>
+
+        </mat-card>
+
+        {{validations}}
+    </div>
+    {{formGrp.values |json}}
 </div>
 
+<!--
+                                                    T E M P L A T E S   //
 
+
+-->
+
+
+<ng-template #telEditTemplate let-fm="fm"  let-parent="parent">
+    <div style=" width: 100%; display: block">
+        <mat-icon class="matIcon">contact_phone</mat-icon>
+        <button mat-mini-fab class="alignRight" >
+            <mat-icon  (click)="parent.addItem($event)">add</mat-icon>
+        </button>
+    </div>
+
+    <ng-container [formGroup]="fm">
+            <ng-container >
+                <table>
+                    <tr formArrayName="telNos" *ngFor="let telno of formGrp.get('telNos').controls; let idx = index" >
+                        <ng-container [formGroupName]="idx">
+                        <td>
+                            <mat-form-field>
+                                <mat-label>TelNo</mat-label>
+                                <input matInput formControlName="telNo">
+
+                                <!--<input matInput formControlName="note">-->
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Notes</mat-label>
+                                <input matInput formControlName="note">
+                            </mat-form-field>
+                        </td>
+
+                        <a (click)="parent.deleteItem($event, idx)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </a>
+                        </ng-container>
+                    </tr>
+                </table>
+            </ng-container>
+        <!--</div>-->
+
+    </ng-container>
+
+</ng-template>
 <!--
 
 {
@@ -73,3 +151,108 @@
             telNos: [['0203 123']],
             web: [['www.si.co.uk']],
 -->
+
+<!--
+export interface IEmail extends Vo {
+    addresss: string;
+    note: string;
+    id: string;
+}
+
+
+-->
+
+<ng-template #emailEditTemplate let-fm="fm"  let-parent="parent">
+
+    <div style=" width: 100%; display: block">
+        <mat-icon class="matIcon">contact_mail</mat-icon>
+        <button mat-mini-fab class="alignRight">
+            <mat-icon  (click)="parent.addItem($event)">add</mat-icon>
+        </button>
+    </div>
+
+    <ng-container [formGroup]="fm">
+        <!--<div formArrayName="telNos" *ngFor="let telno of formGrp.get('telNos').controls; let idx = index">-->
+
+        <ng-container >
+            <table>
+                <tr formArrayName="emails" *ngFor="let email of formGrp.get('emails').controls; let idx = index" >
+                    <ng-container [formGroupName]="idx">
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Email</mat-label>
+                                <input matInput formControlName="address">
+
+                                <!--<input matInput formControlName="note">-->
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Notes</mat-label>
+                                <input matInput formControlName="note">
+                            </mat-form-field>
+                        </td>
+
+                        <a (click)="parent.deleteItem($event, idx)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </a>
+                    </ng-container>
+                </tr>
+            </table>
+        </ng-container>
+        <!--</div>-->
+
+    </ng-container>
+
+</ng-template>
+
+<!--
+export interface IWebSite extends Vo  {
+    address: string;
+    note: string;
+    id: string;
+}
+-->
+<ng-template #webEditTemplate let-fm="fm"  let-parent="parent">
+   <div style=" width: 100%; display: block">
+       <mat-icon class="matIcon">cloud</mat-icon>
+       <button mat-mini-fab class="alignRight">
+           <mat-icon  (click)="parent.addItem($event)">add</mat-icon>
+       </button>
+   </div>
+
+    <ng-container [formGroup]="fm">
+        <!--<div formArrayName="telNos" *ngFor="let telno of formGrp.get('telNos').controls; let idx = index">-->
+
+        <ng-container >
+            <table>
+                <tr formArrayName="web" *ngFor="let telno of formGrp.get('web').controls; let idx = index" >
+                    <ng-container [formGroupName]="idx">
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Url</mat-label>
+                                <input matInput formControlName="address">
+
+                                <!--<input matInput formControlName="note">-->
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Notes</mat-label>
+                                <input matInput formControlName="note">
+                            </mat-form-field>
+                        </td>
+                        <td><a (click)="parent.deleteItem($event, idx)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </a></td>
+
+
+                    </ng-container>
+                </tr>
+            </table>
+        </ng-container>
+        <!--</div>-->
+
+    </ng-container>
+
+</ng-template>

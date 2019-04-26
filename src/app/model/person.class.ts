@@ -9,23 +9,25 @@ export interface IPerson {
     firstName: string;
     nickName: string;
     lastName: string;
+    title: string;
     emails: IEmail[];
-    websites: IWebSite[];
-    telephoneNos: ITelNo[];
+    web: IWebSite[];
+    telNos: ITelNo[];
     id: string;
 }
 
 
 export class PersonFactory {
-    static scratchInstance(){
+    static scratchInstance() {
         const per: IPerson = {
             firstName: '',
             nickName: '',
             lastName: '',
+            title: '',
             emails: [],
-            websites: [],
-            telephoneNos: [],
-            id: '',
+            web: [],
+            telNos: [],
+            id: 'xxx',
         };
         return per;
     }

@@ -9,8 +9,8 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav opened  mode="side" #leftPanel style="height: 1000px; background-color: lightgrey">
-    whats going on
+  <mat-sidenav opened  mode="side" #leftPanel >
+
     <ul>
       <li>
         <a mat-button [routerLink]="['/']">DASHBOARD</a>
@@ -21,6 +21,10 @@
 
       <li>
         <a mat-button routerLink="orgs-table">FIND</a>
+      </li>
+
+      <li>
+        <a mat-button routerLink="edit-person">add person</a>
       </li>
 
 
@@ -35,14 +39,10 @@
 
 
     </ul>
+    <mat-icon>person_add</mat-icon>
   </mat-sidenav>
-  <mat-sidenav   mode="over" #rightPanel position="end" style="width: 100%">
-    <app-edit-organisation></app-edit-organisation>
-    sdjfds
-  </mat-sidenav>
-  <mat-sidenav-content style="height: 1000px; background-color:  grey">
+  <mat-sidenav-content>
     <router-outlet></router-outlet>
-    some content
   </mat-sidenav-content>
 
 </mat-sidenav-container>

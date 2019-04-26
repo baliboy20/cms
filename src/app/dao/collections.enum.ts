@@ -11,7 +11,7 @@ export enum EditStates {
 export interface ILookup {
     type: string;
 }
-export const ORG_TYPEs: ILookup[] = [
+export const ORG_TYPES: ILookup[] = [
  { type: 'Charity'},
  { type: 'Client'},
  { type: 'Art Agency'},
