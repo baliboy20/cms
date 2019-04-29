@@ -20,9 +20,9 @@ const constTestData: any = {
 };
 
 @Component({
-    selector: 'app-edit-organisation',
-    templateUrl: './edit-organisation.component.html',
-    styleUrls: ['./edit-organisation.component.scss'],
+    selector: 'app-organisation-edit',
+    templateUrl: './organisation-edit.component.html',
+    styleUrls: ['./organisation-edit.component.scss'],
 
 })
 export class EditOrganisationComponent implements OnInit {
@@ -59,44 +59,49 @@ export class EditOrganisationComponent implements OnInit {
         this.formGrp = builder.group(org);
     }
 
-    initGroup() {
-        const builder = this.builder;
-        const emailsArr: FormArray = builder.array([builder.group(this.newEmailAdd)]);
-        const telNosArr: FormArray = builder.array([builder.group(this.newTelNo)]);
-        const webArr: FormArray = builder.array([builder.group(this.newWebItem)]);
-
-        const org: any = {
-            id: 'xx',
-            address: ['add'],
-            emails: this.newEmailAdd,
-            name: ['errt'],
-            orgType: ['errt'],
-            sector: ['asD'],
-            telNos: this.newTelNo,
-            web: this.newWebItem,
-        };
-        return org;
-    }
 
     ngOnInit() {
         this.route.paramMap
             .subscribe(params => {
                 const orgId = params.get('orgId');
-                if (orgId) {
-                    this.dao.getOrgs()
-                        .pipe(
-                            map(b => {
-                                const res = b.find(c => c.id === orgId);
-                                return res;
-                            })
-                        )
-                        .subscribe(c => {
-                            if (c !== undefined) {
-                                this.formGrp.setValue(c);
-                            }
-                        });
+                if (!orgId) {
+                    throw new Error('WP Code error: parameter orgId not routed to organisation-edit');
+                    return;
+                }
+
+                if ((orgId !== 'unalloc')) {
+                    this.editState = EditStates.edit;
+                    this.findCached(orgId);
+                } else {
+                    this.editState = EditStates.add;
+                    this.formGrp.reset();
                 }
             });
+    }
+
+    private isStateForEdit() {
+        return this.editState === EditStates.edit;
+    }
+
+    findCached(id) {
+        this.dao.data$
+            .pipe(
+                map(b => {
+                    const res = b.find(c => c.id === id);
+                    return res;
+                })
+            )
+            .subscribe(c => {
+                if (c !== undefined) {
+                    console.log('DATA TO BE EDITED', c);
+                    setTimeout(() => {
+
+                        // this.formGrp.setValue(c);
+                        this.formGrp.patchValue(Object.assign(c));
+                    }, 1000);
+                }
+            });
+
     }
 
     onCancel() {
@@ -104,7 +109,11 @@ export class EditOrganisationComponent implements OnInit {
     }
 
     onSave(value) {
+
         const vo = this.formGrp.getRawValue();
+        this.reset();
+        this.formGrp.setValue(vo);
+        console.log('VALUE', vo);
         this.dao.insertOrg(vo).then((result) => {
             // vo.id = result.id;
             console.log('added resykt', result, vo);
@@ -113,6 +122,10 @@ export class EditOrganisationComponent implements OnInit {
         }).catch(err => {
             this.openSnackBar('Save Failed');
         });
+    }
+
+    onUpdate() {
+        this.dao.updateOrg(this.formGrp.getRawValue());
     }
 
     reset() {
@@ -124,9 +137,9 @@ export class EditOrganisationComponent implements OnInit {
         this.formGrp.setValue(constTestData);
     }
 
-    addData() {
-        console.log('add data in editor');
-    }
+    // addData() {
+    //     console.log('add data in editor');
+    // }
 
     openSnackBar(value) {
         this.snackBar.open(value, 'SAVED', {

@@ -1,0 +1,49 @@
+
+<mat-card class="mat-elevation-z3 mat-card-spacer">
+    <div style=" width: 100%; display: block">
+        <mat-icon class="matIcon">chat</mat-icon>
+        <button mat-mini-fab class="alignRight" (click)="addItem($event)">
+            <mat-icon >add</mat-icon>
+        </button>
+    </div>
+
+    <ng-container [formGroup]="formGroup">
+        <!--<div formArrayName="formArrayName" *ngFor="let comm of formGroup.get('comments').controls; let idx = index">-->
+
+        <table>
+            <tr formArrayName="comments" *ngFor="let comm of formGroup.get('comments').controls; let idx = index">
+                <ng-container [formGroupName]="idx">
+                    <td>
+                    <mat-form-field>
+                    <mat-label>Date</mat-label>
+                    <!--<input matInput formControlName="date">-->
+                        <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+
+                    <!--<input matInput formControlName="note">-->
+                    </mat-form-field>
+                    </td>
+                    <td>
+                    <mat-form-field>
+                    <mat-label>Notes</mat-label>
+                    <input matInput formControlName="note">
+                    </mat-form-field>
+                    </td>
+                    <td>
+                        <a (click)="parent.deleteItem($event, idx)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </a>
+                    </td>
+
+
+                </ng-container>
+            </tr>
+        </table>
+        <!--</div>-->
+    </ng-container>
+</mat-card>
+
+
+
+

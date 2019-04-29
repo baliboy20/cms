@@ -6,9 +6,9 @@ import {IOrganisation} from '../../model/organisation.interface';
 import {MatPaginator, MatSort} from '@angular/material';
 
 @Component({
-    selector: 'app-table-of-orgs',
-    templateUrl: './table-of-orgs.component.html',
-    styleUrls: ['./table-of-orgs.component.scss']
+    selector: 'app-organisation-search',
+    templateUrl: './organisation-search.component.html',
+    styleUrls: ['./organisation-search.component.scss']
 })
 export class TableOfOrgsComponent implements OnInit {
 
@@ -62,6 +62,10 @@ export class TableOfOrgsComponent implements OnInit {
         const numSelected = this.selection.selected.length;
         const numRows = this.dataSource.data.length;
         return numSelected === numRows;
+    }
+
+    addtestdata() {
+        this.dao.getTestData();
     }
 
     removeSelectedRows() {

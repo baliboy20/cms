@@ -1,0 +1,42 @@
+*[mat-mini-fab] {
+    background-color: dodgerblue;
+}
+
+mat-card {
+/*/ / margin: 10 0;*/
+/*/ / margin-top: 100 px;*/
+
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 auto;
+    justify-content: center;
+/*/ / align-content: center;*/
+/*/ / justify-items: center;*/
+    align-items: center;
+    width: 800px;
+
+&   mat-form-field {
+    display: flex;
+    flex-flow: row wrap;
+    justify-items: center;
+/*/ / background-color: blue;*/
+
+}
+
+}
+
+.matIcon {
+    color: mix(black, dodgerblue, 20%);
+    font-size: 30px;
+}
+
+.alignRight {
+    float: right;
+    top: -25px;
+    right: -15px;
+
+    margin-right: -15px;
+    padding: 0;
+    margin-top: -15px;
+
+}

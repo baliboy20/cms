@@ -4,7 +4,7 @@
     <div [formGroup]="formGrp" novalidate (submit)="$event.preventDefault()" class="orgEditContainer">
         <mat-card>
             <mat-card-title>
-Edit
+<h3>editState: {{editState}}</h3>
                 <mat-icon>account_balance</mat-icon>
                 <button mat-stroked-button matTooltipng ="Add a person" (click)="navToPerson()">
                     <mat-icon>person_add</mat-icon>
@@ -79,8 +79,9 @@ Edit
             <mat-card-actions>
                 <button mat-stroked-button (click)="onCancel()">CANCEL</button>
                 <button mat-stroked-button (click)="reset()">CLEAR</button>
-                <button mat-stroked-button (click)="onSave()">SAVE</button>
-                <button mat-stroked-button (click)="addDummye()">ADD DUMMYE</button>
+                <button mat-stroked-button *ngIf="!isStateForEdit()"(click)="onSave()">SAVE NEW</button>
+                <button mat-stroked-button  *ngIf="isStateForEdit()" (click)="onUpdate()">UPDATE</button>
+                <!--<button mat-stroked-button (click)="addDummye()">ADD DUMMYE</button>-->
             </mat-card-actions>
             <mat-card-footer>
 

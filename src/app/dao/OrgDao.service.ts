@@ -4,9 +4,9 @@ import {from, of, pipe, ReplaySubject} from 'rxjs/index';
 import {DbCollections} from './collections.enum';
 import {IEmail, IWebSite, Vo} from '../model/contact.classes';
 import {map, mergeMap, reduce, take, tap, toArray} from 'rxjs/internal/operators';
-import WriteBatch = firebase.firestore.WriteBatch;
 import {HttpClient} from '@angular/common/http';
 import {flatMap} from 'tslint/lib/utils';
+import {OrganisationFactory} from '../model/organisation.interface';
 
 
 @Injectable({
@@ -14,13 +14,13 @@ import {flatMap} from 'tslint/lib/utils';
 })
 export class OrgDaoService {
 
-    data: ReplaySubject<any> = new ReplaySubject<any>();
+    data$: ReplaySubject<any> = new ReplaySubject<any>();
 
     constructor(private db: AngularFirestore, private htp: HttpClient) {
-        this.db.collection(DbCollections.ORGANISATIONS).snapshotChanges().subscribe(a => this.data.next(a));
+        this.db.collection(DbCollections.ORGANISATIONS).snapshotChanges().subscribe(a => this.data$.next(a));
 
-        console.log('inside dao constructor');
-        this.getTestData();
+        // console.log('inside dao constructor', this.getTestData());
+        // this.getTestData();
 
     }
 
@@ -37,6 +37,7 @@ export class OrgDaoService {
                         };
                     });
                     console.log('mapped', retval);
+                    this.data$.next(retval);
                     return retval;
 
 
@@ -45,17 +46,19 @@ export class OrgDaoService {
     }
 
 
-      insertOrg<T extends Vo>(vo: T) {
+    insertOrg<T extends Vo>(vo: T) {
+        delete vo.id;
         return this.db.collection(DbCollections.ORGANISATIONS)
-            .add(vo).then( retval => {
+            .add(vo).then(retval => {
                 vo.id = retval.id;
-             });
+            });
     }
 
 
     updateOrg<T extends Vo>(vo: T) {
-        delete vo.id;
-        this.db.doc('DbCollections.ORGANISATIONS/' + vo.id).update(vo);
+        // delete vo.id;
+        console.log('db updateing..', vo.id);
+       return this.db.collection(DbCollections.ORGANISATIONS).doc(vo.id).update(vo);
     }
 
     deleteOrg(id: string) {
@@ -67,7 +70,7 @@ export class OrgDaoService {
     }
 
     async deleteFor(ids: any[]) {
-        const batch: WriteBatch = this.db.firestore.batch();
+        const batch = this.db.firestore.batch();
 
         for (const a of ids) {
             const ref: DocumentReference = this.db.collection(DbCollections.ORGANISATIONS).ref.doc(a); // DocumentReference
@@ -89,24 +92,21 @@ export class OrgDaoService {
     id: string;
      */
     getTestData() {
-        const _coMap = (a)  => a.data;
-        const mergeArr =  (a, b) =>  from(a);
-        const toDTO = (a) => new Object({
-            name: a[0],
-            address: a[1],
-            telNos: [{telNo: a[2], note: ''}],
-            emails: [{email: a[3], note: ''}],
-            web: [{url: 'www.meme.co', note: ''}],
-            orgType: 'law',
-            sector: 'finance',
-            id: ''
-        });
+        const tapit = (a) => console.log(a);
+        const _coMap = (a) => a.data;
+        const mergeArr = (a, b) => from(a);
+        const toDTO = (a) => OrganisationFactory.initialize(
+            a[0],
+            a[1],
+        );
 
         this.htp.get('./assets/companies.json')
-            .pipe(map(_coMap), mergeMap(mergeArr), take(200), map(toDTO))
+
+            .pipe(map(_coMap), mergeMap(mergeArr), take(5), tap(tapit), map(toDTO))
             .subscribe(a => {
-            // this.insertOrg(a as Vo);
-        });
+                // console.log('data gen', a);
+                this.insertOrg(a as Vo);
+            });
 
     }
 

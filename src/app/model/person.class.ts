@@ -13,6 +13,7 @@ export interface IPerson {
     emails: IEmail[];
     web: IWebSite[];
     telNos: ITelNo[];
+    entId: string;
     id: string;
 }
 
@@ -28,6 +29,7 @@ export class PersonFactory {
             web: [],
             telNos: [],
             id: 'xxx',
+            entId: 'unalloc'
         };
         return per;
     }

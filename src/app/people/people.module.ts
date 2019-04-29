@@ -4,8 +4,9 @@ import {EditPersonComponent} from './edit-person/edit-person.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialzModule} from '../materialz/materialz.module';
 import {SubformTableModule} from '../utils/subform-table/subform-table.module';
-import {ConfirmDeleteComponent} from '../organisation.menu/table-of-orgs/table-of-orgs.component';
+import {ConfirmDeleteComponent} from '../organisation.menu/organisation-search/organisation-search.component';
 import {SubformTableComponent} from '../utils/subform-table/subform-table.component';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
     declarations: [EditPersonComponent
@@ -20,6 +21,7 @@ import {SubformTableComponent} from '../utils/subform-table/subform-table.compon
         FormsModule,
         ReactiveFormsModule,
         SubformTableModule,
+        SharedModule,
 
     ],
     exports: [EditPersonComponent]

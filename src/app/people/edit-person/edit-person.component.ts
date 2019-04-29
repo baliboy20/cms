@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ContactsFactory, IEmail, IWebSite} from '../../model/contact.classes';
+import {ContactsFactory, IComment, IEmail, IWebSite} from '../../model/contact.classes';
 import {OrgDaoService} from '../../dao/OrgDao.service';
 import {EditStates, ORG_SECTORS, ORG_TYPES} from '../../dao/collections.enum';
 import {ActivatedRoute} from '@angular/router';
@@ -35,6 +35,7 @@ export class EditPersonComponent implements OnInit {
     newTelNo = ContactsFactory.instOfTelnos();
     newEmailAdd: IEmail = {address: '', note: '', id: ''};
     newWebItem: IWebSite = {address: '', id: '', note: ''};
+    newCommItem: IComment = ContactsFactory.instOfComments();
 
     constructor(private builder: FormBuilder,
                 private route: ActivatedRoute,
@@ -44,6 +45,7 @@ export class EditPersonComponent implements OnInit {
         const emailsArr: FormArray = builder.array([builder.group(this.newEmailAdd)]);
         const telNosArr: FormArray = builder.array([builder.group(this.newTelNo)]);
         const webArr: FormArray = builder.array([builder.group(this.newWebItem)]);
+        const commArr: FormArray = builder.array([builder.group(this.newCommItem)]);
 
         const org: any = {
             firstName: ['', Validators.required],
@@ -53,6 +55,7 @@ export class EditPersonComponent implements OnInit {
             emails: emailsArr,
             telNos: telNosArr,
             web: webArr,
+            comments: commArr,
         };
         this.formGrp = builder.group(org);
     }

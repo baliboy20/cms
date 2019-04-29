@@ -1,16 +1,13 @@
-import {
-    Component, ContentChild, ElementRef, HostListener, Input, OnInit, Renderer2, TemplateRef, ViewChild,
-    ViewContainerRef
-} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {Component, HostListener, Input, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {SubformTableComponent} from '../../utils/subform-table/subform-table.component';
 
 @Component({
-    selector: 'app-subform-table',
-    templateUrl: './subform-table.component.html',
-    styleUrls: ['./subform-table.component.css']
+    selector: 'app-comms-sform',
+    templateUrl: './comms-sform.component.html',
+    styleUrls: ['./comms-sform.component.css']
 })
-export class SubformTableComponent implements OnInit {
-
+export class CommSFormComponent implements OnInit {
     private _formGrp: FormGroup;
     @Input() template: TemplateRef<any>;
     @Input() formArrayName: string;
@@ -21,12 +18,16 @@ export class SubformTableComponent implements OnInit {
     }
 
     get me(): SubformTableComponent {
-        return this;
+        return (this as  any);
     }
 
     @Input() set formGroup(arg: FormGroup) {
         // console.log('form group', arg);
         this._formGrp = arg;
+    }
+
+    get formGroup(): FormGroup {
+        return this._formGrp;
     }
 
     @ViewChild('addItemFunc') set addAnchor(e: any) {
@@ -42,16 +43,16 @@ export class SubformTableComponent implements OnInit {
     addItem(e: Event) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        // console.log('additrm fired ====>  for!!', this.formArrayName, this.getFormArray());
+        console.log('additrm fired ====>  for!!', this.formArrayName, this.getFormArray());
         const fg = this.builder.group(this.newItem);
         const fc: FormArray = this.getFormArray();
-             fc.push(fg);
+        fc.push(fg);
     }
 
     deleteItem(e, idx) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        // console.log('remove item:', idx);
+        console.log('remove item:', idx);
         this.getFormArray().removeAt(idx);
     }
 
@@ -61,11 +62,11 @@ export class SubformTableComponent implements OnInit {
     }
 
     ngOnInit() {
+        // console.log('formarrayname', this.formArrayName, this.formGroup.get('comments').controls);
     }
 
     ngAfterViewInit() {
         // console.log('template', this.template);
         // this.rnd.listen(this.template, 'onclick', this.addItem);
     }
-
 }

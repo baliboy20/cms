@@ -1,5 +1,6 @@
 export interface Vo {
     id: string;
+    owner?: string;
 }
 
 export interface IEmail extends Vo {
@@ -41,4 +42,5 @@ export class ContactsFactory {
     static instOfComments(): IComment {
         return {date: '', id: 'xxx', note: ''};
     }
+
 }
