@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {OrgDaoService} from '../../dao/OrgDao.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
@@ -10,10 +10,10 @@ import {MatPaginator, MatSort} from '@angular/material';
     templateUrl: './organisation-search.component.html',
     styleUrls: ['./organisation-search.component.scss']
 })
-export class TableOfOrgsComponent implements OnInit {
+export class TableOfOrgsComponent implements OnInit, OnDestroy {
 
 
-    dataSource: any = [];
+    dataSource: any  = [];
     data = [];
     selectedRowIndex;
     displayedColumns: string[] = [
@@ -32,12 +32,13 @@ export class TableOfOrgsComponent implements OnInit {
     constructor(private dao: OrgDaoService,
                 private dialog: MatDialog) {
         console.log('in const');
-        this.dao.getOrgs()
+        this.dao.enterprises$
             .subscribe(b => {
                 console.log('returned data', b);
                 this.dataSource = new MatTableDataSource<IOrganisation>(b);
                 this.data = b;
-            });
+            })
+            // .unsubscribe();
     }
 
     ngOnInit(): void {
@@ -45,8 +46,14 @@ export class TableOfOrgsComponent implements OnInit {
         this.dataSource.sort = this.sort;
     }
 
+    ngOnDestroy() {
+
+    }
+
     highlight(row) {
         this.selectedRowIndex = row.id;
+       console.log('row', row.id);
+       this.dao.getDocRef(row, row.id);
     }
 
     openDialog() {
@@ -97,6 +104,7 @@ export class TableOfOrgsComponent implements OnInit {
 
             });
     }
+
 
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();

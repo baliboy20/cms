@@ -1,8 +1,7 @@
 <mat-toolbar>
-  <button mat-button routerLink="/">Home</button>
-  <button mat-button routerLink="../organisation-menu">Organisations</button>
-  <button mat-button routerLink="../campaign-menu">Campaigns</button>
+  <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
+  <button mat-button routerLink="./search"><mat-icon>search</mat-icon></button>
+  <button mat-button routerLink="./edit"><mat-icon>add_circle</mat-icon></button>
 </mat-toolbar>
-<p>
-  campaign.menu works!
-</p>
+
+<router-outlet></router-outlet>

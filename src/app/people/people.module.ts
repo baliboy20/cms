@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {EditPersonComponent} from './edit-person/edit-person.component';
+import {EditPersonComponent, OptionDirective} from './person-edit/person-edit.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialzModule} from '../materialz/materialz.module';
 import {SubformTableModule} from '../utils/subform-table/subform-table.module';
@@ -9,7 +9,7 @@ import {SubformTableComponent} from '../utils/subform-table/subform-table.compon
 import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
-    declarations: [EditPersonComponent
+    declarations: [EditPersonComponent, OptionDirective
         // ConfirmDeleteComponent,
         // SubformTableComponent
     ],

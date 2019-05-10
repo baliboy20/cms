@@ -1,4 +1,4 @@
-<div eoc-container>
+<div eoc-container >
     <div [formGroup]="formGrp" novalidate (submit)="$event.preventDefault()" class="orgEditContainer">
         <mat-card>
             <mat-card-title>
@@ -7,63 +7,59 @@
                 <button mat-stroked-button matTooltipng="Add a person" (click)="navToPerson()">
                     <mat-icon>person_add</mat-icon>
                 </button>
+                <button (click)="inspect()">inspect</button>
             </mat-card-title>
             <mat-card-content>
 
-
-                <!--  === ==== ====
-
-        irstName: ['', Validators.required],
-                    LastName: ['', Validators.required],
-                    nickName: ['', Validators.required],
-                    title: ['', Validators.required],
-                    emails: emailsArr,
-                    telNos: telNosArr,
-                    web: webArr,
-        }
+                <mat-card >
 
 
 
-                -->
+                    <!--NAME-->
+                    <mat-form-field>
+                        <mat-label>title</mat-label>
+                        <input type="text"
+                               matInput
+                               formControlName="firstName">
+                    </mat-form-field>
 
-                <!--NAME-->
-                <mat-form-field>
-                    <mat-label>title</mat-label>
-                    <input type="text"
-                           matInput
-                           formControlName="firstName">
-                </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>first name</mat-label>
+                        <input type="text"
+                               matInput
+                               formControlName="firstName">
+                    </mat-form-field>
 
-                <mat-form-field>
-                    <mat-label>first name</mat-label>
-                    <input type="text"
-                           matInput
-                           formControlName="firstName">
-                </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>last name</mat-label>
+                        <input type="text"
+                               matInput
+                               formControlName="lastName">
+                    </mat-form-field>
 
-                <mat-form-field>
-                    <mat-label>last name</mat-label>
-                    <input type="text"
-                           matInput
-                           formControlName="lastName">
-                </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Known as</mat-label>
+                        <input type="text"
+                               matInput
+                               formControlName="nickName">
+                    </mat-form-field>
 
-                <mat-form-field>
-                    <mat-label>Known as</mat-label>
-                    <input type="text"
-                           matInput
-                           formControlName="nickName">
-                </mat-form-field>
 
-                <mat-form-field class="example-full-width">
-                    <input type="text" placeholder="Enterprise or Company" aria-label="Number" matInput formControlName="nickName" [matAutocomplete]="auto">
-                    <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of ['one','two', 'three']" [value]="option">
-                            {{option}}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
+                    <mat-form-field class="example-full-width" >
 
+                        <input type="text" placeholder="Representing Enterprise" aria-label="Number"
+                               matInput [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="orgSelected($event)">
+                            <mat-option  appOption="{name:'freelance1', id: '666'}" [value]="'freelance'">freelance</mat-option>
+                            <mat-option *ngFor="let option of companies$ | async;"
+                                        appOption="{{option.name}}"
+                                        appKey="{{option.orgId}}"
+                                        [value]="option.name">
+                                {{option.orgId}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </mat-card>
                 <!--tel nos-->
                 <app-subform-table [formGroup]="formGrp"
                                    [formArrayName]="'telNos'"
@@ -87,6 +83,7 @@
                              [newItem]="newCommItem"></app-comms-sform>
 
             <mat-card-actions>
+
 
                 <button mat-stroked-button (click)="onCancel()">CANCEL</button>
                 <button mat-stroked-button (click)="reset()">CLEAR</button>
@@ -117,6 +114,12 @@
             <mat-icon (click)="parent.addItem($event)">add</mat-icon>
         </button>
     </div>
+
+
+
+
+
+
 
     <ng-container [formGroup]="fm">
         <ng-container>

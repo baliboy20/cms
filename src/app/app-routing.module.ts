@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {CampaignsComponent} from './campaigns/campaigns.component';
 import {CampaignMenuComponent} from './campaign.menu/campaign.menu.component';
 import {OrganisationMenuComponent} from './organisation.menu/organisation.menu.component';
 import {MainComponent} from './main/main.component';
@@ -12,8 +11,8 @@ const routes: Routes = [
     // {path: 'console', component: ConsolePortalComponent},
     // {path: 'customers', component: CustomerPortalComponent},
     {path: 'main', component: MainComponent},
-    {path: '', redirectTo: 'organisation-menu', pathMatch: 'full'},
-    {path: '', component: MainComponent}
+    // {path: '', redirectTo: 'MainComponent', pathMatch: 'full'},
+    {path: '', component: MainComponent},
 
 ];
 

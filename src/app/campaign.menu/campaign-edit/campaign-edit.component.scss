@@ -1,0 +1,22 @@
+
+#titleCard {
+  margin: 10px 10%;
+  padding: 10px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-items: flex-start;
+  align-items: flex-start;
+  //background-color: red;
+ > mat-form-field {
+   padding: 0 20%;
+   flex: 1 1 100%;
+  }
+}
+
+
+mat-toolbar {
+  justify-content: flex-end;
+  & > button{
+    margin-left: 10px;
+  }
+}

@@ -84,7 +84,7 @@ export class EditOrganisationComponent implements OnInit {
     }
 
     findCached(id) {
-        this.dao.data$
+        this.dao.enterprises$
             .pipe(
                 map(b => {
                     const res = b.find(c => c.id === id);

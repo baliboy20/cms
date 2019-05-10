@@ -1,0 +1,150 @@
+<mat-card class="mat-elevation-z3 mat-card-spacer">
+    <div style=" width: 100%; display: block">
+        <mat-icon class="matIcon">chat</mat-icon>
+        <button mat-mini-fab class="alignRight" (click)="addItem($event)">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+
+    <!--
+    {{lbs.rating}}
+          {{lbs.done}}
+          {{lbs.actionPriority}}
+          {{lbs.dueDate}}
+          {{lbs.targetStartDate}}
+          {{lbs.typeOfAction}}
+    -->
+    <ng-container [formGroup]="formGroup">
+        <!--<div formArrayName="formArrayName" *ngFor="let comm of formGroup.get('comments').controls; let idx = index">-->
+
+        <!--<ng-container>-->
+            <!--<mat-grid-list cols="2" rowHeight="15:1">-->
+                <!--<mat-grid-tile>1</mat-grid-tile>-->
+                <!--<mat-grid-tile>2</mat-grid-tile>-->
+                <!--<mat-grid-tile>3</mat-grid-tile>-->
+                <!--<mat-grid-tile>4</mat-grid-tile>-->
+            <!--</mat-grid-list>-->
+            <table>
+                <tr class="table-layout"
+                    formArrayName="items"
+                    *ngFor="let itm of formGroup.get('items').controls; let idx= index">
+                    <ng-container [formGroupName]="idx">
+                        <!-- action-->
+                        <td>
+                            <mat-form-field>
+                                <mat-label>{{lbs.action}}</mat-label>
+                                <input matInput formControlName="action">
+
+                            </mat-form-field>
+                        </td>
+                        <!-- actionpriority-->
+                        <td>
+                            <mat-form-field>
+                                <mat-label>{{lbs.actionPriority}}</mat-label>
+                                <input matInput formControlName="actionPriority">
+                            </mat-form-field>
+                        </td>
+                        <!--targetstartdate-->
+                        <!--
+                        typeOfAction: string;
+    action: string;
+    dueDate: Date;
+    actionPriority: 'Hi' | 'Low' | 'Med' | 'Urge';
+    done: boolean;
+    rating: 1 | 2 | 3 | 4 | 5;
+    targetStartDate: Date;
+    id: string;
+    personsId: string[];
+    orgId: string;
+    notes: string[];
+
+                        -->
+                        <td>
+                            <mat-form-field>
+                                <mat-label> {{lbs.targetStartDate}}</mat-label>
+                                <input matInput formControlName="targetStartDate">
+                            </mat-form-field>
+                        </td>
+                        <!-- due date-->
+                        <td>
+                            <mat-form-field>
+                                <mat-label>{{lbs.dueDate}}</mat-label>
+                                <input matInput formControlName="dueDate">
+                            </mat-form-field>
+                        </td>
+                        <!-- type of action-->
+                        <td>
+                            <mat-form-field>
+                                <mat-label>{{lbs.typeOfAction}}</mat-label>
+                                <input matInput formControlName="typeOfAction">
+                            </mat-form-field>
+                        </td>
+                        <!-- person id-->
+                        <!--<td>-->
+                            <!--<mat-form-field>-->
+                                <!--<mat-label>{{lbs.personsId}}</mat-label>-->
+                                <!--<input matInput formControlName="personsId">-->
+                            <!--</mat-form-field>-->
+                        <!--</td>-->
+                        <!-- notes -->
+                        <td>
+                            <mat-form-field>
+                                <mat-label>{{lbs.notes}}</mat-label>
+                                <input matInput formControlName="notes">
+                            </mat-form-field>
+                        </td>
+                        <!-- orgId-->
+                        <td>
+                            <mat-form-field>
+                                <mat-label>{{lbs.orgId}}</mat-label>
+                                <input matInput formControlName="orgId">
+                            </mat-form-field>
+                        </td>
+
+                        <td>
+                            <a (click)="me.deleteItem($event, idx)">
+                                <mat-icon>delete_outline</mat-icon>
+                            </a>
+                        </td>
+                    </ng-container>
+                </tr>
+            </table>
+
+
+        </ng-container>
+
+
+    </ng-container>
+    <!--<table>-->
+    <!--<tr formArrayName="comments" *ngFor="let comm of formGroup.get('comments').controls; let idx = index">-->
+    <!--<ng-container [formGroupName]="idx">-->
+    <!--<td>-->
+    <!--<mat-form-field>-->
+    <!--<mat-label>Date</mat-label>-->
+    <!--&lt;!&ndash;<input matInput formControlName="date">&ndash;&gt;-->
+    <!--<input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">-->
+    <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+    <!--<mat-datepicker #picker></mat-datepicker>-->
+
+    <!--&lt;!&ndash;<input matInput formControlName="note">&ndash;&gt;-->
+    <!--</mat-form-field>-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--<mat-form-field>-->
+    <!--<mat-label>Notes</mat-label>-->
+    <!--<input matInput formControlName="note">-->
+    <!--</mat-form-field>-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--<a (click)="parent.deleteItem($event, idx)">-->
+    <!--<mat-icon>delete_outline</mat-icon>-->
+    <!--</a>-->
+    <!--</td>-->
+
+
+    <!--</ng-container>-->
+    <!--</tr>-->
+    <!--</table>-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</ng-container>-->
+</mat-card>

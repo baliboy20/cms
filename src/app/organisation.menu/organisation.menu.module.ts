@@ -11,7 +11,7 @@ import {OrgDaoService} from '../dao/OrgDao.service';
 import {SubformTableModule} from '../utils/subform-table/subform-table.module';
 import {SubformTableComponent} from '../utils/subform-table/subform-table.component';
 import {PeopleModule} from '../people/people.module';
-import {EditPersonComponent} from '../people/edit-person/edit-person.component';
+import {EditPersonComponent} from '../people/person-edit/person-edit.component';
 
 const routes: Routes =
     [{
@@ -20,7 +20,7 @@ const routes: Routes =
         children: [
             {path: 'add', component: EditOrganisationComponent},
             {path: 'orgs-table', component: TableOfOrgsComponent},
-            {path: 'edit-person', component: EditPersonComponent},
+            {path: 'person-edit', component: EditPersonComponent},
         ]
     }];
 
@@ -42,7 +42,7 @@ const routes: Routes =
         PeopleModule,
     ],
 
-    providers: [ AngularFirestore, OrgDaoService],
+
     entryComponents: [ConfirmDeleteComponent]
 })
 export class OrganisationMenuModule {

@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreDocument, DocumentChangeAction, DocumentReference} from '@angular/fire/firestore';
-import {from, of, pipe, ReplaySubject} from 'rxjs/index';
+import {AsyncSubject, from, of, pipe, ReplaySubject} from 'rxjs/index';
 import {DbCollections} from './collections.enum';
 import {IEmail, IWebSite, Vo} from '../model/contact.classes';
 import {map, mergeMap, reduce, take, tap, toArray} from 'rxjs/internal/operators';
 import {HttpClient} from '@angular/common/http';
 import {flatMap} from 'tslint/lib/utils';
 import {OrganisationFactory} from '../model/organisation.interface';
+import {IPerson} from '../model/person.class';
 
 
 @Injectable({
@@ -14,13 +15,15 @@ import {OrganisationFactory} from '../model/organisation.interface';
 })
 export class OrgDaoService {
 
-    data$: ReplaySubject<any> = new ReplaySubject<any>();
+    enterprises$: ReplaySubject<any> = new ReplaySubject<any>(1);
 
     constructor(private db: AngularFirestore, private htp: HttpClient) {
-        this.db.collection(DbCollections.ORGANISATIONS).snapshotChanges().subscribe(a => this.data$.next(a));
+        this.db.collection(DbCollections.ORGANISATIONS).snapshotChanges().subscribe(a => this.enterprises$.next(a));
 
         // console.log('inside dao constructor', this.getTestData());
         // this.getTestData();
+        this.getOrgs()
+            .subscribe(a => this.enterprises$.next(a));
 
     }
 
@@ -36,8 +39,8 @@ export class OrgDaoService {
                             // id2: a.payload.doc.id,
                         };
                     });
-                    console.log('mapped', retval);
-                    this.data$.next(retval);
+                    this.enterprises$.next(retval);
+                    // this.enterprises$.complete();
                     return retval;
 
 
@@ -81,6 +84,14 @@ export class OrgDaoService {
         return retval;
     }
 
+   async  getDocRef(vo: IPerson, orgId: string) {
+        const ref: AngularFirestoreDocument =  await this.db.doc(DbCollections.ORGANISATIONS + '/' + orgId)
+
+       const a = await ref.update({address: '1234 highwayman road'});
+        const b = ref.valueChanges().subscribe(console.log);
+        console.log('getted', b);
+
+    }
     /*
      name: string;
     address: string;
