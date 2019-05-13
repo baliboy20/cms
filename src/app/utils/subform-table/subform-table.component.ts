@@ -28,6 +28,9 @@ export class SubformTableComponent implements OnInit {
         // console.log('form group', arg);
         this._formGrp = arg;
     }
+    get formGroup() {
+        return this._formGrp;
+    }
 
     @ViewChild('addItemFunc') set addAnchor(e: any) {
         // console.log('element ref', e, this.rnd);

@@ -1,0 +1,14 @@
+mat-grid-tile {
+  border: greenyellow 1px solid;
+}
+
+.gridtileContainer {
+  flex-flow: row wrap;
+  padding: 5px 10px;
+
+  & mat-form-field {
+      //background-color: blue;
+    flex : 1 1 auto;
+    width: 100%;
+  }
+}

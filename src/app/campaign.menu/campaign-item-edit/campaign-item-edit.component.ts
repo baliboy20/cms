@@ -2,35 +2,37 @@ import {Component, HostListener, Input, OnInit, Renderer2, TemplateRef, ViewChil
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {SubformTableComponent} from '../../utils/subform-table/subform-table.component';
 import {enCampaignItemLbls} from '../../model/campaign.interface';
+import {StaticData} from '../../model/standingData.class';
+import {CampaignDaoService} from '../../dao/campaignDao.service';
+import {OrgDaoService} from '../../dao/OrgDao.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-campaign-item-edit',
   templateUrl: './campaign-item-edit.component.html',
-  styleUrls: ['./campaign-item-edit.component.css']
+  styleUrls: ['./campaign-item-edit.component.scss']
 })
 export class CampaignItemEditComponent implements OnInit {
 
     private _formGrp: FormGroup;
+    orgs = [];
     @Input() template: TemplateRef<any>;
     @Input() formArrayName: string;
     @Input() newItem: any;
+    filterOfOrgs: Observable<any>;
 
-    const lbs = enCampaignItemLbls;
+    lbs = enCampaignItemLbls;
+    priorities = StaticData.ACTION_PRIORITY_VALUES;
+    actionNeeded = StaticData.ACTION_NEEDED_VALUES;
 
 
     get me(): SubformTableComponent {
         return (this as  any);
-
-        // {{lbs}}
-        // {{lbs}}
-        // {{lbs}}
-        // {{lbs}}
-        // {{lbs}}
     }
 
     @Input() set formGroup(arg: FormGroup) {
-        // console.log('form group ==========>>>>', arg);
         this._formGrp = arg;
+        // console.log('orgId has changed', this.formGroup.controls. );
     }
 
     get formGroup(): FormGroup {
@@ -38,19 +40,23 @@ export class CampaignItemEditComponent implements OnInit {
     }
 
     @ViewChild('addItemFunc') set addAnchor(e: any) {
-        // console.log('element ref', e, this.rnd);
-        // this.rnd.listen('click', e.nativeElement, this.addItem);
     }
 
     private getFormArray(): FormArray {
         return this._formGrp.get(this.formArrayName) as FormArray;
     }
 
+    getOrgs() {
+        this.daoOrgs.enterprises$
+            .subscribe(res => {
+                console.log('camp edit', res);
+                this.orgs.push(...res);
+            });
+    }
 
     addItem(e: Event) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        console.log('additrm fired ====>  for!!', this.formArrayName, this.getFormArray());
         const fg = this.builder.group(this.newItem);
         const fc: FormArray = this.getFormArray();
         fc.push(fg);
@@ -59,22 +65,25 @@ export class CampaignItemEditComponent implements OnInit {
     deleteItem(e, idx) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        console.log('remove item:', idx);
         this.getFormArray().removeAt(idx);
     }
 
 
     constructor(private rnd: Renderer2,
+                private dao: CampaignDaoService,
+                private daoOrgs: OrgDaoService,
                 private builder: FormBuilder) {
     }
 
     ngOnInit() {
-        // console.log('formarrayname', this.formArrayName, this.formGroup.get('comments').controls);
     }
 
     ngAfterViewInit() {
-        // console.log('template', this.template);
-        // this.rnd.listen(this.template, 'onclick', this.addItem);
+
+            // .valueChanges
+            // .subscribe(a => );
+        this.getOrgs();
+
     }
 
 }

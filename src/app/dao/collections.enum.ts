@@ -1,6 +1,7 @@
 export enum DbCollections {
     ORGANISATIONS = 'Organisations',
     PERSONS = 'Persons',
+    CAMPAIGNS = 'Campaigns',
 }
 
 export enum EditStates {

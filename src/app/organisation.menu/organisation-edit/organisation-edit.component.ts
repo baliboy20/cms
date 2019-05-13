@@ -79,7 +79,7 @@ export class EditOrganisationComponent implements OnInit {
             });
     }
 
-    private isStateForEdit() {
+    public isStateForEdit() {
         return this.editState === EditStates.edit;
     }
 

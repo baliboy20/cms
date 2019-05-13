@@ -10,8 +10,8 @@ export enum enCampaignLbls {
 
 export interface ICampaign {
     name: string;
-    descripton: string;
-    campaignItems: ICampaignItem[];
+    description: string;
+    items: ICampaignItem[];
     id?: string;
 }
 
@@ -24,24 +24,24 @@ export interface ICampaign {
 export enum enCampaignItemLbls {
     typeOfAction = 'Type of Action',
     action = 'Action needed',
-    dueDate = 'Complete by',
+    finishOn = 'Complete by',
     actionPriority = 'priority',
     done = 'is Complete',
     rating = 'importance', // 1 - 5;
-    targetStartDate = 'Starting on',
+    startOn = 'Starting on',
     personsId = 'Contact',
     orgId = 'Organisation',
-    notes = 'Comments',
+    notes = 'Description/Note',
 }
 
-interface ICampaignItem {
+export interface ICampaignItem {
     typeOfAction: string;
     action: string;
-    dueDate: Date;
+    finishOn: Date;
     actionPriority: 'Hi' | 'Low' | 'Med' | 'Urge';
     done: boolean;
     rating: 1 | 2 | 3 | 4 | 5;
-    targetStartDate: Date;
+    startOn: Date;
     id: string;
     personsId: string;
     orgId: string;
@@ -56,14 +56,14 @@ export class CampaignFactory {
     CampaignItem = {
         id: ['idxxx', Validators.required],
         typeOfAction: ['typeOfAction: ', Validators.required],
-        orgId: ['Oxfam', Validators.required],
-        PersonsId : ['jackie'],
-        notes: ['dsfssdfsdfs', Validators.required],
+        orgId: [null, Validators.required],
+        personsId : ['jackie'],
+        notes: ['some notes for the hwll of it', Validators.required],
         action: ['action', Validators.required],
-        dueDate: ['dueDate', Validators.required],
-        targetStartDate: 'targetStartDate:',
+        finishOn: ['03/05/2019', Validators.required],
+        startOn: '23/03/2019',
         actionPriority: ['actionPriority', Validators.required],
-        done: ['done'],
+        done: [true],
         rating: 'rating',
     };
 
@@ -75,7 +75,7 @@ export class CampaignFactory {
         return this.builder.group(
             {
                 name: ['ddd', Validators.required],
-                description: ['eee', Validators.required],
+                description: ['I am a very tall building', Validators.required],
                 id: ['ff', Validators.required],
                 items: this.builder.array([this.builder.group(this.CampaignItem)]),
             });
@@ -85,3 +85,8 @@ export class CampaignFactory {
         return this.CampaignItem;
     }
 }
+/**
+
+
+
+ * */

@@ -11,7 +11,7 @@
         <!--<div formArrayName="formArrayName" *ngFor="let comm of formGroup.get('comments').controls; let idx = index">-->
 
         <table>
-            <tr formArrayName="comments" *ngFor="let comm of formGroup.get('comments').controls; let idx = index">
+            <tr formArrayName="comments" *ngFor="let comm of formGroup.get('comments')['controls']; let idx = index">
                 <ng-container [formGroupName]="idx">
                     <td>
                     <mat-form-field>

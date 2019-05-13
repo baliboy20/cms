@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatSnackBar} from '@angular/material';
 import {EditStates} from '../../dao/collections.enum';
+import {CampaignDaoService} from '../../dao/campaignDao.service';
 
 @Component({
     selector: 'app-campaign-edit',
@@ -16,13 +17,13 @@ export class CampaignEditComponent implements OnInit {
     formGrp: FormGroup;
     validations;
     private editState: EditStates = EditStates.add;
-    private enCamp = enCampaignLbls;
+    public enCamp = enCampaignLbls;
 
     constructor(public campaignFactory: CampaignFactory,
                 private builder: FormBuilder,
                 private route: ActivatedRoute,
                 private snackBar: MatSnackBar,
-                private dao: OrgDaoService) {
+                private dao: CampaignDaoService) {
         this.formGrp = campaignFactory.buildCampaignForm();
     }
 
@@ -31,11 +32,12 @@ export class CampaignEditComponent implements OnInit {
 
     }
 
-    onSave(idx) {
-
+    onSave() {
+        const data = this.formGrp.getRawValue();
+        this.dao.insertCam(data);
     }
 
-    onAbandon() {
+    onCancel() {
     }
 
     onReset() {

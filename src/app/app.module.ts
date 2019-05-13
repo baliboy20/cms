@@ -17,6 +17,8 @@ import {CommSFormComponent} from './shared/comms-sform/comms-sform.component';
 import {OrgDaoService} from './dao/OrgDao.service';
 import {PersonFactory} from './model/person.class';
 import {CampaignFactory} from './model/campaign.interface';
+import {CampaignDaoService} from './dao/campaignDao.service';
+import { ToDatePipe } from './utils/pipe/to-date.pipe';
 
 @NgModule({
     declarations: [
@@ -37,10 +39,11 @@ import {CampaignFactory} from './model/campaign.interface';
     providers: [
         AngularFirestore,
         OrgDaoService,
+        CampaignDaoService,
         CampaignFactory,
         PersonFactory
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule {
 }

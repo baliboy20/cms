@@ -37,7 +37,7 @@ export class TableOfOrgsComponent implements OnInit, OnDestroy {
                 console.log('returned data', b);
                 this.dataSource = new MatTableDataSource<IOrganisation>(b);
                 this.data = b;
-            })
+            });
             // .unsubscribe();
     }
 

@@ -9,6 +9,7 @@ import { CampaignSearchComponent } from './campaign-search/campaign-search.compo
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SubformTableModule} from '../utils/subform-table/subform-table.module';
 import { CampaignItemEditComponent } from './campaign-item-edit/campaign-item-edit.component';
+import {ToDatePipe} from '../utils/pipe/to-date.pipe';
 // campaign-menu
 const routes: Routes = [{path: 'campaign-menu',
     component: CampaignMenuComponent,
@@ -18,7 +19,13 @@ const routes: Routes = [{path: 'campaign-menu',
     ]
 }]
 @NgModule({
-  declarations: [CampaignMenuComponent, CampaignEditComponent, CampaignSearchComponent, CampaignItemEditComponent],
+  declarations: [
+      ToDatePipe,
+      CampaignMenuComponent,
+      CampaignEditComponent,
+      CampaignSearchComponent,
+      CampaignItemEditComponent
+  ],
   imports: [
     CommonModule,
       RouterModule.forChild(routes),
@@ -28,6 +35,7 @@ const routes: Routes = [{path: 'campaign-menu',
       RouterModule,
       MaterialzModule,
       SubformTableModule,
+
   ],
     exports: [ CampaignMenuComponent,
         CampaignEditComponent]

@@ -1,3 +1,12 @@
 mat-icon{
-    font-family: 'Material Icons Two Tone';
+    font-family: 'Material Icons';
+}
+
+.mat-toolbar {
+    /*!*@extend .mat-elevation-z2*!*/
+    background-color: dodgerblue;
+    box-shadow: #757575 0px 2px 3px -1px;
+    border-bottom: #757575 1px solid;
+    z-index: 30;
+    margin-bottom: 3px;
 }

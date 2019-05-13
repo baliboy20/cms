@@ -73,27 +73,9 @@ export class EditPersonComponent implements OnInit {
                 private route: ActivatedRoute,
                 private snackBar: MatSnackBar,
                 private dao: OrgDaoService) {
-
-        // const emailsArr: FormArray = builder.array([builder.group(this.newEmailAdd)]);
-        // const telNosArr: FormArray = builder.array([builder.group(this.newTelNo)]);
-        // const webArr: FormArray = builder.array([builder.group(this.newWebItem)]);
-        // const commArr: FormArray = builder.array([builder.group(this.newCommItem)]);
-        // const orgArr: FormArray = builder.array([builder.group({name: 'xx', id: '1234'})]);
-        //
-        // const person: any = {
-        //     firstName: ['', Validators.required],
-        //     lastName: ['', Validators.required],
-        //     nickName: ['', Validators.required],
-        //     title: ['', Validators.required],
-        //     emails: emailsArr,
-        //     telNos: telNosArr,
-        //     web: webArr,
-        //     comments: commArr,
-        //     org: orgArr,
-        // };
         this.formGrp = builder.group(personFactory.buildPersonForm());
         this.ctl = this.formGrp.get('org');
-        console.log('constuctor ctl', this.ctl);
+        // console.log('constuctor ctl', this.ctl);
         this.ctl.valueChanges.subscribe(console.log);
 
     }
@@ -153,11 +135,10 @@ export class EditPersonComponent implements OnInit {
         this.reset();
     }
 
-    onSave(value) {
+    onSave() {
         const vo = this.formGrp.getRawValue();
         this.dao.insertOrg(vo).then((result) => {
             // vo.id = result.id;
-            console.log('added resykt', result, vo);
             this.openSnackBar('Save OK');
             this.reset();
         }).catch(err => {

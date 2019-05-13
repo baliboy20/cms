@@ -1,3 +1,48 @@
-<p>
-  campaign-search works!
-</p>
+<mat-card>
+    <table mat-table [dataSource]="dataSource"
+           matSort>
+
+         <!--action Column-->
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{fldnam.action}}</th>
+            <td mat-cell *matCellDef="let item"> {{item.action}}</td>
+        </ng-container>
+
+         <!--startOn Column-->
+        <ng-container matColumnDef="finishOn">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{fldnam.finishOn}}</th>
+            <td mat-cell *matCellDef="let item"> {{item.finishOn | toDate}}</td>
+        </ng-container>
+
+         <!--org Id Column-->
+        <ng-container matColumnDef="orgId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{fldnam.orgId}}</th>
+        <td mat-cell *matCellDef="let item"> {{item.orgId}} </td>
+        </ng-container>
+
+        <!-- PersonId Column-->
+        <ng-container matColumnDef="personsId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Persons</th>
+            <td mat-cell *matCellDef="let item"> {{item.personsId}}</td>
+        </ng-container>
+
+        <!--org Id Column-->
+        <ng-container matColumnDef="actionPriority">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> actionPriority</th>
+            <td mat-cell *matCellDef="let item"> {{item.actionPriority}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="edits">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
+        <td mat-cell *matCellDef="let item">
+        <a mat-button [routerLink]="['../add', {orgId: item.id}]"><mat-icon>edit</mat-icon></a>
+        </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</mat-card>
