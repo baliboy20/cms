@@ -1,0 +1,70 @@
+<mat-toolbar>
+    <button mat-mini-fab (click)="insertRow()">
+
+        <mat-icon>person_add</mat-icon>
+    </button>
+    <span class="mat-h4">ADD CONTACTS</span>
+</mat-toolbar>
+<div *ngFor="let fmg of _formGroupArray" style="border: 1px solid gainsboro; border-radius: 4px">
+
+    <mat-horizontal-stepper #stepper>
+        <mat-step [stepControl]="fmg">
+            <form [formGroup]="fmg">
+                <ng-template matStepLabel>Fill out your name</ng-template>
+                <mat-form-field>
+                    <input matInput placeholder="First Name" formControlName="firstName" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Last Name" formControlName="lastName" required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+
+       <!--title, nickname-->
+        <mat-step [stepControl]="fmg">
+            <form [formGroup]="fmg">
+                <ng-template matStepLabel>title</ng-template>
+                <mat-form-field>
+                    <input matInput
+                           [matAutocomplete]="autoTitle"
+                           placeholder="Title"
+                           formControlName="title" required>
+                    <mat-autocomplete #autoTitle="matAutocomplete">
+                        <mat-option *ngFor="let title of titles" [value]="title">{{title}}</mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput placeholder="nickName if applicable" formControlName="nickName">
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+
+            <div>
+                <button mat-mini-fab matStepperPrevious>
+                    <mat-icon>chevron_left</mat-icon>
+                </button>
+                <button mat-mini-fab color="accent" (click)="stepper.reset()">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+                <button mat-mini-fab color="warn" (click)="stepper.reset()">
+                    <mat-icon>check</mat-icon>
+                </button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+
+
+</div>
+
+

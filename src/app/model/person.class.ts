@@ -17,7 +17,7 @@ export interface IPerson {
     telNos: ITelNo[];
     entId: string;
     id: string;
-    org: { name: string, id: string };
+    org?: { name: string, id: string };
 }
 
 @Injectable({

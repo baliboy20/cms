@@ -1,0 +1,282 @@
+<mat-toolbar>
+    <h4> NEW COMPANY/ORGANISATION</h4>
+</mat-toolbar>
+
+<div class="org-add-container">
+    <mat-vertical-stepper #stepper>
+        <mat-step [stepControl]="formGroup">
+            <form [formGroup]="formGroup">
+                <ng-template matStepLabel>Fill out your name</ng-template>
+                <!--NAME-->
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input type="text"
+                           matInput
+                           formControlName="name">
+                </mat-form-field>
+
+                <!--ADDRESS-->
+                <mat-form-field>
+                    <mat-label>Address</mat-label>
+
+                    <textarea type="text"
+                              matInput
+                              formControlName="address"
+                              cdkTextareaAutosize
+                              #autosize="cdkTextareaAutosize"
+                              cdkAutosizeMinRows="2"
+                              cdkAutosizeMaxRows="5">
+          </textarea>
+                </mat-form-field>
+            </form>
+        </mat-step>
+
+
+        <!-- 2nd step-->
+        <mat-step [stepControl]="formGroup" >
+            <form [formGroup]="formGroup">
+                <ng-template matStepLabel>sector & Type</ng-template>
+                <mat-form-field>
+                    <mat-label>Type of organisation</mat-label>
+                    <mat-select formControlName="orgType">
+                    <mat-option [value]="'Other'">Other</mat-option>
+                    <mat-option *ngFor="let typ of orgTypes;"  [value]="typ.type">{{typ.type}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field >
+                    <mat-select
+                            formControlName="sector">
+                        <mat-option [value]="'Unassigned'">Unassigned</mat-option>
+                        <mat-option *ngFor="let sec of sectors" [value]="sec.type">
+                            {{sec.type}}
+                        </mat-option>
+                    </mat-select>
+                    <!--<mat-error *ngIf="formGrp.controls.sector.hasError('required')">Please choose a Sector</mat-error>-->
+                    <!--<mat-hint>Sector of the organisation</mat-hint>-->
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <!-- 3rd Step Contact info-->
+        <!-- 2nd step-->
+        <mat-step [stepControl]="formGroup">
+            <form [formGroup]="formGroup">
+                <ng-template matStepLabel>Contact Information</ng-template>
+                <!--tel nos-->
+                <app-subform-table [formGroup]="formGroup"
+                                   [formArrayName]="'telNos'"
+                                   [newItem]="newTelNo"
+                                   [template]="telEditTemplate"></app-subform-table>
+
+                <app-subform-table [formGroup]="formGroup"
+                                   [formArrayName]="'emails'"
+                                   [newItem]="newEmailAdd"
+                                   [template]="emailEditTemplate"></app-subform-table>
+                <!---->
+                <app-subform-table [formGroup]="formGroup"
+                                   [formArrayName]="'web'"
+                                   [newItem]="newWebItem"
+                                   [template]="webEditTemplate"></app-subform-table>
+
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Add People <mat-icon>how_to_reg</mat-icon></ng-template>
+            <app-people-add></app-people-add>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>SAVE ORGANISATION <mat-icon>how_to_reg</mat-icon></ng-template>
+
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">
+                    <mat-icon>cross</mat-icon>
+                </button>
+                <button mat-fab>
+                    Confirm
+                    <mat-icon>check</mat-icon>
+                </button>
+            </div>
+        </mat-step>
+    </mat-vertical-stepper>
+
+</div>
+
+
+<!--
+                                                    T E M P L A T E S   //
+
+
+-->
+
+
+<ng-template #telEditTemplate let-fm="fm" let-parent="parent">
+    <div style=" width: 100%; display: block">
+        <mat-icon class="matIcon">contact_phone</mat-icon>
+        <button mat-mini-fab class="alignRight">
+            <mat-icon (click)="parent.addItem($event)">add</mat-icon>
+        </button>
+    </div>
+
+    <ng-container [formGroup]="fm">
+        <ng-container>
+            <table>
+                <tr formArrayName="telNos" *ngFor="let telno of formGroup.get('telNos').controls; let idx = index">
+                    <ng-container [formGroupName]="idx">
+                        <td>
+                            <mat-form-field>
+                                <!--<mat-label>TelNo</mat-label>-->
+                                <input matInput formControlName="telNo" placeholder="Telephone">
+
+                                <!--<input matInput formControlName="note">-->
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <!--<mat-label></mat-label>-->
+                                <input matInput formControlName="note" placeholder="comment">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <a (click)="parent.deleteItem($event, idx)">
+                                <mat-icon>delete_outline</mat-icon>
+                            </a>
+                        </td>
+
+                    </ng-container>
+                </tr>
+            </table>
+        </ng-container>
+        <!--</div>-->
+
+    </ng-container>
+
+</ng-template>
+<!--
+
+{
+            address: ['178 defoe'],
+            emails: [['sim@sim.org.co']],
+            name: ['SimonCo', Validators.required],
+            OrgType: ['commercial'],
+            sector: ['law'],
+            telNos: [['0203 123']],
+            web: [['www.si.co.uk']],
+-->
+
+<!--
+export interface IEmail extends Vo {
+    addresss: string;
+    note: string;
+    id: string;
+}
+
+
+-->
+
+<ng-template #emailEditTemplate let-fm="fm" let-parent="parent">
+
+    <div style=" width: 100%; display: block">
+        <mat-icon class="matIcon">contact_mail</mat-icon>
+        <button mat-mini-fab class="alignRight">
+            <mat-icon (click)="parent.addItem($event)">add</mat-icon>
+        </button>
+    </div>
+
+    <ng-container [formGroup]="fm">
+        <!--<div formArrayName="telNos" *ngFor="let telno of formGroup.get('telNos').controls; let idx = index">-->
+
+        <ng-container>
+            <table>
+                <tr formArrayName="emails" *ngFor="let email of formGroup.get('emails').controls; let idx = index">
+                    <ng-container [formGroupName]="idx">
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Email</mat-label>
+                                <input matInput formControlName="address">
+
+                                <!--<input matInput formControlName="note">-->
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Notes</mat-label>
+                                <input matInput formControlName="note">
+                            </mat-form-field>
+                        </td>
+
+                        <a (click)="parent.deleteItem($event, idx)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </a>
+                    </ng-container>
+                </tr>
+            </table>
+        </ng-container>
+        <!--</div>-->
+
+    </ng-container>
+
+</ng-template>
+
+<!--
+export interface IWebSite extends Vo  {
+    address: string;
+    note: string;
+    id: string;
+}
+-->
+<ng-template #webEditTemplate let-fm="fm" let-parent="parent">
+    <div style=" width: 100%; display: block">
+        <mat-icon class="matIcon">cloud</mat-icon>
+        <button mat-mini-fab class="alignRight">
+            <mat-icon (click)="parent.addItem($event)">add</mat-icon>
+        </button>
+    </div>
+
+    <ng-container [formGroup]="fm">
+        <!--<div formArrayName="telNos" *ngFor="let telno of formGroup.get('telNos').controls; let idx = index">-->
+
+        <ng-container>
+            <table>
+                <tr formArrayName="web" *ngFor="let telno of formGroup.get('web').controls; let idx = index">
+                    <ng-container [formGroupName]="idx">
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Url</mat-label>
+                                <input matInput formControlName="address">
+
+                                <!--<input matInput formControlName="note">-->
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Notes</mat-label>
+                                <input matInput formControlName="note">
+                            </mat-form-field>
+                        </td>
+                        <td><a (click)="parent.deleteItem($event, idx)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </a></td>
+
+
+                    </ng-container>
+                </tr>
+            </table>
+        </ng-container>
+        <!--</div>-->
+
+    </ng-container>
+
+</ng-template>

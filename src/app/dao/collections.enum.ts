@@ -16,6 +16,8 @@ export const ORG_TYPES: ILookup[] = [
  { type: 'Charity'},
  { type: 'Client'},
  { type: 'Art Agency'},
+ { type: 'Art Studio'},
+ { type: 'Design Company'},
  { type: 'Small Medium Company'},
  { type: 'Large, International Company'},
  { type: 'Partnership firm'},
@@ -31,4 +33,5 @@ export const ORG_SECTORS: ILookup[] = [
     {type: 'Events & Exibitions'},
     {type: 'NGO'},
     {type: 'Govt. Agency'},
+    {type: 'Artist /Studio /Creator /Manufacturer'},
 ]

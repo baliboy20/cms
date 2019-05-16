@@ -137,9 +137,6 @@ export class EditOrganisationComponent implements OnInit {
         this.formGrp.setValue(constTestData);
     }
 
-    // addData() {
-    //     console.log('add data in editor');
-    // }
 
     openSnackBar(value) {
         this.snackBar.open(value, 'SAVED', {

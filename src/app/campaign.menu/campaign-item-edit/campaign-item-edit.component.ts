@@ -19,7 +19,7 @@ export class CampaignItemEditComponent implements OnInit {
     @Input() template: TemplateRef<any>;
     @Input() formArrayName: string;
     @Input() newItem: any;
-    filterOfOrgs: Observable<any>;
+
 
     lbs = enCampaignItemLbls;
     priorities = StaticData.ACTION_PRIORITY_VALUES;
@@ -49,8 +49,9 @@ export class CampaignItemEditComponent implements OnInit {
     getOrgs() {
         this.daoOrgs.enterprises$
             .subscribe(res => {
-                console.log('camp edit', res);
-                this.orgs.push(...res);
+
+                this.orgs = res;
+                console.log('camp edit', res, this.orgs);
             });
     }
 

@@ -28,6 +28,7 @@ export interface IComment extends Vo {
 
 export class ContactsFactory {
     static instOfTelnos(): ITelNo {
+        // return {telNo: null, note: null, id: null};
         return {telNo: '', note: '', id: ''};
     }
 

@@ -1,49 +1,68 @@
-<mat-toolbar>
-  <button mat-button routerLink="/">Home</button>
-  <button mat-button routerLink="../organisation-menu">Organisations</button>
-  <button mat-button routerLink="../campaign-menu">Campaigns</button>
-</mat-toolbar>
-<mat-toolbar>
-  <button (click)="leftPanel.toggle()">toggle left</button>
-  <!--<button (click)="toggle('right')">toggle right</button>-->
-</mat-toolbar>
+
+    <mat-toolbar class="org-toolbar">
+        <button mat-button routerLink="/">
+            <mat-icon>home</mat-icon>
+        </button>
+        <button mat-button routerLink="./orgs-table" matTooltip="Find Organisation/Person">
+            <mat-icon>search</mat-icon>
+        </button>
+        <button mat-button routerLink="./person-edit" matTooltip="Edd person">
+           <div>
+               <span>Person</span>
+               <mat-icon>edit_circle</mat-icon>
+           </div>
+        </button>
+        <button mat-button routerLink="./person-add" matTooltip="Edd person">
+            <div>
+                <span>Person</span>
+                <mat-icon>add_circle</mat-icon>
+            </div>
+        </button>
+        <a mat-button [matTooltip]="'Add Organisation'" [routerLink]="['edit']">
+            <div><span>Organisation</span>
+                <mat-icon>add_circle</mat-icon>
+            </div>
+        </a>
+
+        <a mat-button [matTooltip]="'Add Organisation'" [routerLink]="['add',{orgId: 'unalloc'}]">
+            <div><span>Organisation</span>
+                <mat-icon>pencil_circle</mat-icon>
+            </div>
+        </a>
+        </mat-toolbar>
+
+
+<router-outlet></router-outlet>
+
 
 <mat-sidenav-container>
-  <mat-sidenav opened  mode="side" #leftPanel >
+    <mat-sidenav opened mode="side" #leftPanel>
 
-    <ul>
-      <li>
-        <a mat-button [routerLink]="['/']">DASHBOARD</a>
-      </li>
-      <li>
-        <a mat-button [matTooltip]="'Add New Organisation'" [routerLink]="['add',{orgId: 'unalloc'}]">ADD</a>
-      </li>
+        <ul>
+            <li>
+                <a mat-button [routerLink]="['/']">DASHBOARD</a>
+            </li>
+            <li>
+                <a mat-button [matTooltip]="'Add New Organisation'" [routerLink]="['add',{orgId: 'unalloc'}]">ADD</a>
+            </li>
 
-      <li>
-        <a mat-button routerLink="orgs-table">FIND</a>
-      </li>
+            <li>
+                <a mat-button routerLink="orgs-table">FIND</a>
+            </li>
 
-      <li>
-        <a mat-button routerLink="person-edit">add person</a>
-      </li>
-
-
-
-      <li>
-        <!--<a mat-button routerLink="\">ADD PEOPLE</a>-->
-      </li>
-
-      <li>
-        <!--<a mat-button routerLink="\">HOME</a>-->
-      </li>
+            <li>
+                <a mat-button routerLink="person-edit">add person</a>
+            </li>
 
 
-    </ul>
-    <mat-icon>person_add</mat-icon>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
+
+
+        </ul>
+        <mat-icon>person_add</mat-icon>
+    </mat-sidenav>
+    <mat-sidenav-content>
+
+    </mat-sidenav-content>
 
 </mat-sidenav-container>
 

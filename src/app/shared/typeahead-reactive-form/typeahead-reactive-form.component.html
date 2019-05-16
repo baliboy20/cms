@@ -1,0 +1,26 @@
+<ng-container [formGroup]="formGroup">
+    <!--<mat-form-field>-->
+        <!--<input type="text" placeholder="ignore" formControlName="orgId">>-->
+        <!--<input type="text"-->
+               <!--placeholder="Pick one"-->
+               <!--aria-label="Number"-->
+               <!--matInput-->
+               <!--[matAutocomplete]="auto1"-->
+               <!--&gt;-->
+        <!--<mat-autocomplete #auto1="matAutocomplete">-->
+            <!--<mat-option *ngFor="let option of lookUpData" [value]="option.name">-->
+                <!--{{option.name}}-->
+            <!--</mat-option>-->
+        <!--</mat-autocomplete>-->
+    <!--</mat-form-field>-->
+
+    <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Assignee" aria-label="Assignee" matInput  formControlName="orgName" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" >
+            <mat-option *ngFor="let option of lookUpData" [value]="option" (onSelectionChange)="selectionChange(option)">
+                {{option.name}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+</ng-container>

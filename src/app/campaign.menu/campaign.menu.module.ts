@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SubformTableModule} from '../utils/subform-table/subform-table.module';
 import { CampaignItemEditComponent } from './campaign-item-edit/campaign-item-edit.component';
 import {ToDatePipe} from '../utils/pipe/to-date.pipe';
+import {SharedModule} from '../shared/shared.module';
 // campaign-menu
 const routes: Routes = [{path: 'campaign-menu',
     component: CampaignMenuComponent,
@@ -30,11 +31,12 @@ const routes: Routes = [{path: 'campaign-menu',
     CommonModule,
       RouterModule.forChild(routes),
       MaterialzModule,
-      ReactiveFormsModule,
       FormsModule,
+      ReactiveFormsModule,
       RouterModule,
       MaterialzModule,
       SubformTableModule,
+      SharedModule,
 
   ],
     exports: [ CampaignMenuComponent,

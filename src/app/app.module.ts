@@ -19,6 +19,7 @@ import {PersonFactory} from './model/person.class';
 import {CampaignFactory} from './model/campaign.interface';
 import {CampaignDaoService} from './dao/campaignDao.service';
 import { ToDatePipe } from './utils/pipe/to-date.pipe';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -35,6 +36,8 @@ import { ToDatePipe } from './utils/pipe/to-date.pipe';
         CampaignMenuModule,
         MaterialzModule,
         HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
     ],
     providers: [
         AngularFirestore,
