@@ -114,7 +114,7 @@ export class EditOrganisationComponent implements OnInit {
         this.reset();
         this.formGrp.setValue(vo);
         console.log('VALUE', vo);
-        this.dao.insertOrg(vo).then((result) => {
+        this.dao.insertOrgAsync(vo).then((result) => {
             // vo.id = result.id;
             console.log('added resykt', result, vo);
             this.openSnackBar('Save OK');

@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material';
 import {OrgDaoService} from '../../dao/OrgDao.service';
 import {ActivatedRoute} from '@angular/router';
 import {ContactsFactory, IEmail, ITelNo, IWebSite} from '../../model/contact.classes';
 import {EditStates, ORG_SECTORS, ORG_TYPES} from '../../dao/collections.enum';
+import {PeopleAddComponent} from '../../people/people-add/people-add.component';
 
 @Component({
     selector: 'app-organisation-add',
@@ -16,6 +17,8 @@ export class OrganisationAddComponent implements OnInit {
     firstFormGroup: FormGroup;
     secondFormGroup: FormGroup;
 
+    @ViewChild('addPersonForm') PerComp: PeopleAddComponent;
+
     formGroup: FormGroup;
     validations;
     editState: EditStates = EditStates.add;
@@ -25,7 +28,7 @@ export class OrganisationAddComponent implements OnInit {
         'Mr.',
         'Mrs.',
         'Ms.',
-    ]
+    ];
     types = ORG_TYPES;
     @Input() data: any;
     newTelNo: ITelNo = ContactsFactory.instOfTelnos();
@@ -69,7 +72,7 @@ export class OrganisationAddComponent implements OnInit {
         this.reset();
         this.formGroup.setValue(vo);
         console.log('VALUE', vo);
-        this.dao.insertOrg(vo).then((result) => {
+        this.dao.insertOrgAsync(vo).then((result) => {
             // vo.id = result.id;
             console.log('added resykt', result, vo);
             this.openSnackBar('Save OK');
@@ -95,6 +98,13 @@ export class OrganisationAddComponent implements OnInit {
 
     navToPerson() {
 
+    }
+
+    saveToDb() {
+        const po = this.PerComp.getRawData();
+        console.log('pos', po)
+       const retval = this.dao.insertOrganisationAndPersons( this.formGroup.getRawValue() , po);
+        console.log('Data returned',  retval);
     }
 
 }

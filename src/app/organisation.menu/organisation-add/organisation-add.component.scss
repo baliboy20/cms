@@ -3,7 +3,22 @@
     background-color: #fbfbfb;
     flex: 1 1 100%;
     display: flex;
+    flex-flow: column wrap;
     justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.button-bar {
+    //background-color: red;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px 0;
+    width: 600px;
+    & > button {
+        margin-left: 10px
+    }
 }
 
 h4 {
@@ -83,3 +98,6 @@ form {
     border: 1px dotted gainsboro;
     border-radius: 4px;
 }
+
+
+

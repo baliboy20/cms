@@ -17,7 +17,7 @@ import {ReplaySubject} from 'rxjs';
 export class PeopleAddComponent implements OnInit {
 
     formGroupPerson: FormGroup;
-     _formGroupArray: FormGroup[] = [];
+    _formGroupArray: FormGroup[] = [];
 
     validations;
     newTelNo = ContactsFactory.instOfTelnos();
@@ -31,6 +31,9 @@ export class PeopleAddComponent implements OnInit {
         'Ms.'
     ];
 
+    public getRawData() {
+        return  this._formGroupArray.map(a => a.getRawValue());
+    }
     onChange(event) {
         console.log('change event', event.target.value);
     }
@@ -61,7 +64,7 @@ export class PeopleAddComponent implements OnInit {
 
     onSave() {
         const vo = this.formGroupPerson.getRawValue();
-        this.dao.insertOrg(vo).then((result) => {
+        this.dao.insertOrgAsync(vo).then((result) => {
             // vo.id = result.id;
             this.openSnackBar('Save OK');
             this.reset();

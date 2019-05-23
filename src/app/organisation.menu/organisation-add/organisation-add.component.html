@@ -6,7 +6,7 @@
     <mat-vertical-stepper #stepper>
         <mat-step [stepControl]="formGroup">
             <form [formGroup]="formGroup">
-                <ng-template matStepLabel>Fill out your name</ng-template>
+                <ng-template matStepLabel>Organisation's name</ng-template>
                 <!--NAME-->
                 <mat-form-field>
                     <mat-label>Name</mat-label>
@@ -89,29 +89,36 @@
             </form>
         </mat-step>
         <mat-step>
-            <ng-template matStepLabel>Add People <mat-icon>how_to_reg</mat-icon></ng-template>
+            <ng-template matStepLabel>People <mat-icon>how_to_reg</mat-icon></ng-template>
             <app-people-add></app-people-add>
             <div>
                 <button mat-button matStepperPrevious>Back</button>
                 <button mat-button (click)="stepper.reset()">Reset</button>
             </div>
         </mat-step>
-        <mat-step>
-            <ng-template matStepLabel>SAVE ORGANISATION <mat-icon>how_to_reg</mat-icon></ng-template>
+        <!--<mat-step>-->
+            <!--<ng-template matStepLabel>SAVE ORGANISATION <mat-icon>how_to_reg</mat-icon></ng-template>-->
 
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="stepper.reset()">
-                    <mat-icon>cross</mat-icon>
-                </button>
-                <button mat-fab>
-                    Confirm
-                    <mat-icon>check</mat-icon>
-                </button>
-            </div>
-        </mat-step>
+            <!--<div>-->
+                <!--<button mat-button matStepperPrevious>Back</button>-->
+                <!--<button mat-button (click)="stepper.reset()">-->
+                    <!--<mat-icon>cross</mat-icon>-->
+                <!--</button>-->
+               <!---->
+            <!--</div>-->
+        <!--</mat-step>-->
     </mat-vertical-stepper>
 
+    <div class="button-bar">
+        <button mat-raised-button  color='accent' (click)="saveToDb()">
+            Reset
+            <mat-icon>cancel</mat-icon>
+        </button>
+        <button mat-raised-button  color='primary' (click)="saveToDb()">
+            Save Details
+            <mat-icon>check</mat-icon>
+        </button>
+    </div>
 </div>
 
 

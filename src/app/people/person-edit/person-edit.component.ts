@@ -42,18 +42,19 @@ export class EditPersonComponent implements OnInit {
     newCommItem: IComment = ContactsFactory.instOfComments();
     ctl: AbstractControl;
     _selectedOrg = 'hello';
+    step = 0;
 
-    // @HostListener('customSelectionChange', ['$event']) onCustomChange(e) {
-    //     console.log('event ctm changed ++++', e);
-    // }
+    setStep(index: number) {
+        this.step = index;
+    }
 
-    // @HostListener('onSelectionChange', ['$event']) onchange(ev: MatOptionSelectionChange) {
-    //     if (!ev.isUserInput) {
-    //         return;
-    //     }
-    //     console.log('host listener |||||', ev);
-    //     // this.customChange.emit(this._val);
-    // }
+    nextStep() {
+        this.step++;
+    }
+
+    prevStep() {
+        this.step--;
+    }
 
     set selectedOrg(arg: any) {
         console.log('selected org', arg);
@@ -137,7 +138,7 @@ export class EditPersonComponent implements OnInit {
 
     onSave() {
         const vo = this.formGrp.getRawValue();
-        this.dao.insertOrg(vo).then((result) => {
+        this.dao.insertOrgAsync(vo).then((result) => {
             // vo.id = result.id;
             this.openSnackBar('Save OK');
             this.reset();

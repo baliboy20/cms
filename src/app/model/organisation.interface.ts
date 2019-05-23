@@ -4,6 +4,7 @@ export interface IOrganisation {
 
     name: string;
     address: string;
+    Description?: string;
     emails: IEmail[];
     web: IWebSite[];
     telNos: ITelNo[];

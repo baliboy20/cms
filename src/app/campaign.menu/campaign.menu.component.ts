@@ -13,7 +13,6 @@ import {PersonFactory} from '../model/person.class';
 })
 export class CampaignMenuComponent {
 
-
     /*
     name: string;
     id: string;
@@ -24,12 +23,6 @@ export class CampaignMenuComponent {
     actionPriority: 'Hi' | 'Low' | 'Med' | 'Urge';
     done: boolean;
      */
-
-    constructor() {
-
-
-    }
-
 
 }
 

@@ -10,77 +10,181 @@
                 <button (click)="inspect()">inspect</button>
             </mat-card-title>
             <mat-card-content>
+                <!--js;fj;sajf;lsaj;lfjsd;lkjfl;asjfl;saj;ldfjsal;jf;lsajfl;asj;flsajl;fjals;jfl;sajfl;sa;j;lsj;lfl;s-->
 
-                <mat-card >
+                <mat-accordion class="example-headers-align">
+                    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Personal Info
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Type your name and age
+                                <mat-icon>account_circle</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
 
-
-
-                    <!--NAME-->
-                    <mat-form-field>
-                        <mat-label>title</mat-label>
-                        <input type="text"
-                               matInput
-                               formControlName="firstName">
-                    </mat-form-field>
-
-                    <mat-form-field>
-                        <mat-label>first name</mat-label>
-                        <input type="text"
-                               matInput
-                               formControlName="firstName">
-                    </mat-form-field>
-
-                    <mat-form-field>
-                        <mat-label>last name</mat-label>
-                        <input type="text"
-                               matInput
-                               formControlName="lastName">
-                    </mat-form-field>
-
-                    <mat-form-field>
-                        <mat-label>Known as</mat-label>
-                        <input type="text"
-                               matInput
-                               formControlName="nickName">
-                    </mat-form-field>
+                        <mat-card >
 
 
-                    <mat-form-field class="example-full-width" >
 
-                        <input type="text" placeholder="Representing Enterprise" aria-label="Number"
-                               matInput [matAutocomplete]="auto">
-                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="orgSelected($event)">
-                            <mat-option  appOption="{name:'freelance1', id: '666'}" [value]="'freelance'">freelance</mat-option>
-                            <mat-option *ngFor="let option of companies$ | async;"
-                                        appOption="{{option.name}}"
-                                        appKey="{{option.orgId}}"
-                                        [value]="option.name">
-                                {{option.orgId}}
-                            </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field>
-                </mat-card>
-                <!--tel nos-->
-                <app-subform-table [formGroup]="formGrp"
-                                   [formArrayName]="'telNos'"
-                                   [newItem]="newTelNo"
-                                   [template]="telEditTemplate"></app-subform-table>
+                            <!--NAME-->
+                            <mat-form-field>
+                                <mat-label>title</mat-label>
+                                <input type="text"
+                                       matInput
+                                       formControlName="firstName">
+                            </mat-form-field>
 
-                <app-subform-table [formGroup]="formGrp"
-                                   [formArrayName]="'emails'"
-                                   [newItem]="newEmailAdd"
-                                   [template]="emailEditTemplate"></app-subform-table>
+                            <mat-form-field>
+                                <mat-label>first name</mat-label>
+                                <input type="text"
+                                       matInput
+                                       formControlName="firstName">
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>last name</mat-label>
+                                <input type="text"
+                                       matInput
+                                       formControlName="lastName">
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Known as</mat-label>
+                                <input type="text"
+                                       matInput
+                                       formControlName="nickName">
+                            </mat-form-field>
+
+
+                            <mat-form-field class="example-full-width" >
+
+                                <input type="text" placeholder="Representing Enterprise" aria-label="Number"
+                                       matInput [matAutocomplete]="auto">
+                                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="orgSelected($event)">
+                                    <mat-option  appOption="{name:'freelance1', id: '666'}" [value]="'freelance'">freelance</mat-option>
+                                    <mat-option *ngFor="let option of companies$ | async;"
+                                                appOption="{{option.name}}"
+                                                appKey="{{option.orgId}}"
+                                                [value]="option.name">
+                                        {{option.orgId}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </mat-card>
+
+                        <mat-action-row>
+                            <button mat-button color="primary" (click)="nextStep()">Next</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Telephone and Mobile
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                input multiple telephone No. and Mobiles
+                                <mat-icon>map</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <!--tel nos-->
+                        <app-subform-table [formGroup]="formGrp"
+                                           [formArrayName]="'telNos'"
+                                           [newItem]="newTelNo"
+                                           [template]="telEditTemplate"></app-subform-table>
+
+                        <mat-action-row>
+                            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                            <button mat-button color="primary" (click)="nextStep()">Next</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                               Email Address
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Email contact
+                                <mat-icon>date_range</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <app-subform-table [formGroup]="formGrp"
+                                           [formArrayName]="'emails'"
+                                           [newItem]="newEmailAdd"
+                                           [template]="emailEditTemplate"></app-subform-table>
+                        <mat-datepicker #picker></mat-datepicker>
+
+                        <mat-action-row>
+                            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                            <button mat-button color="primary" (click)="nextStep()">End</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Websites and Social Media
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Website Url's
+                                <mat-icon>date_range</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <app-subform-table [formGroup]="formGrp"
+                                           [formArrayName]="'web'"
+                                           [newItem]="newWebItem"
+                                           [template]="webEditTemplate"></app-subform-table>
+
+                        <mat-action-row>
+                            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                            <button mat-button color="primary" (click)="nextStep()">End</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Comments
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Comments and records of Convesations
+                                <mat-icon>date_range</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <app-comms-sform [formGroup]="formGrp"
+                                         [formArrayName]="'comments'"
+                                         [newItem]="newCommItem">
+
+                        </app-comms-sform>
+
+                        <mat-action-row>
+                            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                            <button mat-button color="primary" (click)="nextStep()">End</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                </mat-accordion>
+
+
+
+                <!--jf;lsajf;lsa;kfj;lsaj;lkfjas;ljf;lsajl;kfjas;ljfl;sajl;fjsal;fjlsa;jfl;sajfl;sja;lsjal;sdjasd-->
+
+
+
+
                 <!---->
-                <app-subform-table [formGroup]="formGrp"
-                                   [formArrayName]="'web'"
-                                   [newItem]="newWebItem"
-                                   [template]="webEditTemplate"></app-subform-table>
+
 
             </mat-card-content>
 
-            <app-comms-sform [formGroup]="formGrp"
-                             [formArrayName]="'comments'"
-                             [newItem]="newCommItem"></app-comms-sform>
+
 
             <mat-card-actions>
 
@@ -99,6 +203,10 @@
         <!--{{validations}}-->
     </div>
 </div>
+
+
+
+
 
 <!--
                                                     T E M P L A T E S   //

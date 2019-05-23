@@ -21,10 +21,14 @@ import {CampaignDaoService} from './dao/campaignDao.service';
 import { ToDatePipe } from './utils/pipe/to-date.pipe';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+
+
+
 @NgModule({
     declarations: [
         AppComponent,
         MainComponent,
+
     ],
     imports: [
         BrowserModule,
@@ -38,6 +42,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
+
     ],
     providers: [
         AngularFirestore,
@@ -46,6 +51,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         CampaignFactory,
         PersonFactory
     ],
+    exports: [],
     bootstrap: [AppComponent],
 })
 export class AppModule {

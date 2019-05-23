@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreDocument, DocumentChangeAction, DocumentReference} from '@angular/fire/firestore';
 import {AsyncSubject, from, of, pipe, ReplaySubject} from 'rxjs/index';
 import {DbCollections} from './collections.enum';
@@ -7,18 +7,33 @@ import {map, mergeMap, reduce, take, tap, toArray} from 'rxjs/internal/operators
 import {HttpClient} from '@angular/common/http';
 import {flatMap} from 'tslint/lib/utils';
 import {IOrganisation, OrganisationFactory} from '../model/organisation.interface';
+import {isUndefined} from 'util';
+import {IPerson} from '../model/person.class';
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class OrgDaoService {
-    get enterprises$(): ReplaySubject<any> {
+    isUnTouchedDirtyOrganisation = true;
+    isUnTouchedDirtyPeople = true;
 
+    private _enterprises$: ReplaySubject<any>;
+    private _people$: ReplaySubject<any>;
+
+    get people$(): ReplaySubject<any> {
+        return this._people$;
+    }
+
+    set people$(value: ReplaySubject<any>) {
+        this._people$ = value;
+    }
+
+    get enterprises$(): ReplaySubject<any> {
         if (this._enterprises$ === undefined) {
-          this._enterprises$  = new ReplaySubject<any>(1);
-            console.log('about the enterprise', this._enterprises$);
-          this.getOrgs().subscribe(console.log);
+            this._enterprises$ = new ReplaySubject<any>(1);
+            this._populateCache_Org();
+            this.getOrgs().subscribe(console.log);
         }
         return this._enterprises$;
     }
@@ -27,9 +42,45 @@ export class OrgDaoService {
         this._enterprises$ = value;
     }
 
-    private _enterprises$: ReplaySubject<any>;
+    constructor(private db: AngularFirestore, private htp: HttpClient) {
+    }
 
-    constructor(private db: AngularFirestore, private htp: HttpClient) {}
+
+    /*
+       |==========================================================================================|
+                                    People API's
+       |==========================================================================================|
+     */
+    async insertPersonAsync<T extends Vo>(vo: T) {
+        delete vo.id;
+        return await this.db.collection(DbCollections.PERSONS).add(vo);
+    }
+
+    /*
+        |==========================================================================================|
+                                   Organisation API's
+        |==========================================================================================|
+      */
+    private _populateCache_Org() {
+        if (this.isUnTouchedDirtyOrganisation) {
+            this.db.collection(DbCollections.ORGANISATIONS).snapshotChanges()
+                .pipe(
+                    map((arg: DocumentChangeAction<any>[]) => {
+                        const retval = arg.map(a => {
+                            return {
+                                ...a.payload.doc.data(),
+                                id: a.payload.doc.id,
+                            };
+                        });
+                        return retval;
+                    })
+                )
+                .subscribe(a => {
+                    this.enterprises$.next(a);
+                    this.isUnTouchedDirtyOrganisation = false;
+                });
+        }
+    }
 
     getOrgs() {
         return this.db.collection(DbCollections.ORGANISATIONS).snapshotChanges()
@@ -45,16 +96,13 @@ export class OrgDaoService {
                     this.enterprises$.next(retval);
                     // console.log('getorgs retval', retval);
                     return retval;
-
-
                 }),
             );
     }
 
-
-    insertOrg<T extends Vo>(vo: T) {
+    async insertOrgAsync<T extends Vo>(vo: T) {
         delete vo.id;
-        return this.db.collection(DbCollections.ORGANISATIONS)
+        return await this.db.collection(DbCollections.ORGANISATIONS)
             .add(vo).then(retval => {
                 vo.id = retval.id;
             });
@@ -62,9 +110,26 @@ export class OrgDaoService {
 
 
     updateOrg<T extends Vo>(vo: T) {
-        // delete vo.id;
-        console.log('db updateing..', vo.id);
-       return this.db.collection(DbCollections.ORGANISATIONS).doc(vo.id).update(vo);
+        return this.db.collection(DbCollections.ORGANISATIONS).doc(vo.id).update(vo);
+    }
+
+    /**
+     **/
+    async insertOrganisationAndPersons<T extends Vo>(organisation: T, people: IPerson[]) {
+
+        const retval = await this.db.collection(DbCollections.ORGANISATIONS).add(organisation);
+        if (!isUndefined(retval.id)) {
+            people.forEach(a => {
+                a.entId = retval.id;
+
+                this.insertPersonAsync(a);
+            });
+        } else {
+            throw new Error('no valid id returned');
+        }
+        console.log('insertOrganisation', retval.id);
+
+        return retval;
     }
 
     deleteOrg(id: string) {
@@ -87,14 +152,15 @@ export class OrgDaoService {
         return retval;
     }
 
-   async  getDocRef(vo: IOrganisation, orgId: string) {
-        const ref: AngularFirestoreDocument =  await this.db.doc(DbCollections.ORGANISATIONS + '/' + orgId)
+    async getDocRef(vo: IOrganisation, orgId: string) {
+        const ref: AngularFirestoreDocument = await this.db.doc(DbCollections.ORGANISATIONS + '/' + orgId);
 
-       const a = await ref.update({address: '1234 highwayman road'});
+        const a = await ref.update({address: '1234 highwayman road'});
         const b = ref.valueChanges().subscribe(console.log);
         console.log('getted', b);
 
     }
+
     /*
      name: string;
     address: string;
@@ -119,7 +185,7 @@ export class OrgDaoService {
             .pipe(map(_coMap), mergeMap(mergeArr), take(5), tap(tapit), map(toDTO))
             .subscribe(a => {
                 // console.log('data gen', a);
-                this.insertOrg(a as Vo);
+                this.insertOrgAsync(a as Vo);
             });
 
     }

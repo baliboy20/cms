@@ -1,9 +1,9 @@
 <mat-toolbar>
-    <button mat-mini-fab (click)="insertRow()">
-
+    <button mat-button matTooltip="add person" (click)="insertRow()">
+        Add
         <mat-icon>person_add</mat-icon>
     </button>
-    <span class="mat-h4">ADD CONTACTS</span>
+
 </mat-toolbar>
 <div *ngFor="let fmg of _formGroupArray" style="border: 1px solid gainsboro; border-radius: 4px">
 
@@ -47,21 +47,24 @@
                 </div>
             </form>
         </mat-step>
-        <mat-step>
-            <ng-template matStepLabel>Done</ng-template>
+        <!--<mat-step>-->
+            <!--<ng-template matStepLabel>Done</ng-template>-->
 
-            <div>
-                <button mat-mini-fab matStepperPrevious>
-                    <mat-icon>chevron_left</mat-icon>
-                </button>
-                <button mat-mini-fab color="accent" (click)="stepper.reset()">
-                    <mat-icon>cancel</mat-icon>
-                </button>
-                <button mat-mini-fab color="warn" (click)="stepper.reset()">
-                    <mat-icon>check</mat-icon>
-                </button>
-            </div>
-        </mat-step>
+            <!--<div>-->
+                <!--<button mat-mini-fab matStepperPrevious>-->
+                    <!--<mat-icon>chevron_left</mat-icon>-->
+                <!--</button>-->
+                <!--<button mat-mini-fab color="accent" (click)="stepper.reset()">-->
+                    <!--<mat-icon>cancel</mat-icon>-->
+                <!--</button>-->
+                <!--<button mat-mini-fab color="warn" (click)="stepper.reset()">-->
+                    <!--<mat-icon>check</mat-icon>-->
+                <!--</button>-->
+            <!--</div>-->
+            <!--<div class="">-->
+                <!--<button mat-button matStepperPrevious>Back</button>-->
+            <!--</div>-->
+        <!--</mat-step>-->
     </mat-horizontal-stepper>
 
 

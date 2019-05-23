@@ -11,12 +11,16 @@ import {SubformTableModule} from '../utils/subform-table/subform-table.module';
 import { CampaignItemEditComponent } from './campaign-item-edit/campaign-item-edit.component';
 import {ToDatePipe} from '../utils/pipe/to-date.pipe';
 import {SharedModule} from '../shared/shared.module';
+import { CampaignGanttComponent } from './campaign-gantt/campaign-gantt.component';
+import {HighchartsChartComponent, HighchartsChartModule} from 'highcharts-angular';
+import {CampaignItemAddComponent} from './campaign-item-add/campaign-item-add.component';
 // campaign-menu
 const routes: Routes = [{path: 'campaign-menu',
     component: CampaignMenuComponent,
     children: [
         { path: 'edit', component: CampaignEditComponent },
-        { path: 'search', component: CampaignSearchComponent }
+        { path: 'search', component: CampaignSearchComponent },
+        { path: 'gantt', component: CampaignGanttComponent}
     ]
 }]
 @NgModule({
@@ -25,7 +29,11 @@ const routes: Routes = [{path: 'campaign-menu',
       CampaignMenuComponent,
       CampaignEditComponent,
       CampaignSearchComponent,
-      CampaignItemEditComponent
+      CampaignItemEditComponent,
+      CampaignGanttComponent,
+      CampaignItemAddComponent,
+
+
   ],
   imports: [
     CommonModule,
@@ -37,9 +45,12 @@ const routes: Routes = [{path: 'campaign-menu',
       MaterialzModule,
       SubformTableModule,
       SharedModule,
+      HighchartsChartModule,
+
 
   ],
     exports: [ CampaignMenuComponent,
+        CampaignItemAddComponent,
         CampaignEditComponent]
 })
 export class CampaignMenuModule { }

@@ -32,16 +32,12 @@ name: string;
                           matInput cdkTextareaAutosize
                           formControlName="description"></textarea>
             </mat-form-field>
-
-
     </mat-card>
     <mat-card>
-        <app-campaign-item-edit [formGroup]="formGrp"
+        <app-campaign-item-add [formGroup]="formGrp"
                                 [formArrayName]="'items'"
                                 [newItem]="newCampaignItem()">
-        </app-campaign-item-edit>
-
-
+        </app-campaign-item-add>
     </mat-card>
 
 
