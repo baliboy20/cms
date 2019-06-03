@@ -1,189 +1,76 @@
-
-
-<mat-horizontal-stepper [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="formGroup">
-    <form [formGroup]="formGroup">
-      <ng-template matStepLabel>Fill out your namey</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Last name, First name" formControlName="name" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="formGroup">
-    <form [formGroup]="formGroup">
-      <ng-template matStepLabel>Fill out your address</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Address" formControlName="name" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    You are now done.
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
-  </mat-step>
-</mat-horizontal-stepper>
-
-
-<hr>
-
 <mat-card class="mat-elevation-z3 mat-card-spacer">
-  <div style=" width: 100%; display: block">
-    <mat-icon class="matIcon">chat</mat-icon>
-    <button mat-mini-fab class="alignRight" (click)="addItem($event)">
-      <mat-icon>add</mat-icon>
-    </button>
-  </div>
 
-  <!--
-  {{lbs.rating}}
-        {{lbs.done}}
-        {{lbs.actionPriority}}
-        {{lbs.finishOn}}
-        {{lbs.startOn}}
-        {{lbs.typeOfAction}}
-  -->
-  <ng-container [formGroup]="formGroup">
-    <!--<div formArrayName="formArrayName" *ngFor="let comm of formGroup.get('comments').controls; let idx = index">-->
-
-    <mat-card>
-      <ng-container>
-        <mat-grid-list
-                formArrayName="items"
-                *ngFor="let itm of formGroup.get('items')['controls']; let idx= index"
-                cols="12" rowHeight="2:1">
-          <ng-container [formGroupName]="idx">
-
-            <!-- 1st column-->
-            <mat-grid-tile colspan="3" rowspan="3">
-              <div class="gridtileContainer mat-elevation-z2">
-
-
+        <div class="camp-grid-container"
+             [formGroup]="_formGrp">
+            <!-- 1st cell-->
+            <div class="grid-item">
                 <mat-form-field>
-                  <mat-label>{{lbs.actionPriority}}</mat-label>
-                  <!--<input matInput formControlName="actionPriority">-->
-                  <mat-select matInput formControlName="actionPriority">
-                    <mat-option *ngFor="let pty of priorities" [value]="pty">{{pty}}</mat-option>
-                  </mat-select>
+                    <!--<input matInput formControlName="actionPriority">-->
+                    <mat-select matInput formControlName="actionPriority" [placeholder]="lbs.actionPriority">
+                        <mat-option *ngFor="let pty of priorities" [value]="pty">{{pty}}</mat-option>
+                    </mat-select>
                 </mat-form-field>
+            </div>
+            <div class="grid-item">
                 <mat-form-field class="example-full-width">
-
-                  <input type="text" placeholder="{{lbs.action}}" aria-label="Number"
-                         matInput [matAutocomplete]="auto" formControlName="action">
-                  <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of actionNeeded;"
-                                [value]="option">
-                      {{option}}
-                    </mat-option>
-                  </mat-autocomplete>
+                    <input matInput formControlName="actionPriority">
+                    <input type="text"
+                           placeholder="{{lbs.action}}"
+                           aria-label="Number"
+                           matInput
+                           [matAutocomplete]="auto"
+                           formControlName="action">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of actionNeeded;"
+                                    [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
                 </mat-form-field>
-              </div>
-            </mat-grid-tile>
+            </div>
 
-            <!--
-             2nd column
+            <!-- 2nd cell -->
+            <div class="grid-item">
+                <!--<app-typeahead-reactive-form-->
+                        <!--[formGroup]="itm"-->
+                        <!--[lookUpData]="orgs">-->
+                <!--</app-typeahead-reactive-form>-->
 
-
-
-            -->
-
-            <mat-grid-tile colspan="3" rowspan="3">
-
-
-              <div class="gridtileContainer mat-elevation-z2">
-                <app-typeahead-reactive-form
-                        [formGroup]="itm"
-                        [lookUpData]="orgs"
-
-                >
-
-                </app-typeahead-reactive-form>
-                <!--<mat-form-field class="example-full-width">-->
-                <!--<input type="text" placeholder="Pick one" aria-label="Number"-->
-                <!--matInput [matAutocomplete]="auto">-->
-                <!--<mat-autocomplete #auto="matAutocomplete">-->
-                <!--<mat-option *ngFor="let option of orgs" [value]="option.name">-->
-                <!--{{option.name}}-->
-                <!--</mat-option>-->
-                <!--</mat-autocomplete>-->
-                <!--</mat-form-field>-->
-
-                <!--<mat-form-field>-->
-                <!--<input matInput formControlName="orgId">-->
-                <!--<mat-autocomplete>-->
-                <!--<mat-option *ngFor="let org of ['arrrrr','brrrrrr','crrrrr']" [value]="org">{{org}}</mat-option>-->
-                <!--</mat-autocomplete>-->
-                <!--&lt;!&ndash;<mat-label>{{lbs.orgId}}</mat-label>&ndash;&gt;-->
-
-                <!--</mat-form-field>-->
-
+            </div>
+            <div class="grid-item">
                 <mat-form-field>
-                  <mat-label>{{lbs.personsId}}</mat-label>
-                  <input matInput formControlName="personsId">
-                </mat-form-field>
-              </div>
-            </mat-grid-tile>
 
+                    <mat-label>{{lbs.personsId}}</mat-label>
+                    <input matInput formControlName="personsId">
+                </mat-form-field>
+            </div>
             <!--
              3rd column
             -->
-            <mat-grid-tile colspan="5" rowspan="6">
-              <div class="gridtileContainer mat-elevation-z2">
-
+            <div class="grid-item grid-item-description">
                 <mat-form-field>
-                  <mat-label>{{lbs.notes}}</mat-label>
-                  <textarea placeholder="Describe in 5 lines"
-                            cdkTextareaAutosize
-                            #autosize="cdkTextareaAutosize"
-                            cdkAutosizeMinRows="1"
-                            cdkAutosizeMaxRows="3"
-                            matInput formControlName="notes"></textarea>
+                                <textarea placeholder="Describe in 5 lines"
+                                          cdkTextareaAutosize
+                                          #autosize="cdkTextareaAutosize"
+                                          cdkAutosizeMinRows="1"
+                                          cdkAutosizeMaxRows="3"
+                                          matInput formControlName="notes"></textarea>
                 </mat-form-field>
+            </div>
 
-
-              </div>
-            </mat-grid-tile>
 
             <!--
           4rd column
           -->
 
-            <mat-grid-tile colspan="1" rowspan="6">
-              <button mat-mini-fab color='warn'(click)="deleteItem($event, idx)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </mat-grid-tile>
-            <!--
-           5th column
-           typeOfAction = 'Type of Action',
-           action = 'Action needed',
-           finishOn = 'Complete by',
-           actionPriority = 'priority',
-           done = 'is Complete',
-           rating = 'importance', // 1 - 5;
-           startOn = 'Starting on',
-           personsId = 'Contact',
-           orgId = 'Organisation',
-           notes = 'Comments',
-
-
-           -->
-            <mat-grid-tile colspan="3" rowspan="3">
-              <div class="gridtileContainer mat-elevation-z2">
-
-                <div class="gridtileContainer mat-elevation-z2">
-
-                  <mat-form-field>
+            <!--<div class="grid-item grid-item-delete-col">-->
+            <!--<button mat-mini-fab color='warn' (click)="deleteItem($event, idx)">-->
+            <!--<mat-icon>delete</mat-icon>-->
+            <!--</button>-->
+            <!--</div>-->
+            <!-- 5th column -->
+            <div class="grid-item">
+                <mat-form-field>
                     <mat-label>{{lbs.startOn}}</mat-label>
                     <input matInput
                            [matDatepicker]="myDatepicker"
@@ -194,9 +81,10 @@
                     </mat-datepicker-toggle>
 
                     <mat-datepicker #myDatepicker></mat-datepicker>
-                  </mat-form-field>
-
-                  <mat-form-field>
+                </mat-form-field>
+            </div>
+            <div class="grid-item">
+                <mat-form-field>
                     <mat-label>{{lbs.finishOn}}</mat-label>
                     <input matInput
                            [matDatepicker]="finishOnDatepicker"
@@ -207,48 +95,28 @@
                     </mat-datepicker-toggle>
 
                     <mat-datepicker #finishOnDatepicker></mat-datepicker>
-                  </mat-form-field>
-
-                </div>
-              </div>
-            </mat-grid-tile>
+                </mat-form-field>
+            </div>
 
             <!--
-            6th column
-           typeOfAction = 'Type of Action',
-           done = 'is Complete',
-           rating = 'importance', // 1 - 5;
+            6th
            -->
-            <mat-grid-tile colspan="3" rowspan="3">
-              <div class="gridtileContainer mat-elevation-z2">
+            <div class="grid-item">
 
-                <div class="gridtileContainer mat-elevation-z2">
+                <mat-checkbox matInput formControlName="done">{{lbs.done}}</mat-checkbox>
+            </div>
+            <div class="grid-item">
 
-
-                  <mat-checkbox matInput formControlName="done">{{lbs.done}}</mat-checkbox>
-
-
-                  <mat-form-field>
+                <mat-form-field>
                     <mat-label>{{lbs.rating}}</mat-label>
                     <input matInput formControlName="rating">
-                  </mat-form-field>
-                </div>
+                </mat-form-field>
+            </div>
+            <div class="mat-card">
+                <button mat-raised-button (click)="onCancel()">CANCEL</button>
+                <button mat-raised-button (click)="onOK()">OK</button>
+            </div>
+        </div>
 
 
-              </div>
-            </mat-grid-tile>
-
-          </ng-container>
-        </mat-grid-list>
-      </ng-container>
-    </mat-card>
-
-
-
-<ng-template #stepperTmpl let-formGroup="fm">
-
-
-
-
-
-</ng-template>
+</mat-card>

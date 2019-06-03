@@ -1,13 +1,13 @@
-import {Component, Directive, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Component, Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ContactsFactory, IComment, IEmail, IWebSite} from '../../model/contact.classes';
-import {map} from 'rxjs/internal/operators';
-import {PersonFactory} from '../../model/person.class';
-import {MatOptionSelectionChange, MatSnackBar} from '@angular/material';
+import {map, tap} from 'rxjs/internal/operators';
+import {IPerson, PersonFactory} from '../../model/person.class';
+import {MatHorizontalStepper, MatOptionSelectionChange, MatSnackBar, MatStepper} from '@angular/material';
 import {OrgDaoService} from '../../dao/OrgDao.service';
 import {EditStates, ORG_SECTORS, ORG_TYPES} from '../../dao/collections.enum';
 import {AppComponent} from '../../app.component';
-import {ReplaySubject} from 'rxjs';
+import {BehaviorSubject, Observable, of, ReplaySubject} from 'rxjs';
 
 @Component({
     selector: 'app-people-add',
@@ -16,9 +16,12 @@ import {ReplaySubject} from 'rxjs';
 })
 export class PeopleAddComponent implements OnInit {
 
+    @Input() showOrgForm = true;
+    @ViewChild('stepper') stepper: any;
+    tels = [1, 2, 3];
     formGroupPerson: FormGroup;
     _formGroupArray: FormGroup[] = [];
-
+    orgs$: ReplaySubject<any> = new ReplaySubject<any>(1); // = of([{name: 'British Telecom', id: '12345'}, {name: 'United Utilites', id: '56789'}]);
     validations;
     newTelNo = ContactsFactory.instOfTelnos();
     newEmailAdd: IEmail = ContactsFactory.instOfEmail();
@@ -32,8 +35,9 @@ export class PeopleAddComponent implements OnInit {
     ];
 
     public getRawData() {
-        return  this._formGroupArray.map(a => a.getRawValue());
+        return this._formGroupArray.map(a => a.getRawValue());
     }
+
     onChange(event) {
         console.log('change event', event.target.value);
     }
@@ -43,12 +47,19 @@ export class PeopleAddComponent implements OnInit {
                 private snackBar: MatSnackBar,
                 private dao: OrgDaoService) {
         this.formGroupPerson = builder.group(personFactory.buildPersonForm());
+        this.dao.getOrgs().subscribe(a => this.orgs$.next(a));
 
+        // (this.stepper.nativeElement as MatStepper).steps.changes.subscribe(console.log);
         // console.log('constuctor ctl', this.ctl);
         // this.ctl.valueChanges.subscribe(console.log);
     }
 
     ngOnInit() {
+        console.log('stepper', this.stepper);
+    }
+
+    public getForms(): IPerson[] {
+        return (this._formGroupArray.map(a => <IPerson> a.getRawValue())) ;
     }
 
     private _instForm(): FormGroup {
@@ -73,6 +84,10 @@ export class PeopleAddComponent implements OnInit {
         });
     }
 
+    onDevSave() {
+        this._formGroupArray.forEach(a => console.log(a.getRawValue()));
+    }
+
     reset() {
         this.formGroupPerson.reset();
     }
@@ -94,4 +109,35 @@ export class PeopleAddComponent implements OnInit {
         this._formGroupArray.push(this._instForm());
     }
 
+    displayWith_org(value) {
+        return value.name;
+    }
+
+}
+
+@Directive({
+    selector: '[appSetFocus]',
+})
+export class SetFocusDirective {
+
+    constructor(private hostEle: ElementRef) {
+
+    }
+    ngOnInit() {
+        const ele: HTMLHtmlElement = this.hostEle.nativeElement;
+        ele.focus();
+    }
+}
+
+
+@Directive({
+    selector: '[appHorStep]'
+})
+export class HorizontalStepperDirective implements  OnInit{
+    constructor(private host: MatHorizontalStepper) {
+    }
+    ngOnInit() {
+         // console.log('changeds', this.host);
+         this.host.selectionChange.subscribe(console.log);
+    }
 }

@@ -7,10 +7,14 @@ import {SubformTableModule} from '../utils/subform-table/subform-table.module';
 import {ConfirmDeleteComponent} from '../organisation.menu/organisation-search/organisation-search.component';
 import {SubformTableComponent} from '../utils/subform-table/subform-table.component';
 import {SharedModule} from '../shared/shared.module';
-import { PeopleAddComponent } from './people-add/people-add.component';
+import {HorizontalStepperDirective, PeopleAddComponent, SetFocusDirective} from './people-add/people-add.component';
 
 @NgModule({
-    declarations: [EditPersonComponent, OptionDirective, PeopleAddComponent
+    declarations: [EditPersonComponent,
+        OptionDirective,
+        PeopleAddComponent,
+        SetFocusDirective,
+        HorizontalStepperDirective,
         // ConfirmDeleteComponent,
         // SubformTableComponent
     ],
@@ -25,7 +29,10 @@ import { PeopleAddComponent } from './people-add/people-add.component';
         SharedModule,
 
     ],
-    exports: [EditPersonComponent, PeopleAddComponent]
+    exports: [EditPersonComponent,
+        PeopleAddComponent,
+        HorizontalStepperDirective,
+        SetFocusDirective]
 })
 export class PeopleModule {
 }

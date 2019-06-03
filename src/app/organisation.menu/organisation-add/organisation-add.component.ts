@@ -14,8 +14,8 @@ import {PeopleAddComponent} from '../../people/people-add/people-add.component';
 })
 export class OrganisationAddComponent implements OnInit {
 
-    firstFormGroup: FormGroup;
-    secondFormGroup: FormGroup;
+    // firstFormGroup: FormGroup;
+    // secondFormGroup: FormGroup;
 
     @ViewChild('addPersonForm') PerComp: PeopleAddComponent;
 
@@ -31,6 +31,7 @@ export class OrganisationAddComponent implements OnInit {
     ];
     types = ORG_TYPES;
     @Input() data: any;
+
     newTelNo: ITelNo = ContactsFactory.instOfTelnos();
     newEmailAdd: IEmail = ContactsFactory.instOfEmail();
     newWebItem: IWebSite = ContactsFactory.instOfWebsite();
@@ -59,12 +60,7 @@ export class OrganisationAddComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.firstFormGroup = this.builder.group({
-            firstCtrl: ['', Validators.required]
-        });
-        this.secondFormGroup = this.builder.group({
-            secondCtrl: ['', Validators.required]
-        });
+
     }
 
     onSave(value) {
@@ -101,7 +97,8 @@ export class OrganisationAddComponent implements OnInit {
     }
 
     saveToDb() {
-        const po = this.PerComp.getRawData();
+        console.log('per forms', this.PerComp);
+        const po = this.PerComp.getForms();
         console.log('pos', po)
        const retval = this.dao.insertOrganisationAndPersons( this.formGroup.getRawValue() , po);
         console.log('Data returned',  retval);

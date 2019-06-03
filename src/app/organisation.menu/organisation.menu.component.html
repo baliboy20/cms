@@ -15,6 +15,7 @@
     <mat-menu #appMenu="matMenu">
         <button mat-menu-item
                 [matTooltip]="'Add Organisation'"
+                routerLinkActive="active-link"
                 [routerLink]="['add',{orgId: 'unalloc'}]">
             <span>New</span>
             <span style="display: inline-block; transform: translateY(-6px); padding-left: 3px">
@@ -24,6 +25,7 @@
             </span>
         </button>
         <button mat-menu-item routerLink="./orgs-table"
+                routerLinkActive="active-link"
                 matTooltip="Find Organisation/Person">
             <span> Find</span>
             <span style="display: inline-block; transform: translateY(-6px); padding-left: 3px">
@@ -44,6 +46,7 @@
 
     <mat-menu #perMenu="matMenu">
         <button mat-menu-item
+                routerLinkActive="active-link"
                 routerLink="./person-add"
                 matTooltip="Add person">
             <span>New</span>

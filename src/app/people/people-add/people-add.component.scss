@@ -1,0 +1,19 @@
+
+.vertical-form-layout {
+  display: flex;
+  flex-flow: column wrap;
+  justify-items: center;
+  padding: 10px;
+  border: 1px solid  lighten(lightgray, 0%);
+  border-radius: 7px;
+  background-color: lighten(lightgray, 17%);
+
+  & mat-form-field {
+    //flex: 1 1 auto;
+    //background-color: linen;
+   flex: 0 1 auto;
+    max-width: 30%;
+
+
+  }
+}

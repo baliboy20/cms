@@ -1,6 +1,6 @@
 import {ContactsFactory, IComment, IEmail, ITelNo, IWebSite} from './contact.classes';
 import {Inject, Injectable} from '@angular/core';
-import {FormArray, FormBuilder, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 export class Person {
 
@@ -51,10 +51,10 @@ export class PersonFactory {
     buildPersonForm() {
         const builder = this.fm;
         const emailsArr: FormArray = builder.array([builder.group(this.newEmailAdd)]);
-        const telNosArr: FormArray = builder.array([builder.group(this.newTelNo)]);
+        const telNosArr: FormArray = builder.array([builder.group(this.newTelNo), builder.group(this.newTelNo)]);
         const webArr: FormArray = builder.array([builder.group(this.newWebItem)]);
         const commArr: FormArray = builder.array([builder.group(this.newCommItem)]);
-        const orgArr: FormArray = builder.array([builder.group({name: 'xx', id: '1234'})]);
+        const org = ({name: 'Barry Manilow', id: '1234'});
 
         const person: any = {
             firstName: ['', Validators.required],
@@ -65,8 +65,7 @@ export class PersonFactory {
             telNos: telNosArr,
             web: webArr,
             comments: commArr,
-            org: orgArr,
-        };
+            org: org};
         return person;
     }
 }

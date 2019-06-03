@@ -20,42 +20,63 @@ name: string;
     </mat-toolbar>
     <mat-card id="titleCard">
 
-            <mat-form-field>
-                <mat-label>{{enCamp.name}}</mat-label>
-                <input type="text" matInput formControlName="name">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>{{enCamp.description}}</mat-label>
-                <textarea type="text"
-                          cdkAutosizeMinRows="1"
-                          cdkAutosizeMaxRows="3"
-                          matInput cdkTextareaAutosize
-                          formControlName="description"></textarea>
-            </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{enCamp.name}}</mat-label>
+            <input type="text" matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{enCamp.description}}</mat-label>
+            <textarea type="text" style="background-color: lightgrey"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="3"
+                      matInput cdkTextareaAutosize
+                      formControlName="description"></textarea>
+        </mat-form-field>
+        <mat-card class="mat-elevation-z3 mat-card-spacer">
+            <div style=" width: 100%; display: block">
+                <mat-icon class="matIcon">chat</mat-icon>
+                <button mat-mini-fab class="alignRight" (click)="onAddNew()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </mat-card>
+        <mat-card>
+            <ng-container *ngTemplateOutlet="tmpl1"></ng-container>
+        </mat-card>
+        <mat-card>
+
+            <!--<div class="camp-grid-container"-->
+            <!--formArrayName="items"-->
+            <!--*ngFor="let itm of formGroup.get('items')['controls']; let idx= index"-->
+            <!--cols="12" rowHeight="2:1.5">-->
+            <!--<ng-container [formGroupName]="idx">-->
+            <!--<app-campaign-item-add [formGroup]="formGrp"-->
+                                   <!--[formArrayName]="'items'"-->
+                                   <!--[newItem]="newCampaignItem()">-->
+            <!--</app-campaign-item-add>-->
+
+
+        </mat-card>
+
+
+        <mat-toolbar>
+            <button mat-raised-button color="warn" (click)="onCancel()">
+                <mat-icon>cancel</mat-icon>
+            </button>
+            <button mat-raised-button color="primary" (click)="onSave()">
+                <mat-icon>done</mat-icon>
+            </button>
+            <button mat-raised-button color="accent" (click)="onReset()">
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </mat-toolbar>
+
     </mat-card>
-    <mat-card>
-        <app-campaign-item-add [formGroup]="formGrp"
-                                [formArrayName]="'items'"
-                                [newItem]="newCampaignItem()">
-        </app-campaign-item-add>
-    </mat-card>
-
-
-    <mat-toolbar>
-        <button mat-raised-button color="warn" (click)="onCancel()">
-            <mat-icon>cancel</mat-icon>
-        </button>
-        <button mat-raised-button color="primary" (click)="onSave()">
-            <mat-icon>done</mat-icon>
-        </button>
-        <button mat-raised-button color="accent" (click)="onReset()">
-            <mat-icon>refresh</mat-icon>
-        </button>
-    </mat-toolbar>
-
-
 </div>
+<ng-template #tmpl1 let-x1="aa">
+    {{x1}} in the template heaven
 
+</ng-template>
 
 <ng-template #campItmsTemplate let-fm="fm" let-parent="parent">
 
@@ -101,7 +122,6 @@ name: string;
         </ng-container>
 
     </ng-container>
-
 
 
 </ng-template>

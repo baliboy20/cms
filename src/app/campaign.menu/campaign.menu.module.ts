@@ -51,6 +51,7 @@ const routes: Routes = [{path: 'campaign-menu',
   ],
     exports: [ CampaignMenuComponent,
         CampaignItemAddComponent,
-        CampaignEditComponent]
+        CampaignEditComponent],
+    entryComponents: [CampaignItemAddComponent]
 })
 export class CampaignMenuModule { }

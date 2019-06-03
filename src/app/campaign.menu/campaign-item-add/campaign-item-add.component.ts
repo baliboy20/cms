@@ -1,7 +1,7 @@
-import {Component, Input, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
+import {Component, Inject, Input, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
 import {CampaignFactory, enCampaignItemLbls, enCampaignLbls} from '../../model/campaign.interface';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {MatSnackBar} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import {EditStates} from '../../dao/collections.enum';
 import {CampaignDaoService} from '../../dao/campaignDao.service';
 import {ActivatedRoute} from '@angular/router';
@@ -10,20 +10,14 @@ import {StaticData} from '../../model/standingData.class';
 import {SubformTableComponent} from '../../utils/subform-table/subform-table.component';
 
 @Component({
-  selector: 'app-campaign-item-add',
-  templateUrl: './campaign-item-add.component.html',
-  styleUrls: ['./campaign-item-add.component.css']
+    selector: 'app-campaign-item-add',
+    templateUrl: './campaign-item-add.component.html',
+    styleUrls: ['./campaign-item-add.component.scss']
 })
 export class CampaignItemAddComponent implements OnInit {
 
-    private _formGrp: FormGroup;
+     _formGrp: FormGroup;
     orgs = [];
-    @Input() template: TemplateRef<any>;
-    @Input() formArrayName: string;
-    @Input() newItem: any;
-    @Input() idx: any;
-
-
     lbs = enCampaignItemLbls;
     priorities = StaticData.ACTION_PRIORITY_VALUES;
     actionNeeded = StaticData.ACTION_NEEDED_VALUES;
@@ -45,49 +39,35 @@ export class CampaignItemAddComponent implements OnInit {
     @ViewChild('addItemFunc') set addAnchor(e: any) {
     }
 
-    private getFormArray(): FormArray {
-        return this._formGrp.get(this.formArrayName) as FormArray;
-    }
-
-    getOrgs() {
-        this.daoOrgs.enterprises$
-            .subscribe(res => {
-
-                this.orgs = res;
-                console.log('camp edit', res, this.orgs);
-            });
-    }
-
-    addItem(e: Event) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        const fg = this.builder.group(this.newItem);
-        const fc: FormArray = this.getFormArray();
-        fc.push(fg);
-    }
-
-    deleteItem(e, idx) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        this.getFormArray().removeAt(idx);
-    }
-
 
     constructor(private rnd: Renderer2,
+                public dialogRef: MatDialogRef<any>,
+                @Inject(MAT_DIALOG_DATA) public data: any,
                 private dao: CampaignDaoService,
-                private daoOrgs: OrgDaoService,
+                public campaignFactory: CampaignFactory,
                 private builder: FormBuilder) {
+
+        console.log('form group', data.formGroup);
     }
 
     ngOnInit() {
+        console.log('ssdfsdfds', this.campaignFactory.newItem())
+        this._formGrp = this.builder.group(this.campaignFactory.newItem());
     }
 
     ngAfterViewInit() {
 
         // .valueChanges
         // .subscribe(a => );
-        this.getOrgs();
+        //this.getOrgs();
+
 
     }
 
+    onOK() {
+
+    }
+
+    onCancel() {
+    }
 }

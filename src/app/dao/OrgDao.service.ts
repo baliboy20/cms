@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreDocument, DocumentChangeAction, DocumentReference} from '@angular/fire/firestore';
-import {AsyncSubject, from, of, pipe, ReplaySubject} from 'rxjs/index';
+import {AsyncSubject, from, Observable, of, pipe, ReplaySubject} from 'rxjs/index';
 import {DbCollections} from './collections.enum';
 import {IEmail, IWebSite, Vo} from '../model/contact.classes';
 import {map, mergeMap, reduce, take, tap, toArray} from 'rxjs/internal/operators';
@@ -160,6 +160,26 @@ export class OrgDaoService {
         console.log('getted', b);
 
     }
+
+    /*
+        |==========================================================================================|
+                                  Combined and Filter Organisation/ People API's
+        |==========================================================================================|
+      */
+
+    /**
+     * returns partial Company and People details
+     */
+    getOrgsJoinedWithPeople() {
+        let o: Observable<any>;
+        const __coreOrg = this.__coreOrg;
+        this.enterprises$.pipe(map(__coreOrg))
+        return o;
+    }
+    private __coreOrg(a: IOrganisation) {
+        return {orgId: a.id, name: a.name};
+    }
+
 
     /*
      name: string;

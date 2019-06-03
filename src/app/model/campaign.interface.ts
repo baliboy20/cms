@@ -54,17 +54,16 @@ export interface ICampaignItem {
 export class CampaignFactory {
 
     CampaignItem = {
-        id: ['idxxx', Validators.required],
         typeOfAction: ['typeOfAction: ', Validators.required],
         orgId: [null, Validators.required],
-        personsId : ['jackie'],
-        notes: ['some notes for the hwll of it', Validators.required],
+        personsId : ['William'],
+        notes: ['good luck with this', Validators.required],
         action: ['action', Validators.required],
         finishOn: ['03/05/2019', Validators.required],
         startOn: '23/03/2019',
-        actionPriority: ['actionPriority', Validators.required],
+        actionPriority: ['urgent', Validators.required],
         done: [true],
-        rating: 'rating',
+        rating: ['HI'],
     };
 
     constructor(@Inject(FormBuilder) private builder: FormBuilder) {

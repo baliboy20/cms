@@ -29,6 +29,10 @@
           </textarea>
                 </mat-form-field>
             </form>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
         </mat-step>
 
 
@@ -90,7 +94,7 @@
         </mat-step>
         <mat-step>
             <ng-template matStepLabel>People <mat-icon>how_to_reg</mat-icon></ng-template>
-            <app-people-add></app-people-add>
+            <app-people-add #addPersonForm [showOrgForm]="false"></app-people-add>
             <div>
                 <button mat-button matStepperPrevious>Back</button>
                 <button mat-button (click)="stepper.reset()">Reset</button>
@@ -110,7 +114,7 @@
     </mat-vertical-stepper>
 
     <div class="button-bar">
-        <button mat-raised-button  color='accent' (click)="saveToDb()">
+        <button mat-raised-button  color='accent' (click)="reset()">
             Reset
             <mat-icon>cancel</mat-icon>
         </button>
