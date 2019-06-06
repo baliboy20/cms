@@ -7,7 +7,7 @@ import {map, mergeMap, reduce, take, tap, toArray} from 'rxjs/internal/operators
 import {HttpClient} from '@angular/common/http';
 import {flatMap} from 'tslint/lib/utils';
 import {IOrganisation, OrganisationFactory} from '../model/organisation.interface';
-import {isUndefined} from 'util';
+import {isNull, isUndefined} from 'util';
 import {IPerson} from '../model/person.class';
 
 
@@ -20,15 +20,26 @@ export class OrgDaoService {
 
     private _enterprises$: ReplaySubject<any>;
     private _people$: ReplaySubject<any>;
-
+    counter = 0;
     get people$(): ReplaySubject<any> {
+        console.log('counter', this.counter);
+        if ( this.counter >  100) {
+            return;
+        }
+        this.counter++;
+        console.log('inside get peoples!! null ~ undefined', isNull(this._people$), isUndefined(this._people$));
+        if ( isUndefined(this._people$) ) {
+            console.log('inside get peoples undefined logic block');
+            this._people$ = new ReplaySubject<any>(1);
+            this._populateCache_People();
+        }
+        console.log('inside after init', this._people$)
         return this._people$;
     }
 
     set people$(value: ReplaySubject<any>) {
         this._people$ = value;
     }
-
     get enterprises$(): ReplaySubject<any> {
         if (this._enterprises$ === undefined) {
             this._enterprises$ = new ReplaySubject<any>(1);
@@ -54,6 +65,27 @@ export class OrgDaoService {
     async insertPersonAsync<T extends Vo>(vo: T) {
         delete vo.id;
         return await this.db.collection(DbCollections.PERSONS).add(vo);
+    }
+    private _populateCache_People() {
+        if (this.isUnTouchedDirtyOrganisation) {
+            console.log('inside _populateCache_People');
+            this.db.collection(DbCollections.PERSONS).snapshotChanges()
+                .pipe(
+                    map((arg: DocumentChangeAction<any>[]) => {
+                        const retval = arg.map(a => {
+                            return {
+                                ...a.payload.doc.data(),
+                                id: a.payload.doc.id,
+                            };
+                        });
+                        return retval;
+                    })
+                )
+                .subscribe(a => {
+                    this.people$.next(a);
+                    this.isUnTouchedDirtyPeople = false;
+                });
+        }
     }
 
     /*
@@ -171,13 +203,20 @@ export class OrgDaoService {
      * returns partial Company and People details
      */
     getOrgsJoinedWithPeople() {
-        let o: Observable<any>;
+        const o: Observable<any> = null;
         const __coreOrg = this.__coreOrg;
-        this.enterprises$.pipe(map(__coreOrg))
+        this.enterprises$.pipe(map(__coreOrg));
         return o;
     }
     private __coreOrg(a: IOrganisation) {
         return {orgId: a.id, name: a.name};
+    }
+
+    /**
+     *
+     */
+    getPeople() {
+        return this.people$;
     }
 
 

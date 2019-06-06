@@ -1,0 +1,41 @@
+<mat-toolbar>
+
+
+    <form [formGroup]="formGroup">
+        <mat-form-field>
+            <input matInput placeholder="search term..." type="text" formControlName="searchTerm">
+            <mat-icon matSuffix style="color: darkgrey">search</mat-icon>
+        </mat-form-field>
+    </form>
+
+</mat-toolbar>
+
+<table>
+    <ng-container *ngFor="let pers of people$| async; let i = index; let show = true">
+        <tr>
+            <td>{{pers.firstName}}</td>
+            <td>{{pers.lastName}}</td>
+            <td>{{pers.org.name}}</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+            <button mat-button (click)="show = !show">
+                <mat-icon *ngIf="show">arrow_drop_upward</mat-icon>
+                <mat-icon *ngIf="!show">arrow_drop_downward</mat-icon>
+            </button>
+            </td>
+        </tr>
+        <ng-container *ngTemplateOutlet="tmps; context:{telnos: pers.telNos, showit: show}"></ng-container>
+
+
+    </ng-container>
+</table>
+
+<ng-template #tmps let-telNos="telnos" let-showit="showit">
+    <tr *ngIf="showit">
+        <td colspan="3">
+            {{showit}}
+            <div *ngFor="let op of telNos">{{op.note}}:{{op.telNo}}</div>
+        </td>
+    </tr>
+</ng-template>

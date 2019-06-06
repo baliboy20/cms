@@ -51,8 +51,8 @@ export class CampaignItemAddComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('ssdfsdfds', this.campaignFactory.newItem())
         this._formGrp = this.builder.group(this.campaignFactory.newItem());
+
     }
 
     ngAfterViewInit() {
@@ -66,8 +66,11 @@ export class CampaignItemAddComponent implements OnInit {
 
     onOK() {
 
+        this.dialogRef.close(this._formGrp.getRawValue());
     }
 
     onCancel() {
+        this._formGrp.reset();
+        this.dialogRef.close(null);
     }
 }

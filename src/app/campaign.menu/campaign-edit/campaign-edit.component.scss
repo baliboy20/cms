@@ -24,3 +24,27 @@ mat-toolbar {
 #addscrolls {
   overflow-y: auto ;
 }
+
+
+.camp-item-table {
+  display: flex;
+  flex: 1 1 100%;
+  flex-flow: column wrap;
+}
+.camp-item-row {
+  display: flex;
+  flex: 1 1 100%;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  justify-items: flex-start;
+//border: 1px solid
+}
+
+.camp-item-cell {
+  display: flex;
+  flex: 0 0 auto;
+  max-width: 10%;
+  min-width: 10%;
+  //border: solid 1px red;
+  //background-color: lightgreen;
+}

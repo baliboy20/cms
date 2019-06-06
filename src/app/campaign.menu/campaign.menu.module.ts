@@ -4,7 +4,7 @@ import {CampaignMenuComponent} from './campaign.menu.component';
 import {RouterModule, Routes} from '@angular/router';
 import {OrganisationMenuComponent} from '../organisation.menu/organisation.menu.component';
 import {MaterialzModule} from '../materialz/materialz.module';
-import { CampaignEditComponent } from './campaign-edit/campaign-edit.component';
+import {CampaignEditComponent, CampaignItemEditPopupComponent} from './campaign-edit/campaign-edit.component';
 import { CampaignSearchComponent } from './campaign-search/campaign-search.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SubformTableModule} from '../utils/subform-table/subform-table.module';
@@ -14,7 +14,8 @@ import {SharedModule} from '../shared/shared.module';
 import { CampaignGanttComponent } from './campaign-gantt/campaign-gantt.component';
 import {HighchartsChartComponent, HighchartsChartModule} from 'highcharts-angular';
 import {CampaignItemAddComponent} from './campaign-item-add/campaign-item-add.component';
-// campaign-menu
+import { CampaignItemAddStepperComponent } from './campaign-item-add-stepper/campaign-item-add-stepper.component';
+
 const routes: Routes = [{path: 'campaign-menu',
     component: CampaignMenuComponent,
     children: [
@@ -32,8 +33,8 @@ const routes: Routes = [{path: 'campaign-menu',
       CampaignItemEditComponent,
       CampaignGanttComponent,
       CampaignItemAddComponent,
-
-
+      CampaignItemEditPopupComponent,
+      CampaignItemAddStepperComponent,
   ],
   imports: [
     CommonModule,
@@ -46,12 +47,15 @@ const routes: Routes = [{path: 'campaign-menu',
       SubformTableModule,
       SharedModule,
       HighchartsChartModule,
-
-
   ],
     exports: [ CampaignMenuComponent,
         CampaignItemAddComponent,
+        CampaignItemAddStepperComponent,
         CampaignEditComponent],
-    entryComponents: [CampaignItemAddComponent]
+    entryComponents: [
+        CampaignItemAddComponent,
+        CampaignItemEditPopupComponent,
+        CampaignEditComponent
+    ]
 })
 export class CampaignMenuModule { }

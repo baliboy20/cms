@@ -1,50 +1,11 @@
 import {Inject, Injectable} from '@angular/core';
-import {FormArray, FormBuilder, Validators} from '@angular/forms';
-
-export enum enCampaignLbls {
-    name = 'Campaign Title',
-    description = 'Overview',
-    campaignItems = 'campaignItems',
-}
-
-export interface ICampaign {
-    name: string;
-    description: string;
-    items: ICampaignItem[];
-    id?: string;
-}
-
-export enum enCampaignItemLbls {
-    typeOfAction = 'Type of Action',
-    action = 'Action needed',
-    finishOn = 'Complete by',
-    actionPriority = 'priority',
-    done = 'is Complete',
-    rating = 'importance', // 1 - 5;
-    startOn = 'Starting on',
-    personsId = 'Contact',
-    orgId = 'Organisation',
-    notes = 'Description/Note',
-}
-
-export interface ICampaignItem {
-    typeOfAction: string;
-    action: string;
-    finishOn: Date;
-    actionPriority: 'Hi' | 'Low' | 'Med' | 'Urge';
-    done: boolean;
-    rating: 1 | 2 | 3 | 4 | 5;
-    startOn: Date;
-    id: string;
-    personsId: string;
-    orgId: string;
-    notes: string[];
-}
+import {ICampaignItem} from '../../model/campaign.interface';
+import {FormBuilder, Validators} from '@angular/forms';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
-export class CampaignFactory {
+export class CampaignBuilderService {
 
     CampaignItem = {
         typeOfAction: ['Email..', Validators.required],
@@ -62,6 +23,10 @@ export class CampaignFactory {
     constructor(@Inject(FormBuilder) private builder: FormBuilder) {
     }
 
+    sayHello() {
+        return 'Hello form CampaignBuilder';
+    }
+
     buildCampaignForm() {
 
         return this.builder.group(
@@ -75,6 +40,9 @@ export class CampaignFactory {
 
     newItem() {
         return this.CampaignItem;
+    }
+    newCampaignItemFormGroup() {
+        return this.builder.group(this.CampaignItem);
     }
 
     appendItem(value: ICampaignItem) {

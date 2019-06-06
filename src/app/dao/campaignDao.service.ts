@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreDocument, DocumentChangeAction, DocumentReference} from '@angular/fire/firestore';
-import {AsyncSubject, from, of, pipe, ReplaySubject} from 'rxjs/index';
+import {AsyncSubject, from, Observable, of, pipe, ReplaySubject} from 'rxjs/index';
 import {DbCollections} from './collections.enum';
 import {IEmail, IWebSite, Vo} from '../model/contact.classes';
-import {map, mergeMap, reduce, take, tap, toArray} from 'rxjs/internal/operators';
+import {filter, map, mergeMap, reduce, take, tap, toArray} from 'rxjs/internal/operators';
 import {HttpClient} from '@angular/common/http';
 import {flatMap} from 'tslint/lib/utils';
 import {OrganisationFactory} from '../model/organisation.interface';
-import {ICampaign} from '../model/campaign.interface';
-
+import {ICampaign, ICampaignItem} from '../model/campaign.interface';
 
 
 @Injectable({
@@ -23,22 +22,34 @@ export class CampaignDaoService {
     }
 
     getCampaigns() {
-       this.db.collection(DbCollections.CAMPAIGNS).snapshotChanges()
-            .subscribe( (arg: DocumentChangeAction<any>[]) => {
-                    const retval = arg.map(a => {
-                        // console.log('get dta', a.payload.doc.id);
-                        return {
-                            ...a.payload.doc.data(),
-                            id: a.payload.doc.id,
-                            // id2: a.payload.doc.id,
-                        };
-                    });
-                     this.campaigns$.next(retval);
-                    console.log('retval', retval);
+        this.db.collection(DbCollections.CAMPAIGNS).snapshotChanges()
+            .subscribe((arg: DocumentChangeAction<any>[]) => {
+                const retval = arg.map(a => {
+                    // console.log('get dta', a.payload.doc.id);
+                    return {
+                        ...a.payload.doc.data(),
+                        id: a.payload.doc.id,
+                        // id2: a.payload.doc.id,
+                    };
                 });
+                this.campaigns$.next(retval);
+                console.log('retval', retval);
+            });
         return this.campaigns$;
     }
 
+    getCampaignsDropdown(): Observable<{ name: string, id: string, description: string }[]> {
+        const mapper = (a) => Array.from(a).map((b: ICampaign) => ({name: b.name, id: b.id, description: b.description}));
+        return this.getCampaigns()
+            .pipe(map(mapper));
+    }
+
+    getCampaignItems(orgId: string): Observable<ICampaignItem[]> {
+        const mapper = (a: ICampaign) => a.items;
+        const filterById = (a: ICampaign) => a.id === orgId;
+        return this.getCampaigns()
+            .pipe(filter(filterById), map(mapper));
+    }
 
     insertCam<T extends Vo>(vo: T) {
         delete vo.id;
@@ -52,7 +63,7 @@ export class CampaignDaoService {
     updateCam<T extends Vo>(vo: T) {
         // delete vo.id;
         console.log('db updateing..', vo.id);
-       return this.db.collection(DbCollections.CAMPAIGNS).doc(vo.id).update(vo);
+        return this.db.collection(DbCollections.CAMPAIGNS).doc(vo.id).update(vo);
     }
 
     deleteOrg(id: string) {
@@ -75,12 +86,13 @@ export class CampaignDaoService {
         return retval;
     }
 
-   async  getDocRef(vo: ICampaign, orgId: string) {
-        const ref: AngularFirestoreDocument =  await this.db.doc(DbCollections.CAMPAIGNS + '/' + orgId)
+    async getDocRef(vo: ICampaign, orgId: string) {
+        const ref: AngularFirestoreDocument = await this.db.doc(DbCollections.CAMPAIGNS + '/' + orgId);
 
-       const a = await ref.update({address: '1234 highwayman road'});
+        const a = await ref.update({address: '1234 highwayman road'});
         const b = ref.valueChanges().subscribe(console.log);
     }
+
     getTestData() {
         const tapit = (a) => console.log(a);
         const _coMap = (a) => a.data;

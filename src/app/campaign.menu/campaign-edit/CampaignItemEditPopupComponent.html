@@ -1,0 +1,90 @@
+
+
+
+
+<!--<mat-dialog-title>-->
+    <!--Edit Campaign item-->
+<!--</mat-dialog-title>-->
+<mat-dialog-content>
+    <ng-container [formGroup]="formGroup">
+        <ng-container formArrayName="items">
+
+            <div class="camp-item-row" [formGroupName]="idx">
+                <div class="camp-item-cell">
+                    <input type="text"
+                           class="mat-body-1"
+                           formControlName="notes">
+                </div>
+
+                <div class="camp-item-cell">
+                    <input type="text"
+                           class="mat-body-1"
+                           formControlName="action">
+                </div>
+
+                <div class="camp-item-cell">
+                    <input type="text"
+                           class="mat-body-1"
+                           formControlName="actionPriority">
+                </div>
+
+                <div class="camp-item-cell">
+                    <input type="text"
+                           class="mat-body-1"
+                           formControlName="typeOfAction">
+                </div>
+
+                <div class="camp-item-cell">
+                    <input type="text"
+                           class="mat-body-1"
+                           formControlName="personsId">
+                </div>
+
+
+                <div class="camp-item-cell">
+                    <input type="text"
+                           class="mat-body-1"
+                           formControlName="startOn">
+                </div>
+
+
+                <div class="camp-item-cell">
+                    <input type="text"
+                           class="mat-body-1"
+                           formControlName="finishOn">
+                </div>
+
+                <div class="camp-item-cell">
+
+                    <mat-menu #appMenu="matMenu">
+                        <button mat-menu-item (click)="doEditCampaignItem(idx,itm)">
+                            <mat-icon>
+                                edit
+                            </mat-icon>
+                            &nbsp;
+                            Edit
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>
+                                view_list
+                            </mat-icon>
+                        </button>
+                    </mat-menu>
+                    <button mat-icon-button [matMenuTriggerFor]="appMenu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button
+            (click)="onClose()"
+    >
+        <mat-icon>
+            close
+        </mat-icon>
+
+    </button>
+</mat-dialog-actions>

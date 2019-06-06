@@ -14,6 +14,7 @@ import {PeopleModule} from '../people/people.module';
 import {EditPersonComponent} from '../people/person-edit/person-edit.component';
 import { OrganisationAddComponent } from './organisation-add/organisation-add.component';
 import {PeopleAddComponent} from '../people/people-add/people-add.component';
+import {PeopleSearchComponent} from '../people/people-search/people-search.component';
 
 const routes: Routes =
     [{
@@ -25,6 +26,7 @@ const routes: Routes =
             {path: 'orgs-table', component: TableOfOrgsComponent},
             {path: 'person-edit', component: EditPersonComponent},
             {path: 'person-add', component: PeopleAddComponent},
+            {path: 'person-search', component: PeopleSearchComponent},
         ]
     }];
 

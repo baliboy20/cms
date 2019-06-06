@@ -20,6 +20,9 @@ import {CampaignFactory} from './model/campaign.interface';
 import {CampaignDaoService} from './dao/campaignDao.service';
 import { ToDatePipe } from './utils/pipe/to-date.pipe';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { QuickInputComponent } from './quick-input/quick-input.component';
+import {QuickInputModule} from './quick-input/quick-input.module';
+import {CampaignBuilderService} from './utils/form-builders/campaign-builder.service';
 
 
 
@@ -28,7 +31,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     declarations: [
         AppComponent,
         MainComponent,
-
     ],
     imports: [
         BrowserModule,
@@ -38,6 +40,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         AppRoutingModule,
         OrganisationMenuModule,
         CampaignMenuModule,
+        QuickInputModule,
         MaterialzModule,
         HttpClientModule,
         FormsModule,
@@ -49,8 +52,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         AngularFirestore,
         OrgDaoService,
         CampaignDaoService,
+        CampaignBuilderService,
         CampaignFactory,
-        PersonFactory
+        PersonFactory,
     ],
     exports: [],
     bootstrap: [AppComponent],

@@ -6,12 +6,7 @@ import {MainComponent} from './main/main.component';
 
 
 const routes: Routes = [
-    // {path: 'campaign-menu', component: CampaignMenuComponent},
-    // {path: 'organisations-menu', component: OrganisationMenuComponent},
-    // {path: 'console', component: ConsolePortalComponent},
-    // {path: 'customers', component: CustomerPortalComponent},
     {path: 'main', component: MainComponent},
-    // {path: '', redirectTo: 'MainComponent', pathMatch: 'full'},
     {path: '', component: MainComponent},
 
 ];

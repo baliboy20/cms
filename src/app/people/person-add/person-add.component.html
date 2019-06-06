@@ -1,0 +1,125 @@
+<mat-horizontal-stepper #stepper appHorStep labelPosition="bottom">
+  <!--Title, nickname-->
+  <mat-step [stepControl]="formGroupPerson">
+    <ng-template matStepLabel>Title</ng-template>
+    <form [formGroup]="formGroupPerson">
+
+      <div class="vertical-form-layout">
+        <mat-form-field>
+          <input matInput
+                 appSetFocus
+                 [matAutocomplete]="autoTitle"
+                 placeholder="Title"
+                 formControlName="title" required autofocus>
+          <mat-autocomplete #autoTitle="matAutocomplete">
+            <mat-option *ngFor="let title of titles" [value]="title">{{title}}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="known as" formControlName="nickName">
+        </mat-form-field>
+        <div>
+          <!--<button mat-button matStepperPrevious>Back</button>-->
+          <button mat-button matStepperNext>Next</button>
+        </div>
+        <div>
+
+        </div>
+      </div>
+    </form>
+  </mat-step>
+
+
+  <!-- Name-->
+  <mat-step [stepControl]="formGroupPerson" >
+    <form [formGroup]="formGroupPerson">
+      <ng-template matStepLabel >Fill out your name</ng-template>
+      <mat-form-field>
+        <input matInput
+               appSetFocus
+               placeholder="First Name"
+               formControlName="firstName"
+               required autofocus>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Last Name" formControlName="lastName" required>
+      </mat-form-field>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </form>
+  </mat-step>
+
+
+  <!-- Telephone-->
+  <ng-container *ngFor="let telno of formGroupPerson.get('telNos').controls; let idx = index">
+    <!--<ng-container [formGroupName]="idx">-->
+    <mat-step [stepControl]="formGroupPerson">
+      <form [formGroup]="formGroupPerson">
+        <ng-container formArrayName="telNos">
+          <ng-container [formGroupName]="idx">
+
+            <ng-template matStepLabel>Telno {{i}}</ng-template>
+            <mat-form-field>
+              <input matInput placeholder="tel/ mob" formControlName="telNo" autofocus>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="note" formControlName="note" required>
+            </mat-form-field>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </ng-container>
+        </ng-container>
+      </form>
+    </mat-step>
+    <!--</ng-container>-->
+  </ng-container>
+
+  <!-- Web-->
+  <ng-container *ngFor="let telno of formGroupPerson.get('web').controls; let idx = index">
+    <!--<ng-container [formGroupName]="idx">-->
+    <mat-step [stepControl]="formGroupPerson">
+      <form [formGroup]="formGroupPerson">
+        <ng-container formArrayName="web">
+          <ng-container [formGroupName]="idx">
+
+            <ng-template matStepLabel>Email {{i}}</ng-template>
+            <mat-form-field>
+              <input matInput placeholder="email" formControlName="address" required autofocus>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="note" formControlName="note" required>
+            </mat-form-field>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </ng-container>
+        </ng-container>
+      </form>
+    </mat-step>
+    <!--</ng-container>-->
+  </ng-container>
+
+  <!--org-->
+  <mat-step [stepControl]="formGroupPerson" *ngIf="showOrgForm">
+    <form [formGroup]="formGroupPerson">
+      <ng-template matStepLabel>Add Company</ng-template>
+      <mat-form-field>
+
+        <input matInput
+               [matAutocomplete]="autoOrg"
+               placeholder="choose organisation"
+               formControlName="org" autofocus>
+        <mat-autocomplete #autoOrg="matAutocomplete" [displayWith]="displayWith_org">
+          <mat-option *ngFor="let org of orgs$|async" [value]="org">{{org.name}}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+
+</mat-horizontal-stepper>

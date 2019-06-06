@@ -1,0 +1,154 @@
+<div>
+
+    <mat-slide-toggle [(ngModel)]="showAddForm">
+
+    </mat-slide-toggle>
+    New Campaign Item
+</div>
+
+<div *ngIf="showAddForm; else showDropdown;">
+    <div *ngIf="false; else CampItmStepper"></div>
+</div>
+
+<ng-template #showDropdown>
+    inside dropdown &nbsp;
+    {{aa}}
+    {{someVal}}
+</ng-template>
+
+<ng-template #CampItmStepper>
+    <mat-horizontal-stepper>
+
+        <!---->
+
+        <mat-step [stepControl]="formGroupCI">
+            <ng-template matStepLabel>Identify</ng-template>
+
+            <!--<style>-->
+            <!--.item1 { grid-area: header; }-->
+            <!--.item2 { grid-area: menu; }-->
+            <!--.item3 { grid-area: main; }-->
+            <!--.item4 { grid-area: right; }-->
+            <!--.item5 { grid-area: footer; }-->
+
+            <!--.grid-container {-->
+            <!--display: grid;-->
+            <!--grid-template-areas:-->
+            <!--'header header header header header header'-->
+            <!--'menu main main main right right'-->
+            <!--'menu footer footer footer footer footer';-->
+            <!--grid-gap: 10px;-->
+            <!--background-color: #2196F3;-->
+            <!--padding: 10px;-->
+            <!--}-->
+
+            <!--.grid-container > div {-->
+            <!--background-color: rgba(255, 255, 255, 0.8);-->
+            <!--text-align: center;-->
+            <!--padding: 20px 0;-->
+            <!--font-size: 30px;-->
+            <!--}-->
+            <!--</style>-->
+
+
+            <!--<h1>Grid Layout</h1>-->
+
+            <!--<p>This grid layout contains six columns and three rows:</p>-->
+
+            <!--<div class="grid-container">-->
+            <!--<div class="item1">Header</div>-->
+            <!--<div class="item2">Menu</div>-->
+            <!--<div class="item3">Main</div>-->
+            <!--<div class="item4">Right</div>-->
+            <!--<div class="item5">Footer</div>-->
+            <!--</div>-->
+            <div class="grid-container1" [formGroup]="formGroupCI">
+                <div class="cias-grid-header">
+                    <h5>Enter New Campaign Details</h5>
+                </div>
+
+                <div class="cias-grid-col1">
+                    <mat-form-field class="cias-grid-cell ">
+                        <input type="text" matInput value="aaaaa">
+                    </mat-form-field>
+                    <mat-form-field class="cias-grid-cell1 ">
+                        <input type="text" matInput value="bbbbb">
+                    </mat-form-field>
+                    <mat-form-field class="cias-grid-cell1 ">
+                        <input type="text" matInput value="ccccc">
+                    </mat-form-field>
+
+                </div>
+                <div class="cias-grid-col2">
+                    <mat-form-field class="cias-grid-cell1 ">
+                        <input type="text" matInput value="dddd">
+                    </mat-form-field>
+                    <mat-form-field class="cias-grid-cell1 ">
+                        <input type="text" matInput value="dddd">
+                    </mat-form-field>
+                    <mat-form-field class="cias-grid-cell1 ">
+                        <input type="text" matInput value="dddd">
+                    </mat-form-field>
+
+
+                </div>
+                <div class="cias-grid-col3">
+                    <mat-form-field class="cias-grid-cell ">
+                        <input type="text"
+                               placeholder="About"
+                               matInput formControlName="notes">
+                    </mat-form-field>
+
+                    <mat-form-field class="cias-grid-cell1 ">
+                        <input type="text" matInput value="dddd">
+                    </mat-form-field>
+                    <mat-form-field class="cias-grid-cell1 ">
+                        <input type="text" matInput value="eeee">
+                    </mat-form-field>
+                    <mat-form-field class="cias-grid-cell1 ">
+                        <input type="text" matInput value="ffffe">
+                    </mat-form-field>
+
+                </div>
+
+
+
+            </div>
+
+        </mat-step>
+
+        <!---->
+
+        <mat-step>
+            <ng-template matStepLabel>Identify</ng-template>
+            <mat-form-field>
+                <input type="text" matInput value="12345">
+            </mat-form-field>
+        </mat-step>
+        <!---->
+
+        <mat-step>
+            <ng-template matStepLabel>Identify</ng-template>
+            <mat-form-field>
+                <input type="text" matInput value="12345">
+            </mat-form-field>
+        </mat-step>
+        <!---->
+
+        <mat-step>
+            <ng-template matStepLabel>Identify</ng-template>
+            <mat-form-field>
+                <input type="text" matInput value="12345">
+            </mat-form-field>
+        </mat-step>
+        <!---->
+
+        <mat-step>
+            <ng-template matStepLabel>Identify</ng-template>
+            <mat-form-field>
+                <input type="text" matInput value="12345">
+            </mat-form-field>
+        </mat-step>
+
+    </mat-horizontal-stepper>
+</ng-template>

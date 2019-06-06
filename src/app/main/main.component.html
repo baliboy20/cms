@@ -1,13 +1,62 @@
 <mat-toolbar>
-  <button mat-button
-          matToolbar="Search edit Organisations"
-          routerLink="organisation-menu">ORGANISATIONS
-  <mat-icon style="transform: translateY(-8px)"> business</mat-icon>
-  </button>
-  <button mat-button
-          matToobar="Add edit seach Campaigns"
-          routerLink="campaign-menu">CAMPAIGNS
-  <mat-icon style="transform: translateY(-8px)">ballot</mat-icon>
-  </button>
+
+    <!-- Quick Input Route-->
+    <button mat-button
+            matToobar="Quick Input"
+            [routerLink]="['quick-input']">
+            QUICK INPUT
+    </button>
+
+    <!-- Add Campaign Menu-->
+    <button mat-button [matMenuTriggerFor]="campMenu">
+        CAMPAIGNS
+        <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #campMenu="matMenu">
+        <button mat-menu-item [routerLink]="['campaign-menu','edit']">
+            <mat-icon>add</mat-icon>
+            ADD
+        </button>
+        <button mat-menu-item routerLink="campaign-menu/search">
+            <mat-icon>search</mat-icon>
+            SEARCH
+        </button>
+    </mat-menu>
+
+
+    <!-- Add Org Menu-->
+    <button mat-button [matMenuTriggerFor]="orgMenu">
+        COMPANIES
+        <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #orgMenu="matMenu">
+        <button mat-menu-item [routerLink]="['organisation-menu','person-add']">
+            <mat-icon>add</mat-icon>
+            ADD
+        </button>
+        <button mat-menu-item routerLink="organisation-menu/orgs-table">
+            <mat-icon>search</mat-icon>
+            SEARCH
+        </button>
+    </mat-menu>
+
+
+    <!-- Add People Menu-->
+    <button mat-button [matMenuTriggerFor]="peopleMenu">
+        PEOPLE
+        <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #peopleMenu="matMenu">
+        <button mat-menu-item [routerLink]="['organisation-menu','person-add']">
+            <mat-icon>add</mat-icon>
+            ADD
+        </button>
+        <button mat-menu-item routerLink="organisation-menu/person-search">
+            <mat-icon>search</mat-icon>
+            SEARCH
+        </button>
+    </mat-menu>
+
+
 </mat-toolbar>
 

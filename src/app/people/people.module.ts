@@ -8,6 +8,8 @@ import {ConfirmDeleteComponent} from '../organisation.menu/organisation-search/o
 import {SubformTableComponent} from '../utils/subform-table/subform-table.component';
 import {SharedModule} from '../shared/shared.module';
 import {HorizontalStepperDirective, PeopleAddComponent, SetFocusDirective} from './people-add/people-add.component';
+import { PeopleSearchComponent } from './people-search/people-search.component';
+import { PersonAddComponent } from './person-add/person-add.component';
 
 @NgModule({
     declarations: [EditPersonComponent,
@@ -15,6 +17,8 @@ import {HorizontalStepperDirective, PeopleAddComponent, SetFocusDirective} from 
         PeopleAddComponent,
         SetFocusDirective,
         HorizontalStepperDirective,
+        PeopleSearchComponent,
+        PersonAddComponent,
         // ConfirmDeleteComponent,
         // SubformTableComponent
     ],
