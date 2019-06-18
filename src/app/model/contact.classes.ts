@@ -1,5 +1,5 @@
 export interface Vo {
-    id: string;
+    id?: string;
     owner?: string;
 }
 

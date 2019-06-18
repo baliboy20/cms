@@ -45,7 +45,7 @@ name: string;
             </div>
         </mat-card>
         <mat-card>
-            <ng-container *ngTemplateOutlet="tmpl1"></ng-container>
+<!--            <ng-container *ngTemplateOutlet="tmpl1"></ng-container>-->
         </mat-card>
 
 
@@ -70,7 +70,7 @@ name: string;
     </mat-card>
     <div class="camp-item-table">
 
-        <div *ngFor="let itm of formGrp.get('items').controls; let idx = index; let b = testval"
+        <div *ngFor="let itm of formGrp['items'].controls; let idx = index; let b = testval"
              formArrayName="items">
             <ng-container [formGroupName]="idx">
                 <!--idx: {{idx}}-->

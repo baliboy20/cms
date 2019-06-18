@@ -3,7 +3,7 @@ import {EditStates} from '../dao/collections.enum';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrgDaoService} from '../dao/OrgDao.service';
 import {ActivatedRoute} from '@angular/router';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {PersonFactory} from '../model/person.class';
 
 @Component({

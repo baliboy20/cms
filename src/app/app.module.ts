@@ -23,6 +23,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { QuickInputComponent } from './quick-input/quick-input.component';
 import {QuickInputModule} from './quick-input/quick-input.module';
 import {CampaignBuilderService} from './utils/form-builders/campaign-builder.service';
+import {PeopleBuilderService} from './utils/form-builders/people-builder.service';
+import { SpyPipe } from './utils/pipes/spy.pipe';
 
 
 
@@ -31,6 +33,7 @@ import {CampaignBuilderService} from './utils/form-builders/campaign-builder.ser
     declarations: [
         AppComponent,
         MainComponent,
+        SpyPipe,
     ],
     imports: [
         BrowserModule,
@@ -55,8 +58,10 @@ import {CampaignBuilderService} from './utils/form-builders/campaign-builder.ser
         CampaignBuilderService,
         CampaignFactory,
         PersonFactory,
+        PeopleBuilderService,
+        SpyPipe,
     ],
-    exports: [],
+    exports: [SpyPipe],
     bootstrap: [AppComponent],
 })
 export class AppModule {

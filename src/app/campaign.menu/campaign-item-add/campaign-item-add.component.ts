@@ -1,7 +1,8 @@
 import {Component, Inject, Input, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
 import {CampaignFactory, enCampaignItemLbls, enCampaignLbls} from '../../model/campaign.interface';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {EditStates} from '../../dao/collections.enum';
 import {CampaignDaoService} from '../../dao/campaignDao.service';
 import {ActivatedRoute} from '@angular/router';
@@ -36,7 +37,7 @@ export class CampaignItemAddComponent implements OnInit {
         return this._formGrp;
     }
 
-    @ViewChild('addItemFunc') set addAnchor(e: any) {
+    @ViewChild('addItemFunc', {static: true}) set addAnchor(e: any) {
     }
 
 

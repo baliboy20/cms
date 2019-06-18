@@ -1,154 +1,479 @@
-<div>
 
-    <mat-slide-toggle [(ngModel)]="showAddForm">
 
-    </mat-slide-toggle>
-    New Campaign Item
-</div>
-
-<div *ngIf="showAddForm; else showDropdown;">
-    <div *ngIf="false; else CampItmStepper"></div>
-</div>
-
-<ng-template #showDropdown>
-    inside dropdown &nbsp;
-    {{aa}}
-    {{someVal}}
-</ng-template>
-
-<ng-template #CampItmStepper>
     <mat-horizontal-stepper>
+        <!--STEP Campaign-->
+        <mat-step>
+            <ng-container *ngTemplateOutlet="CampaingAddTempl"></ng-container>
 
-        <!---->
+
+        </mat-step>
+
+<!--   STEP ORGANISATIONS     -->
+        <mat-step [stepControl]="formGroupOrg">
+            <ng-template matStepLabel>ORGANISATIONS</ng-template>
+
+            <div class="org-grid-container" [formGroup]="formGroupOrg">
+
+                <div class="org-grid-col1">
+                    <h4>ORGANISATIONS</h4>
+                    <mat-form-field>
+                        <input type="text"
+                               placeholder="Organisation name"
+                               matInput formControlName="name">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <textarea rows="7"
+                                placeholder="Location/ address"
+                                matInput
+                                style="border: 1px dotted rgba(0, 0, 0 , .2); border-radius: 5px;"
+                                formControlName="address"></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="org-grid-col2">
+                    <h4>CONTACT</h4>
+                    <ng-container
+                            *ngTemplateOutlet="TelephoneSublist;context:{fg: formGroupOrg, arrayName: 'emails' }">
+                    </ng-container>
+
+                    <ng-container
+                            *ngTemplateOutlet="SublistEmail;context:{fg: formGroupOrg, arrayName: 'emails' }">
+                    </ng-container>
+
+                    <ng-container
+                            *ngTemplateOutlet="SublistWeb;context:{fg: formGroupOrg, arrayName: 'web' }">
+                    </ng-container>
+                </div>
+                <div class="org-grid-col3">
+                    <h4>ABOUT</h4>
+                    <mat-form-field>
+                        <mat-label>Organisation Type</mat-label>
+                       <mat-select  formControlName="sector">
+                           <mat-option *ngFor="let sec of sectors" [value]="sec.type" >
+                               {{sec.type}}
+                           </mat-option>
+                       </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Sector</mat-label>
+                        <mat-select
+                                formControlName="sector"
+                                (selectionChange)="selectionChangeSector($event)">
+                            <mat-option *ngFor="let ot of orgType" [value]="ot.type" >
+                                {{ot.type}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-step>
+
+
+        <!-- STEP CAMPAIGN-->
 
         <mat-step [stepControl]="formGroupCI">
-            <ng-template matStepLabel>Identify</ng-template>
 
-            <!--<style>-->
-            <!--.item1 { grid-area: header; }-->
-            <!--.item2 { grid-area: menu; }-->
-            <!--.item3 { grid-area: main; }-->
-            <!--.item4 { grid-area: right; }-->
-            <!--.item5 { grid-area: footer; }-->
-
-            <!--.grid-container {-->
-            <!--display: grid;-->
-            <!--grid-template-areas:-->
-            <!--'header header header header header header'-->
-            <!--'menu main main main right right'-->
-            <!--'menu footer footer footer footer footer';-->
-            <!--grid-gap: 10px;-->
-            <!--background-color: #2196F3;-->
-            <!--padding: 10px;-->
-            <!--}-->
-
-            <!--.grid-container > div {-->
-            <!--background-color: rgba(255, 255, 255, 0.8);-->
-            <!--text-align: center;-->
-            <!--padding: 20px 0;-->
-            <!--font-size: 30px;-->
-            <!--}-->
-            <!--</style>-->
+            <ng-template matStepLabel>
+                <mat-icon style="color: gray">transform</mat-icon>
+            </ng-template>
 
 
-            <!--<h1>Grid Layout</h1>-->
-
-            <!--<p>This grid layout contains six columns and three rows:</p>-->
-
-            <!--<div class="grid-container">-->
-            <!--<div class="item1">Header</div>-->
-            <!--<div class="item2">Menu</div>-->
-            <!--<div class="item3">Main</div>-->
-            <!--<div class="item4">Right</div>-->
-            <!--<div class="item5">Footer</div>-->
-            <!--</div>-->
             <div class="grid-container1" [formGroup]="formGroupCI">
                 <div class="cias-grid-header">
-                    <h5>Enter New Campaign Details</h5>
+                    <h3>Enter New Campaign Details</h3>
                 </div>
 
+                <!-- done                -->
                 <div class="cias-grid-col1">
-                    <mat-form-field class="cias-grid-cell ">
-                        <input type="text" matInput value="aaaaa">
-                    </mat-form-field>
-                    <mat-form-field class="cias-grid-cell1 ">
-                        <input type="text" matInput value="bbbbb">
-                    </mat-form-field>
-                    <mat-form-field class="cias-grid-cell1 ">
-                        <input type="text" matInput value="ccccc">
+
+                    <mat-form-field class="cias-grid-cell " >
+                        <mat-checkbox matInput formControlName="done">Task done</mat-checkbox>
+                        <input type="text" matInput formControlName="done" placeholder="done" style="display: none">
                     </mat-form-field>
 
+                    <!-- action needed-->
+
+                    <mat-form-field class="cias-grid-cell1 ">
+                        <input type="text"
+                               placeholder="to do"
+                               matInput value="action">
+                    </mat-form-field>
+
+                    <!-- actionPriorities-->
+                    <mat-form-field class="cias-grid-cell1 ">
+                        <mat-select placeholder="urgency"
+                                    formControlName="actionPriority">
+                            <mat-option *ngFor="let ap of actionPriorities"
+                                        [value]="ap">{{ap}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+
+                    <!-- finish on-->
+                    <mat-form-field class="cias-grid-cell1 ">
+                        <!--                        <mat-label>{{lbs.finishOn}}</mat-label>-->
+                        <input matInput
+                               placeholder="finishing"
+                               [matDatepicker]="finishOnDatepicker"
+                               formControlName="finishOn">
+                        <mat-datepicker-toggle
+                                matSuffix
+                                [for]="finishOnDatepicker">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #finishOnDatepicker></mat-datepicker>
+                    </mat-form-field>
+                    <!-- start on                 -->
+                    <mat-form-field class="cias-grid-cell1 ">
+                        <input matInput
+                               placeholder="starting"
+                               [matDatepicker]="startDatepicker"
+                               formControlName="startOn">
+                        <mat-datepicker-toggle
+                                matSuffix
+                                [for]="startDatepicker">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #startDatepicker></mat-datepicker>
+                    </mat-form-field>
+                    <!-- type of action-->
                 </div>
                 <div class="cias-grid-col2">
                     <mat-form-field class="cias-grid-cell1 ">
-                        <input type="text" matInput value="dddd">
-                    </mat-form-field>
-                    <mat-form-field class="cias-grid-cell1 ">
-                        <input type="text" matInput value="dddd">
-                    </mat-form-field>
-                    <mat-form-field class="cias-grid-cell1 ">
-                        <input type="text" matInput value="dddd">
+                        <mat-select formControlName="typeOfAction"
+                                    placeholder="action type">
+                            <mat-option *ngFor="let ac of actionNeeded" [value]="ac">{{ac}}
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
 
+                    <div class="cias-grid-col2">
+                        <mat-form-field class="cias-grid-cell1 ">
+                            <mat-select formControlName="rating"
+                                        placeholder="rating">
+                                <mat-option [value]="1">
+                                    <mat-icon>star</mat-icon>
+                                </mat-option>
+                                <mat-option [value]="1">
+                                    <mat-icon>star</mat-icon>
+                                    <mat-icon>star</mat-icon>
+                                </mat-option>
+                                <mat-option [value]="1">
+                                    <mat-icon>star</mat-icon>
+                                    <mat-icon>star</mat-icon>
+                                    <mat-icon>star</mat-icon>
+                                </mat-option>
 
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                 </div>
                 <div class="cias-grid-col3">
-                    <mat-form-field class="cias-grid-cell ">
-                        <input type="text"
-                               placeholder="About"
-                               matInput formControlName="notes">
-                    </mat-form-field>
-
-                    <mat-form-field class="cias-grid-cell1 ">
-                        <input type="text" matInput value="dddd">
-                    </mat-form-field>
-                    <mat-form-field class="cias-grid-cell1 ">
-                        <input type="text" matInput value="eeee">
-                    </mat-form-field>
-                    <mat-form-field class="cias-grid-cell1 ">
-                        <input type="text" matInput value="ffffe">
-                    </mat-form-field>
 
                 </div>
-
 
 
             </div>
 
         </mat-step>
 
-        <!---->
+        <!-- ORGANISATION STEP-->
+
+        <!-- PERSON STEP-->
 
         <mat-step>
-            <ng-template matStepLabel>Identify</ng-template>
-            <mat-form-field>
-                <input type="text" matInput value="12345">
-            </mat-form-field>
-        </mat-step>
-        <!---->
+            <ng-template matStepLabel>
+                <mat-icon style="color: gray">person</mat-icon>
+            </ng-template>
 
-        <mat-step>
-            <ng-template matStepLabel>Identify</ng-template>
-            <mat-form-field>
-                <input type="text" matInput value="12345">
-            </mat-form-field>
-        </mat-step>
-        <!---->
+            <div class="grid-container1" [formGroup]="formGroupPerson">
+                <div class="cias-grid-header">
+                    Add Person
+                </div>
+                <div class="cias-grid-col1">
+                    <mat-form-field class="cias-grid-cell" >
+                        <input type="text" matInput formControlName="firstName" placeholder="firstName">
+                    </mat-form-field>
+                    <mat-form-field class="cias-grid-cell" >
+                        <input type="text" matInput formControlName="lastName" placeholder="lastName">
+                    </mat-form-field>
+                    <mat-form-field class="cias-grid-cell" >
+                        <input type="text" matInput formControlName="nickName" placeholder="nickName">
+                    </mat-form-field>
+                    <mat-form-field class="cias-grid-cell" >
+                        <input type="text" matInput formControlName="title" placeholder="title">
+                    </mat-form-field>
+                </div>
+                <div class="cias-grid-col2">
 
-        <mat-step>
-            <ng-template matStepLabel>Identify</ng-template>
-            <mat-form-field>
-                <input type="text" matInput value="12345">
-            </mat-form-field>
-        </mat-step>
-        <!---->
+                    <ng-container
+                            *ngTemplateOutlet="TelephoneSublist;context: cContext">
+                    </ng-container>
 
-        <mat-step>
-            <ng-template matStepLabel>Identify</ng-template>
-            <mat-form-field>
-                <input type="text" matInput value="12345">
-            </mat-form-field>
+                    <ng-container
+                            *ngTemplateOutlet="SublistEmail;context:{fg: formGroupPerson, arrayName: 'emails' }">
+                    </ng-container>
+
+                    <ng-container>
+                    <!--                            *ngTemplateOutlet="SublistWeb;context:{fg: formGroupPerson, arrayName: 'web' }">-->
+                    </ng-container>
+                </div>
+            </div>
         </mat-step>
+
 
     </mat-horizontal-stepper>
+
+
+<!--
+... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
+
+                                    TEMPLATE: TelephoneSublist
+
+... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
+-->
+<ng-template #TelephoneSublist
+             let-fm="fg"
+             let-insertRowFn="inRow" ,
+             deletRowFn="delRow">
+
+    <ng-container [formGroup]="fm">
+        <button (click)="insertRow(fm, 'telNos')"
+                mat-stroked-button
+                style="font-size: 8px">
+            Telephone
+            <mat-icon>add</mat-icon>
+        </button>
+
+        <ng-container formArrayName="telNos"
+                      *ngFor="let tel of fm.controls.telNos.controls; let idx= index">
+
+            <div class="cias-grid-cell-vt" [formGroupName]="idx">
+
+                <div class="cias-grid-cell-hz">
+
+                    <mat-form-field class="cias-grid-cell" [floatLabel]="never">
+                        <input type="text"
+                               matInput
+                               placeholder="Tel no"
+                               formControlName="telNo">
+                    </mat-form-field>
+
+                    <mat-form-field class="cias-grid-cell" [floatLabel]="never">
+
+                        <mat-select
+                                placeholder="Protocol"
+                                formControlName="note">
+                            <mat-option
+                                    *ngFor="let val of ['switchboard', 'skype', 'home', 'mobile']"
+                                    [value]="val">{{val}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button (click)="deleteRow(fm, idx, 'telNos')"
+                            mat-stroked-button
+                            class="cias-hover"
+                            style="font-size: 8px">
+                        <mat-icon>delete_outline</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+
 </ng-template>
+
+
+<!--
+... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
+
+                                    TEMPLATE: SublistEmail
+
+... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
+-->
+<ng-template #SublistEmail
+             let-fm="fg"
+             let-arrayName="arrayName"
+             let-label="labels">
+
+    <ng-container [formGroup]="fm">
+        <button (click)="insertRow(fm, 'emails')"
+                mat-icon-button
+                style="font-size: 8px">
+            Email
+            <mat-icon>add</mat-icon>
+        </button>
+
+        <ng-container
+                *ngFor="let em of fm.controls.emails.controls; let idx= index">
+
+            <ng-container [formArrayName]="arrayName">
+                <div class="cias-grid-cell-vt" [formGroupName]="idx">
+
+                    <button (click)="deleteRow(fm, idx, 'emails')"
+                            class="cias-hover"
+                            mat-icon-button
+                            style="font-size: 8px">
+                        <mat-icon>delete_outline</mat-icon>
+                    </button>
+                    <div class="cias-grid-cell-hz">
+
+                        <mat-form-field class="cias-grid-cell" [floatLabel]="never">
+                            <input type="text"
+                                   matInput
+                                   placeholder="Email"
+                                   formControlName="address">
+                        </mat-form-field>
+
+                        <mat-form-field class="cias-grid-cell" [floatLabel]="never">
+                            <mat-select
+                                    placeholder="Protocol"
+                                    formControlName="note">
+                                <mat-option
+                                        *ngFor="let val of ['personal', 'work', 'other']"
+                                        [value]="val">{{val}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+
+</ng-template>
+
+<!--&lt;!&ndash;-->
+
+<!--
+... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
+
+                                    TEMPLATE: SublistWeb
+
+... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
+-->
+<ng-template #SublistWeb
+             let-fm="fg"
+             let-arrayName="arrayName"
+             let-label="labels">
+
+    <ng-container [formGroup]="fm">
+        <button (click)="insertRow(fm, 'web')"
+                mat-icon-button
+                style="font-size: 8px">
+            Social Media
+            <mat-icon>add</mat-icon>
+        </button>
+
+        <ng-container
+                *ngFor="let em of fm.controls.web.controls; let idx= index">
+
+            <ng-container [formArrayName]="arrayName" >
+                <div class="cias-grid-cell-vt" [formGroupName]="idx">
+
+                    <button (click)="deleteRow(fm, idx, 'web')"
+                            class="cias-hover"
+                            mat-icon-button
+                            style="font-size: 8px">
+                        <mat-icon>delete_outline</mat-icon>
+                    </button>
+                    <div class="cias-grid-cell-hz">
+
+                        <mat-form-field class="cias-grid-cell" [floatLabel]="never">
+                            <input type="text"
+                                   matInput
+                                   placeholder="website / social media address"
+                                   formControlName="address">
+                        </mat-form-field>
+
+                        <mat-form-field class="cias-grid-cell" [floatLabel]="never">
+                            <mat-select
+                                    placeholder="social media/ other"
+                                    formControlName="note">
+                                <mat-option
+                                        *ngFor="let val of ['twitter', 'instagram', 'facebook', 'website', 'linkedIn']"
+                                        [value]="val">{{val}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+
+</ng-template>
+
+
+    <!--
+... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
+
+                                    TEMPLATE: Campaign add
+... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
+-->
+
+
+    <ng-template
+            #CampaingAddTempl>
+
+        <div class="camp-container" >
+            <div class="camp-header">
+                <mat-radio-group [(ngModel)]="showAddForm">
+                    <mat-radio-button [value]="true">Add New Campaign Item</mat-radio-button>
+                    <mat-radio-button [value]="false">Choose existing</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <ng-container [formGroup]="formGroupCam">
+                <ng-container *ngIf="!showAddForm">
+                    <div class="camp-col1">
+                        <mat-form-field>
+                            <input type="text" matInput placeholder="Campaign Name">
+                        </mat-form-field>
+                    </div>
+                    <div class="camp-col2">
+                        <mat-form-field>
+                            <textarea name="" id="" cols="30" rows="5" matInput placeholder="Description"></textarea>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="!showAddForm">
+                    <div class="camp-col1">
+
+                    </div>
+                    <div class="camp-col2">
+                        <mat-select #selectCampaign
+                                    placeholder="select dropdown"
+                                    [value]="selectedCampaign">
+                            <mat-option *ngFor="let a of campaigns$ | async"
+                                        [value]="a.id"
+                            >{{a.name}}</mat-option>
+                        </mat-select>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+
+        <div class="camp-footer">
+            I a footer
+        </div>
+
+        <div *ngIf="showAddForm; else showDropdown;">
+            <div *ngIf="false; else CampItmStepper"></div>
+        </div>
+
+        <ng-template #showDropdown>
+            <div id="select-dropdown">
+                <mat-select #selectCampaign
+                            placeholder="select dropdown"
+                            [value]="selectedCampaign">
+                    <mat-option *ngFor="let a of campaigns$ | async"
+                                [value]="a.id"
+                    >{{a.name}}</mat-option>
+                </mat-select>
+            </div>
+        </ng-template>
+
+    </ng-template>
+
+
+
+

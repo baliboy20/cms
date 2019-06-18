@@ -1,6 +1,9 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {enCampaignItemLbls, ICampaign} from '../../model/campaign.interface';
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {IOrganisation} from '../../model/organisation.interface';
 import {OrgDaoService} from '../../dao/OrgDao.service';
@@ -29,9 +32,9 @@ export class CampaignSearchComponent implements OnInit {
         'actionPriority',
     ];
     selection = new SelectionModel<IOrganisation>(true, []);
-    @ViewChild('confirmDelete') confirmDeleteTmpl: TemplateRef<any>;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild('confirmDelete', {static: true}) confirmDeleteTmpl: TemplateRef<any>;
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     constructor(private dao: CampaignDaoService,
                 private daoOrgs: OrgDaoService,

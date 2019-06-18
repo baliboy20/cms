@@ -16,7 +16,7 @@ export class CampaignBuilderService {
         finishOn: ['03/05/2019', Validators.required],
         startOn: '23/03/2019',
         actionPriority: ['urgent', Validators.required],
-        done: [true],
+        done: [false],
         rating: ['HI'],
     };
 
@@ -24,7 +24,7 @@ export class CampaignBuilderService {
     }
 
     sayHello() {
-        return 'Hello form CampaignBuilder';
+        return 'Hello form CampaignBuilder form yours';
     }
 
     buildCampaignForm() {

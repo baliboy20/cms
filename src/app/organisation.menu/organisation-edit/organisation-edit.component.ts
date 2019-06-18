@@ -5,7 +5,7 @@ import {OrgDaoService} from '../../dao/OrgDao.service';
 import {EditStates, ORG_SECTORS, ORG_TYPES} from '../../dao/collections.enum';
 import {ActivatedRoute} from '@angular/router';
 import {map} from 'rxjs/internal/operators';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 const constTestData: any = {

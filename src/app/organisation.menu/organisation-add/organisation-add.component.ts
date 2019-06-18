@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {OrgDaoService} from '../../dao/OrgDao.service';
 import {ActivatedRoute} from '@angular/router';
 import {ContactsFactory, IEmail, ITelNo, IWebSite} from '../../model/contact.classes';
@@ -17,7 +17,7 @@ export class OrganisationAddComponent implements OnInit {
     // firstFormGroup: FormGroup;
     // secondFormGroup: FormGroup;
 
-    @ViewChild('addPersonForm') PerComp: PeopleAddComponent;
+    @ViewChild('addPersonForm', {static: true}) PerComp: PeopleAddComponent;
 
     formGroup: FormGroup;
     validations;

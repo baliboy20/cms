@@ -4,7 +4,7 @@ import {IPerson, PersonFactory} from '../../model/person.class';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {ReplaySubject} from 'rxjs';
 import {OrgDaoService} from '../../dao/OrgDao.service';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-person-add',
@@ -14,7 +14,7 @@ import {MatSnackBar} from '@angular/material';
 export class PersonAddComponent implements OnInit {
 
     @Input() showOrgForm = true;
-    @ViewChild('stepper') stepper: any;
+    @ViewChild('stepper', {static: true}) stepper: any;
     tels = [1, 2, 3];
     formGroupPerson: FormGroup;
     _formGroupArray: FormGroup[] = [];
@@ -112,17 +112,4 @@ export class PersonAddComponent implements OnInit {
 
 }
 
-@Directive({
-    selector: '[appSetFocus]',
-})
-export class SetFocusDirective {
-
-    constructor(private hostEle: ElementRef) {
-
-    }
-    ngOnInit() {
-        const ele: HTMLHtmlElement = this.hostEle.nativeElement;
-        ele.focus();
-    }
-}
 

@@ -32,9 +32,7 @@ export class SubformTableComponent implements OnInit {
         return this._formGrp;
     }
 
-    @ViewChild('addItemFunc') set addAnchor(e: any) {
-        // console.log('element ref', e, this.rnd);
-        // this.rnd.listen('click', e.nativeElement, this.addItem);
+    @ViewChild('addItemFunc', {static: true}) set addAnchor(e: any) {
     }
 
     private getFormArray(): FormArray {

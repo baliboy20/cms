@@ -10,48 +10,28 @@ margin-bottom: 10px;">
 </div>
 <mat-toolbar style="z-index: 1;
 background-color: dodgerblue;
-margin-bottom: -11px;
+margin-bottom: 11px;
 z-index: -10;
 ">
   <ng-container *ngTemplateOutlet="ChooseCampaignTemplate; context:{changeFunc: campaignSelectionChange}"></ng-container>
 </mat-toolbar>
 
+<!--<app-campaign-item-add-stepper-->
+<!--        (itemRef)="CampaignItemRef($event)"-->
+<!--        [campaignId]="selectedCampaignId">-->
+<!---->
+<!--</app-campaign-item-add-stepper>-->
 
+<mat-horizontal-stepper>
+  <mat-step>
+    <ng-template matStepLabel>CAMPAIGN</ng-template>
+    <app-sub-campaign-add></app-sub-campaign-add>
 
-<mat-accordion class="example-headers-align">
-
-  <!-- Select input a campaign Item-->
-
-  <mat-expansion-panel [expanded]="step === -1" (opened)="setStep(-1)">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        CAMPAIGN ITEMS
-      </mat-panel-title>
-      <mat-panel-description>
-
-        <mat-icon>share</mat-icon> &nbsp;
-        <span> Select /Add new</span>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <div>
-      <app-campaign-item-add-stepper
-              (itemRef)="CampaignItemRef($event)"
-              [campaignId]="selectedCampaignId">
-
-      </app-campaign-item-add-stepper>
-
-    </div>
-
-  </mat-expansion-panel>
-
-
-</mat-accordion>
-
-
-
-
-
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>ORGANISATION</ng-template>
+  </mat-step>
+</mat-horizontal-stepper>
 
 
 

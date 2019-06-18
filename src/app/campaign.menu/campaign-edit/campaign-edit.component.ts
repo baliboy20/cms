@@ -1,9 +1,10 @@
-import {Component, Inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {CampaignFactory, enCampaignLbls, ICampaign} from '../../model/campaign.interface';
 import {OrgDaoService} from '../../dao/OrgDao.service';
 import {ActivatedRoute} from '@angular/router';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {EditStates} from '../../dao/collections.enum';
 import {CampaignDaoService} from '../../dao/campaignDao.service';
 import {CampaignItemAddComponent} from '../campaign-item-add/campaign-item-add.component';
@@ -16,7 +17,7 @@ import {isNull} from 'util';
 })
 export class CampaignEditComponent implements OnInit {
 
-    @ViewChild('editableCampaignItemTemplate') editableCampaignItemTemplate: TemplateRef<any>;
+    @ViewChild('editableCampaignItemTemplate', {static: true}) editableCampaignItemTemplate: TemplateRef<any>;
     formGrp: FormGroup;
     validations;
     private editState: EditStates = EditStates.add;
@@ -53,6 +54,10 @@ export class CampaignEditComponent implements OnInit {
 
     newCampaignItem() {
         return this.campaignFactory.newItem();
+    }
+    getFormArray(arrName): AbstractControl[] {
+        const f: FormArray = this.formGrp.get(arrName) as FormArray;
+        return f.controls;
     }
 
     onAddNew() {
@@ -125,5 +130,7 @@ export class CampaignItemEditPopupComponent {
 
     }
 
+    doEditCampaignItem(idx) {
+    }
 }
 

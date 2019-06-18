@@ -1,0 +1,87 @@
+<div class="sca-container">
+
+    <div class="sca-header">Selected Campaign: {{campName}}</div>
+    <div class="sca-col1">
+        <ng-container *ngTemplateOutlet="selectCreateOrExisting"></ng-container>
+    </div>
+    <div class="sca-col2">
+        <ng-container *ngIf="!createCampaignFlag; else campSelect">
+            <ng-container *ngTemplateOutlet="enterNewCampaign"></ng-container>
+        </ng-container>
+    </div>
+    <div class="sca-footer">
+    <button mat-raised-button>next</button>
+    </div>
+</div>
+
+
+<!--
+... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
+
+                                   TEMPLATE: Campaign add
+... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
+-->
+
+<ng-template #selectCreateOrExisting>
+
+    <mat-radio-group [(ngModel)]="createCampaignFlag">
+        <mat-radio-button [value]="true">choose an Existing Campaign</mat-radio-button>
+        <mat-radio-button [value]="false"> create a new campaign</mat-radio-button>
+    </mat-radio-group>
+
+
+</ng-template>
+<!--
+... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
+
+                                   TEMPLATE: Campaign Select ddpdwn
+... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
+-->
+<ng-template #campSelect>
+    <div class="container1">
+        <mat-form-field>
+            <input type="text"
+                   (keyup)="onKeydown($event)"
+                   placeholder="select Organisation"
+                   matInput [matAutocomplete]="selCmp">
+            <mat-autocomplete
+                    [displayWith]="displayFn"
+                    #selCmp="matAutocomplete">
+                <mat-option
+                        (onSelectionChange)="selectionChange($event)"
+                        [value]="op"
+                        *ngFor="let op of campLookup$|async ">
+                    {{op.name}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+</ng-template>
+<!--
+... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
+
+                                   TEMPLATE: Campaign add form
+... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
+-->
+<ng-template #enterNewCampaign>
+
+    <div class="enterCamp-container" [formGroup]="formGroupCam">
+
+        <mat-form-field>
+            <input type="text"
+                   matInput
+                   formControlName="name"
+                   placeholder="Name of the campaign">
+        </mat-form-field>
+        <mat-form-field>
+      <textarea formControlName="description"
+                matInput
+                placeholder="describe the campaign"
+                name=""
+                id=""
+                cols="10"
+                rows="5"></textarea>
+        </mat-form-field>
+    </div>
+
+</ng-template>

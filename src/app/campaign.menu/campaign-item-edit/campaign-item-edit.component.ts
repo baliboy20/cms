@@ -6,6 +6,7 @@ import {StaticData} from '../../model/standingData.class';
 import {CampaignDaoService} from '../../dao/campaignDao.service';
 import {OrgDaoService} from '../../dao/OrgDao.service';
 import {Observable} from 'rxjs';
+import {ORG_SECTORS} from '../../dao/collections.enum';
 
 @Component({
   selector: 'app-campaign-item-edit',
@@ -16,6 +17,7 @@ export class CampaignItemEditComponent implements OnInit {
 
     private _formGrp: FormGroup;
     orgs = [];
+    sectors = ORG_SECTORS;
     @Input() template: TemplateRef<any>;
     @Input() formArrayName: string;
     @Input() newItem: any;
@@ -39,7 +41,7 @@ export class CampaignItemEditComponent implements OnInit {
         return this._formGrp;
     }
 
-    @ViewChild('addItemFunc') set addAnchor(e: any) {
+    @ViewChild('addItemFunc', {static: true}) set addAnchor(e: any) {
     }
 
     private getFormArray(): FormArray {

@@ -15,6 +15,7 @@ import { CampaignGanttComponent } from './campaign-gantt/campaign-gantt.componen
 import {HighchartsChartComponent, HighchartsChartModule} from 'highcharts-angular';
 import {CampaignItemAddComponent} from './campaign-item-add/campaign-item-add.component';
 import { CampaignItemAddStepperComponent } from './campaign-item-add-stepper/campaign-item-add-stepper.component';
+import { SubCampaignAddComponent } from './sub-campaign-add/sub-campaign-add.component';
 
 const routes: Routes = [{path: 'campaign-menu',
     component: CampaignMenuComponent,
@@ -35,6 +36,7 @@ const routes: Routes = [{path: 'campaign-menu',
       CampaignItemAddComponent,
       CampaignItemEditPopupComponent,
       CampaignItemAddStepperComponent,
+      SubCampaignAddComponent,
   ],
   imports: [
     CommonModule,
@@ -51,6 +53,7 @@ const routes: Routes = [{path: 'campaign-menu',
     exports: [ CampaignMenuComponent,
         CampaignItemAddComponent,
         CampaignItemAddStepperComponent,
+        SubCampaignAddComponent,
         CampaignEditComponent],
     entryComponents: [
         CampaignItemAddComponent,

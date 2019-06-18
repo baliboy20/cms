@@ -52,7 +52,7 @@
 
 
   <!-- Telephone-->
-  <ng-container *ngFor="let telno of formGroupPerson.get('telNos').controls; let idx = index">
+  <ng-container *ngFor="let telno of formGroupPerson['telNos'].controls; let idx = index">
     <!--<ng-container [formGroupName]="idx">-->
     <mat-step [stepControl]="formGroupPerson">
       <form [formGroup]="formGroupPerson">
@@ -76,7 +76,7 @@
   </ng-container>
 
   <!-- Web-->
-  <ng-container *ngFor="let telno of formGroupPerson.get('web').controls; let idx = index">
+  <ng-container *ngFor="let telno of formGroupPerson['web'].controls; let idx = index">
     <!--<ng-container [formGroupName]="idx">-->
     <mat-step [stepControl]="formGroupPerson">
       <form [formGroup]="formGroupPerson">

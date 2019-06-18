@@ -21,13 +21,13 @@ export class OrganisationMenuComponent implements OnInit {
     // }
 
     rightPanel: any;
-    @ViewChild('leftPanel') set leftp(arg: { open: () => any }) {
+    @ViewChild('leftPanel', {static: true}) set leftp(arg: { open: () => any }) {
         // arg.open();
         this.leftPanel = arg;
     }
 
     leftPanel: any;
-    @ViewChild('rightPanel') set rightp(arg: { open: () => any }) {
+    @ViewChild('rightPanel', {static: true}) set rightp(arg: { open: () => any }) {
         // arg.open();
         this.rightPanel = arg;
     }

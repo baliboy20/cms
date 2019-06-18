@@ -15,9 +15,11 @@
     <!--</mat-form-field>-->
 
     <mat-form-field class="example-full-width">
-        <input type="text" placeholder="Assignee" aria-label="Assignee" matInput  formControlName="orgName" [matAutocomplete]="auto">
+        <input type="text" placeholder="Assignee" aria-label="Assignee" matInput
+               formControlName="orgName" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" >
-            <mat-option *ngFor="let option of lookUpData" [value]="option" (onSelectionChange)="selectionChange(option)">
+            <mat-option *ngFor="let option of lookUpData" [
+                        value]="option" (onSelectionChange)="selectionChange(option)">
                 {{option.name}}
             </mat-option>
         </mat-autocomplete>

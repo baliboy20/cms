@@ -3,7 +3,9 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {ContactsFactory, IComment, IEmail, IWebSite} from '../../model/contact.classes';
 import {map, tap} from 'rxjs/internal/operators';
 import {IPerson, PersonFactory} from '../../model/person.class';
-import {MatHorizontalStepper, MatOptionSelectionChange, MatSnackBar, MatStepper} from '@angular/material';
+import { MatOptionSelectionChange } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatHorizontalStepper, MatStepper } from '@angular/material/stepper';
 import {OrgDaoService} from '../../dao/OrgDao.service';
 import {EditStates, ORG_SECTORS, ORG_TYPES} from '../../dao/collections.enum';
 import {AppComponent} from '../../app.component';
@@ -17,11 +19,12 @@ import {BehaviorSubject, Observable, of, ReplaySubject} from 'rxjs';
 export class PeopleAddComponent implements OnInit {
 
     @Input() showOrgForm = true;
-    @ViewChild('stepper') stepper: any;
+    @ViewChild('stepper', {static: true}) stepper: any;
     tels = [1, 2, 3];
     formGroupPerson: FormGroup;
     _formGroupArray: FormGroup[] = [];
-    orgs$: ReplaySubject<any> = new ReplaySubject<any>(1); // = of([{name: 'British Telecom', id: '12345'}, {name: 'United Utilites', id: '56789'}]);
+    orgs$: ReplaySubject<any> = new ReplaySubject<any>(1);ç
+    // = of([{name: 'British Telecom', id: '12345'}, {name: 'United Utilites', id: '56789'}]);
     validations;
     newTelNo = ContactsFactory.instOfTelnos();
     newEmailAdd: IEmail = ContactsFactory.instOfEmail();
@@ -115,19 +118,19 @@ export class PeopleAddComponent implements OnInit {
 
 }
 
-@Directive({
-    selector: '[appSetFocus]',
-})
-export class SetFocusDirective {
-
-    constructor(private hostEle: ElementRef) {
-
-    }
-    ngOnInit() {
-        const ele: HTMLHtmlElement = this.hostEle.nativeElement;
-        ele.focus();
-    }
-}
+// @Directive({
+//     selector: '[appSetFocus]',
+// })
+// export class SetFocusDirective {
+//
+//     constructor(private hostEle: ElementRef) {
+//
+//     }
+//     ngOnInit() {
+//         const ele: HTMLHtmlElement = this.hostEle.nativeElement;
+//         ele.focus();
+//     }
+// }
 
 
 @Directive({

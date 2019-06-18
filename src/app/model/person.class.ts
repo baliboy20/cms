@@ -42,6 +42,8 @@ export class PersonFactory {
             entId: '',
             org: {id: 'unalloc', name: ''},
         };
+        const a = {a: 1, b: 2};
+        const b = {...a, c: 4};
         return per;
     }
 

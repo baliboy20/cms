@@ -1,9 +1,11 @@
 import {Component, Inject, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {OrgDaoService} from '../../dao/OrgDao.service';
 import {SelectionModel} from '@angular/cdk/collections';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import {IOrganisation} from '../../model/organisation.interface';
-import {MatPaginator, MatSort} from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
     selector: 'app-organisation-search',
@@ -25,9 +27,9 @@ export class TableOfOrgsComponent implements OnInit, OnDestroy {
         'edits',
     ];
     selection = new SelectionModel<IOrganisation>(true, []);
-    @ViewChild('confirmDelete') confirmDeleteTmpl: TemplateRef<any>;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild('confirmDelete', {static: true}) confirmDeleteTmpl: TemplateRef<any>;
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     constructor(private dao: OrgDaoService,
                 private dialog: MatDialog) {

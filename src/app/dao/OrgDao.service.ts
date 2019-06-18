@@ -21,25 +21,23 @@ export class OrgDaoService {
     private _enterprises$: ReplaySubject<any>;
     private _people$: ReplaySubject<any>;
     counter = 0;
+
     get people$(): ReplaySubject<any> {
-        console.log('counter', this.counter);
-        if ( this.counter >  100) {
+        if (this.counter > 100) {
             return;
         }
         this.counter++;
-        console.log('inside get peoples!! null ~ undefined', isNull(this._people$), isUndefined(this._people$));
-        if ( isUndefined(this._people$) ) {
-            console.log('inside get peoples undefined logic block');
+        if (isUndefined(this._people$)) {
             this._people$ = new ReplaySubject<any>(1);
             this._populateCache_People();
         }
-        console.log('inside after init', this._people$)
         return this._people$;
     }
 
     set people$(value: ReplaySubject<any>) {
         this._people$ = value;
     }
+
     get enterprises$(): ReplaySubject<any> {
         if (this._enterprises$ === undefined) {
             this._enterprises$ = new ReplaySubject<any>(1);
@@ -66,9 +64,9 @@ export class OrgDaoService {
         delete vo.id;
         return await this.db.collection(DbCollections.PERSONS).add(vo);
     }
+
     private _populateCache_People() {
         if (this.isUnTouchedDirtyOrganisation) {
-            console.log('inside _populateCache_People');
             this.db.collection(DbCollections.PERSONS).snapshotChanges()
                 .pipe(
                     map((arg: DocumentChangeAction<any>[]) => {
@@ -159,8 +157,6 @@ export class OrgDaoService {
         } else {
             throw new Error('no valid id returned');
         }
-        console.log('insertOrganisation', retval.id);
-
         return retval;
     }
 
@@ -189,7 +185,6 @@ export class OrgDaoService {
 
         const a = await ref.update({address: '1234 highwayman road'});
         const b = ref.valueChanges().subscribe(console.log);
-        console.log('getted', b);
 
     }
 
@@ -208,6 +203,7 @@ export class OrgDaoService {
         this.enterprises$.pipe(map(__coreOrg));
         return o;
     }
+
     private __coreOrg(a: IOrganisation) {
         return {orgId: a.id, name: a.name};
     }

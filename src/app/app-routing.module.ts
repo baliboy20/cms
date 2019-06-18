@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {CampaignMenuComponent} from './campaign.menu/campaign.menu.component';
-import {OrganisationMenuComponent} from './organisation.menu/organisation.menu.component';
 import {MainComponent} from './main/main.component';
 
 

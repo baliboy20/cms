@@ -14,11 +14,6 @@ export class TypeaheadReactiveFormComponent implements OnInit {
     constructor(private fb: FormBuilder) {
     }
 
-    // testopts: any[] = [
-    //     {name: 'Mary'},
-    //     {name: 'Shelley'},
-    //     {name: 'Igor'}
-    // ];
     private _lookUpData: any[];
     private _lookUpDataUntouched: any[];
     private _formGroup: FormGroup;

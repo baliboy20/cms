@@ -59,5 +59,6 @@ export class QuickInputComponent implements OnInit {
         console.log('campaing clicked', event.value);
         this.selectedCampaignId = event.value;
     }
+    CampaignItemRef(ev) {}
 
 }
