@@ -1,0 +1,104 @@
+<div class="scai-container">
+
+    <div class="scai-header">
+        SELECTED ORGANISATION :{{orgName}}
+    </div>
+    <div class="scai-col1">
+        <ng-container *ngTemplateOutlet="ChooseCreateTmpl"></ng-container>
+    </div>
+    <div class="scai-col2">
+        <ng-container *ngIf="newOrgFlag else SelectCompanyTmpl">
+            <ng-container *ngTemplateOutlet="OrgTmpl"></ng-container>
+        </ng-container>
+    </div>
+    <div class="scai-footer">
+        footer
+    </div>
+</div>
+
+<!--
+~~--~~ ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~
+
+
+~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~
+-->
+<ng-template #ChooseCreateTmpl>
+
+    <div class="radio-group-container">
+        <span>Organisation</span>
+        <mat-radio-group [(ngModel)]="newOrgFlag">
+            <mat-radio-button [value]="false">Existing</mat-radio-button>
+            <mat-radio-button [value]="true">Create</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+
+</ng-template>
+
+
+<!--
+~~--~~ ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~
+
+
+~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~
+-->
+
+<ng-template #SelectCompanyTmpl>
+
+    <mat-form-field>
+        <input type="text" matInput [matAutocomplete]="autoOrg">
+        <mat-autocomplete #autoOrg>
+            <mat-option [value]="1">One</mat-option>
+            <mat-option [value]="2">Two</mat-option>
+            <mat-option [value]="3">Three</mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+</ng-template>
+
+
+<!--
+~~--~~ ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~
+
+
+~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~
+-->
+<ng-template #OrgTmpl>
+
+    <mat-card [formGroup]="formGroupOrg" class="formAddOrg">
+        <mat-form-field>
+            <input type="text"
+                   placeholder="name"
+                   matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+            <textarea
+                    matTextareaAutosize
+                    placeholder="address"
+                    formControlName="address"
+                    matAutosize="false"
+                    matAutosizeMinRows="5"
+                    cols="160"
+                    matInput>
+
+            </textarea>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Sector</mat-label>
+            <mat-select >
+                <mat-option [value]='sector'
+                            *ngFor="let sector of ['law', 'fin']">{{sector}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select>
+                <mat-label>type of organisation</mat-label>
+                <mat-option [value]="ot"
+                            *ngFor="let ot of ['bus','charity']">{{ot}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </mat-card>
+
+
+</ng-template>

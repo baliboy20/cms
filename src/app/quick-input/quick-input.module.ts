@@ -5,6 +5,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {MaterialzModule} from '../materialz/materialz.module';
 import {PeopleModule} from '../people/people.module';
 import {CampaignMenuModule} from '../campaign.menu/campaign.menu.module';
+import {ReactiveFormsModule} from '@angular/forms';
 
 const routes: Routes = [
     { path: 'quick-input', component: QuickInputComponent},
@@ -20,6 +21,8 @@ const routes: Routes = [
         MaterialzModule,
         PeopleModule,
         CampaignMenuModule,
+        ReactiveFormsModule,
+
     ],
     exports: [QuickInputComponent]
 })

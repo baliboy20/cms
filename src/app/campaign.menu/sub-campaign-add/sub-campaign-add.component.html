@@ -1,6 +1,6 @@
 <div class="sca-container">
 
-    <div class="sca-header">Selected Campaign: {{campName}}</div>
+    <div class="sca-header">SELECTED CAMPAIGN: {{campName}}</div>
     <div class="sca-col1">
         <ng-container *ngTemplateOutlet="selectCreateOrExisting"></ng-container>
     </div>
@@ -24,11 +24,14 @@
 
 <ng-template #selectCreateOrExisting>
 
-    <mat-radio-group [(ngModel)]="createCampaignFlag">
-        <mat-radio-button [value]="true">choose an Existing Campaign</mat-radio-button>
-        <mat-radio-button [value]="false"> create a new campaign</mat-radio-button>
-    </mat-radio-group>
+   <div class="radio-group-container">
+       <span id="group-label">Campaign</span>
+       <mat-radio-group [(ngModel)]="createCampaignFlag">
+           <mat-radio-button [value]="true">Existing</mat-radio-button>
+           <mat-radio-button [value]="false"> Create</mat-radio-button>
+       </mat-radio-group>
 
+   </div>
 
 </ng-template>
 <!--
@@ -69,18 +72,17 @@
 
         <mat-form-field>
             <input type="text"
+                   id="org-name"
                    matInput
                    formControlName="name"
-                   placeholder="Name of the campaign">
+                   placeholder="call it something">
         </mat-form-field>
         <mat-form-field>
       <textarea formControlName="description"
                 matInput
-                placeholder="describe the campaign"
-                name=""
-                id=""
-                cols="10"
-                rows="5"></textarea>
+                placeholder="describe it"
+
+                ></textarea>
         </mat-form-field>
     </div>
 

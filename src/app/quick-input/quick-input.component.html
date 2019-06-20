@@ -1,37 +1,49 @@
-<div  style="background-color: dodgerblue;
+<div style="background-color: #dff5ff;
 box-shadow: 0px 5px 8px -3px gray;
 z-index: 200;
+height: 60px;
 border-bottom: solid black 1px;
 margin-bottom: 10px;">
-<button mat-icon-button routerLink="/">
-  <mat-icon>home</mat-icon>
-</button>
+    <button mat-icon-button routerLink="/">
+        <mat-icon>home</mat-icon>
+    </button>
 
 </div>
-<mat-toolbar style="z-index: 1;
-background-color: dodgerblue;
-margin-bottom: 11px;
-z-index: -10;
-">
-  <ng-container *ngTemplateOutlet="ChooseCampaignTemplate; context:{changeFunc: campaignSelectionChange}"></ng-container>
-</mat-toolbar>
+<!--<mat-toolbar style="z-index: 1;-->
+<!--background-color: dodgerblue;-->
+<!--margin-bottom: 11px;-->
+<!--z-index: -10;-->
+<!--">-->
+<!--  <ng-container *ngTemplateOutlet="ChooseCampaignTemplate; context:{changeFunc: campaignSelectionChange}"></ng-container>-->
+<!--</mat-toolbar>-->
 
 <!--<app-campaign-item-add-stepper-->
 <!--        (itemRef)="CampaignItemRef($event)"-->
 <!--        [campaignId]="selectedCampaignId">-->
 <!---->
 <!--</app-campaign-item-add-stepper>-->
+<hr>
 
-<mat-horizontal-stepper>
-  <mat-step>
-    <ng-template matStepLabel>CAMPAIGN</ng-template>
-    <app-sub-campaign-add></app-sub-campaign-add>
+<hr style="border: transparent">
+<hr style="border: transparent">
+<mat-horizontal-stepper #stepper1>
 
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>ORGANISATION</ng-template>
-  </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>CAMPAIGN ITEM</ng-template>
+        <app-sub-campaign-item-add></app-sub-campaign-item-add>
+    </mat-step>
+    <mat-step [stepControl]="campaignForm">
+        <ng-template matStepLabel>CAMPAIGN</ng-template>
+        <app-sub-campaign-add></app-sub-campaign-add>
+
+        <div>
+            <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
+
+
 </mat-horizontal-stepper>
+
 
 
 
@@ -58,12 +70,12 @@ z-index: -10;
 
 <span>
 Chosen Campaign:
-  <!--<input type="text" [matTriggerFor]="selectCampaign">-->
+    <!--<input type="text" [matTriggerFor]="selectCampaign">-->
   <mat-select #selectCampaign
-          (selectionChange)="changeFunc($event)">
+              (selectionChange)="changeFunc($event)">
 
     <mat-option *ngFor="let a of campaigns$ | async"
-    [value]="a.id"
+                [value]="a.id"
     >{{a.name}}</mat-option>
   </mat-select>
 </span>

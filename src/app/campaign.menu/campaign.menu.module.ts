@@ -16,6 +16,7 @@ import {HighchartsChartComponent, HighchartsChartModule} from 'highcharts-angula
 import {CampaignItemAddComponent} from './campaign-item-add/campaign-item-add.component';
 import { CampaignItemAddStepperComponent } from './campaign-item-add-stepper/campaign-item-add-stepper.component';
 import { SubCampaignAddComponent } from './sub-campaign-add/sub-campaign-add.component';
+import {SubCampaignItemAddComponent} from './sub-campaign-item-add/sub-campaign-item-add.component';
 
 const routes: Routes = [{path: 'campaign-menu',
     component: CampaignMenuComponent,
@@ -37,6 +38,7 @@ const routes: Routes = [{path: 'campaign-menu',
       CampaignItemEditPopupComponent,
       CampaignItemAddStepperComponent,
       SubCampaignAddComponent,
+       SubCampaignItemAddComponent,
   ],
   imports: [
     CommonModule,
@@ -54,11 +56,13 @@ const routes: Routes = [{path: 'campaign-menu',
         CampaignItemAddComponent,
         CampaignItemAddStepperComponent,
         SubCampaignAddComponent,
+        SubCampaignItemAddComponent,
         CampaignEditComponent],
     entryComponents: [
         CampaignItemAddComponent,
         CampaignItemEditPopupComponent,
-        CampaignEditComponent
-    ]
+        CampaignEditComponent,
+        SubCampaignItemAddComponent,
+    ],
 })
 export class CampaignMenuModule { }

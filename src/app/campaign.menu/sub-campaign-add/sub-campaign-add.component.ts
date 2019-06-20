@@ -11,7 +11,7 @@ import {CampaignBuilderService} from '../../utils/form-builders/campaign-builder
 export class SubCampaignAddComponent implements OnInit {
     createCampaignFlag = false;
     campId;
-    CampName;
+    campName;
     data = [
         {name: 'Hay', id: '123'},
         {name: 'BR', id: '3456'},

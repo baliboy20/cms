@@ -18,6 +18,11 @@ export class QuickInputComponent implements OnInit {
         this._campaignItemRef = value;
     }
 
+    // ===
+    isLinear = false;
+    firstFormGroup: FormGroup;
+    secondFormGroup: FormGroup;
+    // ===
     private _campaignItemRef;
     public campaignForm: FormGroup;
     campaigns$: Observable<any>;
@@ -27,6 +32,8 @@ export class QuickInputComponent implements OnInit {
     constructor(private campaignsDao: CampaignDaoService,
                 private campaignBuilder: CampaignBuilderService ) {
         this.campaignForm = campaignBuilder.buildCampaignForm();
+        this.firstFormGroup =  this.campaignBuilder.buildCampaignForm();
+        this.secondFormGroup =  this.campaignBuilder.buildCampaignForm();
     }
 
     ngOnInit() {
