@@ -9,7 +9,7 @@
 
 .scai-header, .scai-footer {
   border: 1px solid rgba(86, 186, 227, 0.32);
-  background: linear-gradient(to right, rgba(179, 220, 237, 1) 0%, rgba(41, 184, 229, 0.57) 50%, rgba(188, 224, 238, 0.13) 100%); //background: linear-gradient(to bottom, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%);
+  background: linear-gradient(to right, rgb(161, 202, 219) 0%, rgba(42, 161, 207, 0.57) 50%, rgba(188, 224, 238, 0.13) 100%); //background: linear-gradient(to bottom, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%);
   padding: 10px 15px;
   font-size: .8rem;
 }
@@ -68,12 +68,12 @@
 
 
  & > mat-form-field {
-    border: 1px solid #dff5ff;
+    border: 1px solid #a7bcc6;
    border-radius: 5px;
    padding: 10px;
 
    &  textarea {
-     background-color: #fb663d;
+     background-color: rgba(87, 97, 211, 0.33);
    }
   }
   mat-form-field:nth-child(1) {
