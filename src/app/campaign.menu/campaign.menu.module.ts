@@ -17,6 +17,7 @@ import {CampaignItemAddComponent} from './campaign-item-add/campaign-item-add.co
 import { CampaignItemAddStepperComponent } from './campaign-item-add-stepper/campaign-item-add-stepper.component';
 import { SubCampaignAddComponent } from './sub-campaign-add/sub-campaign-add.component';
 import {SubCampaignItemAddComponent} from './sub-campaign-item-add/sub-campaign-item-add.component';
+import { SubCampaignItem2AddComponent } from './sub-campaign-item2-add/sub-campaign-item2-add.component';
 
 const routes: Routes = [{path: 'campaign-menu',
     component: CampaignMenuComponent,
@@ -39,6 +40,7 @@ const routes: Routes = [{path: 'campaign-menu',
       CampaignItemAddStepperComponent,
       SubCampaignAddComponent,
        SubCampaignItemAddComponent,
+       SubCampaignItem2AddComponent,
   ],
   imports: [
     CommonModule,
@@ -57,6 +59,7 @@ const routes: Routes = [{path: 'campaign-menu',
         CampaignItemAddStepperComponent,
         SubCampaignAddComponent,
         SubCampaignItemAddComponent,
+        SubCampaignItem2AddComponent,
         CampaignEditComponent],
     entryComponents: [
         CampaignItemAddComponent,

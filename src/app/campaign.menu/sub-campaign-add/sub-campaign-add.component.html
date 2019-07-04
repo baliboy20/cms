@@ -1,16 +1,18 @@
 <div class="sca-container">
 
     <div class="sca-header">SELECTED CAMPAIGN: {{campName}}</div>
-    <div class="sca-col1">
+    <div class="sca-col1" *ngIf="showCols">
         <ng-container *ngTemplateOutlet="selectCreateOrExisting"></ng-container>
     </div>
-    <div class="sca-col2">
-        <ng-container *ngIf="!createCampaignFlag; else campSelect">
+    <div class="sca-col2" *ngIf="createCampaignFlag !== null && showCols">
+        <ng-container *ngIf="createCampaignFlag; else campSelect">
             <ng-container *ngTemplateOutlet="enterNewCampaign"></ng-container>
         </ng-container>
     </div>
     <div class="sca-footer">
-    <button mat-raised-button>next</button>
+    <button mat-raised-button (click)="doAfterCampSelectedContinue()">CONTINUE</button>
+    <button mat-raised-button (click)="doReset()">RESET</button>
+   on>
     </div>
 </div>
 
@@ -25,10 +27,14 @@
 <ng-template #selectCreateOrExisting>
 
    <div class="radio-group-container">
-       <span id="group-label">Campaign</span>
-       <mat-radio-group [(ngModel)]="createCampaignFlag">
-           <mat-radio-button [value]="true">Existing</mat-radio-button>
-           <mat-radio-button [value]="false"> Create</mat-radio-button>
+       <span id="group-label">campaign</span>
+       <mat-radio-group [(ngModel)]="createCampaignFlag" color="primary">
+           <mat-radio-button
+                   *ngIf="createCampaignFlag !==true"
+                   [value]="false">existing</mat-radio-button>
+           <mat-radio-button
+                   *ngIf="createCampaignFlag !== false"
+                   [value]="true">create</mat-radio-button>
        </mat-radio-group>
 
    </div>
@@ -41,12 +47,13 @@
 ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
 -->
 <ng-template #campSelect>
-    <div class="container1">
-        <mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>existing campaign</mat-label>
             <input type="text"
                    (keyup)="onKeydown($event)"
-                   placeholder="select Organisation"
                    matInput [matAutocomplete]="selCmp">
+            <mat-icon matSuffix style="color: #575757">arrow_drop_down</mat-icon>
             <mat-autocomplete
                     [displayWith]="displayFn"
                     #selCmp="matAutocomplete">
@@ -58,7 +65,6 @@
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>
-    </div>
 </ng-template>
 <!--
 ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
@@ -81,7 +87,6 @@
       <textarea formControlName="description"
                 matInput
                 placeholder="describe it"
-
                 ></textarea>
         </mat-form-field>
     </div>

@@ -1,0 +1,76 @@
+<div class="cias2-container mat-card" [formGroup]="formGroup">
+    <div class="cias2-header">
+        header
+    </div>
+    <div class="spacer">
+    </div>
+    <div class="cias2-top-row" >
+        <mat-form-field>
+            <input matInput
+                   formControlName="action"
+                   placeholder="action">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput
+                   placeholder="priority">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput
+                   placeholder="status">
+        </mat-form-field>
+    </div>
+    <div class="cias2-col1">
+<!--        <mat-form-field>-->
+<!--            <mat-checkbox-->
+<!--                    matInput-->
+<!--                    formControlName="done">done-->
+<!--            </mat-checkbox>-->
+<!--        </mat-form-field>-->
+        <mat-form-field>
+            <mat-select>
+                <mat-option [value]="op"
+                        *ngFor="let op of ['Excellent','Good', 'Poor']">{{op}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput
+                      placeholder="notes"></textarea>
+        </mat-form-field>
+
+    </div>
+    <div class="cias2-col2">
+        <ng-container *ngTemplateOutlet="dateControlTempl; context:{fld: 'startOn'}"></ng-container>
+        <ng-container *ngTemplateOutlet="dateControlTempl; context:{fld: 'finishOn'}"></ng-container>
+    </div>
+    <div class="cias2-bottom-row">
+        bottom row for contacts
+    </div>
+    <div class="spacer"></div>
+    <div class="cias2-footer">
+        <button mat-button matStepperNext>
+            <mat-icon>arrow_forward</mat-icon>
+        </button>
+    </div>
+</div>
+
+<!--
+~~--~~ ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~
+dateControl template
+
+~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~
+-->
+
+<ng-template #dateControlTempl let-fld="fld">
+
+<ng-container [formGroup]="formGroup">
+    <mat-form-field>
+        <input matInput
+               [formControlName]="fld"
+               [matDatepicker]="picker"
+               placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+</ng-container>
+
+</ng-template>

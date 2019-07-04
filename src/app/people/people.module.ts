@@ -10,6 +10,7 @@ import {SharedModule} from '../shared/shared.module';
 import {HorizontalStepperDirective, PeopleAddComponent} from './people-add/people-add.component';
 import { PeopleSearchComponent } from './people-search/people-search.component';
 import { PersonAddComponent } from './person-add/person-add.component';
+import { SubformPersonAddComponent } from './subform-person-add/subform-person-add.component';
 
 @NgModule({
     declarations: [EditPersonComponent,
@@ -18,6 +19,7 @@ import { PersonAddComponent } from './person-add/person-add.component';
         HorizontalStepperDirective,
         PeopleSearchComponent,
         PersonAddComponent,
+        SubformPersonAddComponent,
     ],
     imports: [
         CommonModule,
@@ -29,7 +31,8 @@ import { PersonAddComponent } from './person-add/person-add.component';
     ],
     exports: [EditPersonComponent,
         PeopleAddComponent,
-        HorizontalStepperDirective
+        HorizontalStepperDirective,
+        SubformPersonAddComponent,
         ]
 })
 export class PeopleModule {

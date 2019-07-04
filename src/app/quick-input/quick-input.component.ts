@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CampaignDaoService} from '../dao/campaignDao.service';
 import {from, Observable, of} from 'rxjs';
 import {CampaignBuilderService} from '../utils/form-builders/campaign-builder.service';
-import {FormGroup} from '@angular/forms';
+import {FormGroup, ValidationErrors} from '@angular/forms';
+import {SubCampaignItemAddComponent} from '../campaign.menu/sub-campaign-item-add/sub-campaign-item-add.component';
+import {SubCampaignAddComponent} from '../campaign.menu/sub-campaign-add/sub-campaign-add.component';
 
 @Component({
     selector: 'app-quick-input',
@@ -10,45 +12,25 @@ import {FormGroup} from '@angular/forms';
     styleUrls: ['./quick-input.component.scss']
 })
 export class QuickInputComponent implements OnInit {
-    get campaignItemRef() {
-        return this._campaignItemRef;
+    private _campaignForm: FormGroup;
+
+    @ViewChild(SubCampaignAddComponent, {static: true}) set campcomp(arg: any) {
+        this._campaignForm = arg.formGroupOrg;
     }
 
-    set campaignItemRef(value) {
-        this._campaignItemRef = value;
-    }
-
-    // ===
-    isLinear = false;
-    firstFormGroup: FormGroup;
-    secondFormGroup: FormGroup;
-    // ===
-    private _campaignItemRef;
-    public campaignForm: FormGroup;
     campaigns$: Observable<any>;
     selectedCampaignId;
+    campSelected = true;
     step = -1;
 
-    constructor(private campaignsDao: CampaignDaoService,
-                private campaignBuilder: CampaignBuilderService ) {
-        this.campaignForm = campaignBuilder.buildCampaignForm();
-        this.firstFormGroup =  this.campaignBuilder.buildCampaignForm();
-        this.secondFormGroup =  this.campaignBuilder.buildCampaignForm();
+    constructor() {
     }
 
     ngOnInit() {
-        this.initData();
-    }
-
-    initData() {
-        this.campaignsDao.getCampaignsDropdown()
-            .subscribe(res => this.campaigns$ = of(res));
     }
 
     initBuilders() {
-
     }
-
 
     setStep(index: number) {
         this.step = index;
@@ -66,6 +48,24 @@ export class QuickInputComponent implements OnInit {
         console.log('campaing clicked', event.value);
         this.selectedCampaignId = event.value;
     }
-    CampaignItemRef(ev) {}
+
+    CampaignItemRef(ev) {
+    }
+
+    saveAll() {
+
+        console.log('Save all', this.campcomp);
+
+    }
+
+    onCampaigneSelected(campForm) {
+        console.log('Camp select4ed', campForm);
+        if (campForm === 'reset') {
+            this.campSelected = false;
+        } else {
+            this.campSelected = true;
+        }
+
+    }
 
 }

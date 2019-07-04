@@ -29,11 +29,11 @@ export class OrganisationBuilderService {
     }
 
     buildOrgGroup() {
-        const builder  = this.builder;
+        const builder = this.builder;
         const emailsArr: FormArray = builder.array([builder.group(this.instOfEmail())]);
         const telNosArr: FormArray = builder.array([builder.group(this.instOfTelnos())]);
         const webArr: FormArray = builder.array([builder.group(this.instOfWebsite())]);
-        const comms: FormArray = builder.array(([builder.group(this.instOfComments())]))
+        const comms: FormArray = builder.array(([builder.group(this.instOfComments())]));
 
         const org: any = {
             id: 'xx',
@@ -42,10 +42,24 @@ export class OrganisationBuilderService {
             name: ['Bt ltd', Validators.required],
             orgType: ['plc', Validators.required],
             sector: ['fin'],
-            telNos: builder.array([]),
-            web: builder.array([]),
+            telNos: telNosArr,
+            web: webArr,
         };
         return builder.group(org);
+    }
+
+    appendtoArrayGroup(arrayGroupName, arr) {
+        switch (arrayGroupName) {
+            case('emails'):
+                arr.push(this.builder.group(this.instOfWebsite()));
+                break;
+            case('telNos'):
+                arr.push(this.builder.group(this.instOfTelnos()));
+                break;
+            case('web'):
+                arr.push(this.builder.group(this.instOfEmail()));
+                break;
+        }
     }
 
     appendTelno(arr: FormArray) {
@@ -58,5 +72,13 @@ export class OrganisationBuilderService {
 
     appendWebsite(arr: FormArray) {
         return arr.push(this.builder.group(this.instOfWebsite()));
+    }
+
+    deleteItem(arr: FormArray, idx) {
+        if (arr.length - 1 < idx) {
+            return;
+        } else {
+            arr.removeAt(idx);
+        }
     }
 }

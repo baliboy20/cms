@@ -25,26 +25,32 @@ margin-bottom: 10px;">
 <hr>
 
 <hr style="border: transparent">
+<app-sub-campaign-add #subCampAdd (campaigneSelected)="onCampaigneSelected($event)"></app-sub-campaign-add>
 <hr style="border: transparent">
-<mat-horizontal-stepper #stepper1>
-
-    <mat-step>
-        <ng-template matStepLabel>CAMPAIGN ITEM</ng-template>
-        <app-sub-campaign-item-add></app-sub-campaign-item-add>
-    </mat-step>
-    <mat-step [stepControl]="campaignForm">
-        <ng-template matStepLabel>CAMPAIGN</ng-template>
-        <app-sub-campaign-add></app-sub-campaign-add>
-
-        <div>
-            <button mat-button matStepperNext>Next</button>
-        </div>
-    </mat-step>
+<ng-container *ngIf="campSelected">
+    <mat-horizontal-stepper #stepper1>
+        <mat-step>
+            <ng-template matStepLabel>ORGANISATIONS</ng-template>
+            <app-sub-campaign-item-add></app-sub-campaign-item-add>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>ACTIONS</ng-template>
+            <app-sub-campaign-item2-add></app-sub-campaign-item2-add>
+        </mat-step>
 
 
-</mat-horizontal-stepper>
+        <mat-step>
+            <ng-template matStepLabel>PEOPLE</ng-template>
+            <app-subform-person-add></app-subform-person-add>
+        </mat-step>
 
 
+        <mat-step>
+            <ng-template matStepLabel>SAVE</ng-template>
+            <button mat-raised-button color="primary" (click)="saveAll()">Save All</button>
+        </mat-step>
+    </mat-horizontal-stepper>
+</ng-container>
 
 
 <!--/-->

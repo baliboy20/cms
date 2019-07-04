@@ -16,8 +16,9 @@ export class CampaignBuilderService {
         finishOn: ['03/05/2019', Validators.required],
         startOn: '23/03/2019',
         actionPriority: ['urgent', Validators.required],
-        done: [false],
+        done: false,
         rating: ['HI'],
+        status: 'list item',
     };
 
     constructor(@Inject(FormBuilder) private builder: FormBuilder) {
@@ -57,6 +58,7 @@ export class CampaignBuilderService {
             actionPriority: [value.actionPriority, Validators.required],
             done: value.done,
             rating: value.rating,
+            status: value.status,
         });
     }
 }

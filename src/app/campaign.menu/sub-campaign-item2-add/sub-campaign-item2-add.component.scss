@@ -1,0 +1,73 @@
+@import "../../../styles";
+
+ .cias2-footer {
+  border: 1px solid lightpink;
+
+}
+
+.cias2-container {
+  display: grid;
+  grid-template: " . hd hd . " ".  .  . ." ". tr tr . " ". c1 c2 ." " . br br . "  ". .  .  ." ". ft ft .";
+  grid-template-columns: auto auto auto auto;
+  grid-template-rows: 60px 0px 120px auto 0px auto 60px;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+
+.cias2-header {
+  grid-area: hd;
+  @include header-background;
+
+}
+
+.cias2-top-row {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: start;
+  grid-area: tr;
+  padding: 15px;
+  grid-column-gap: 10px;
+
+  mat-form-field {
+    padding: 8px;
+    @include form-field-border;
+  }
+}
+
+.cias2-col1, .cias2-col2 {
+  display: grid;
+  grid-template-areas: "x"  "y"  "z" "a";
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  //background-color: palevioletred;
+  grid-row-gap: 10px;
+  mat-form-field{
+    @include form-field-border;
+    padding: 0px 10px;
+  }
+  mat-form-field:nth-child(1){
+    grid-area: x;
+  }
+  mat-form-field:nth-child(1){
+    grid-area: y;
+  }
+  mat-form-field:nth-child(1){
+    grid-area: z;
+  }
+}
+
+.cias2-col1 {
+  grid-area: c1;
+}
+
+.cias2-col2 {
+  grid-area: c2;
+}
+
+.cias2-bottom-row {
+  grid-area: br;
+}
+.cias2-footer {
+  grid-area: ft;
+  @include header-background;
+}

@@ -39,6 +39,7 @@ export interface ICampaignItem {
     personsId: string;
     orgId: string;
     notes: string[];
+    status?: string;
 }
 
 @Injectable({

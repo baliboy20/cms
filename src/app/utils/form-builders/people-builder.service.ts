@@ -28,33 +28,8 @@ export class PeopleBuilderService {
 
   }
 
-  // buildOrgGroup() {
-  //   const builder = this.builder;
-  //   const emailsArr: FormArray = builder.array([builder.group(this.instOfEmail())]);
-  //   const telNosArr: FormArray = builder.array([builder.group(this.instOfTelnos())]);
-  //   const webArr: FormArray = builder.array([builder.group(this.instOfWebsite())]);
-  //   const comms: FormArray = builder.array(([builder.group(this.instOfComments())]))
-  //
-  //   const org: any = {
-  //     id: 'xx',
-  //     address: [''],
-  //     emails: emailsArr,
-  //     name: ['', Validators.required],
-  //     orgType: ['', Validators.required],
-  //     sector: [''],
-  //     telNos: [],
-  //     web: [],
-  //   };
-  //   return builder.group(org);
-  // }
-
-
   buildPersonForm() {
     const builder = this.builder;
-    // const emailsArr: FormArray = builder.array([builder.group(this.instOfEmail())]);
-    // const telNosArr: FormArray = builder.array([builder.group(this.instOfTelnos())]);
-    // const webArr: FormArray = builder.array([builder.group(this.instOfWebsite())]);
-    // const comms: FormArray = builder.array(([builder.group(this.instOfComments())]));
     const formArrayBld = (a) => builder.array([builder.group(a())])
 
     const person: any = {
@@ -83,5 +58,14 @@ export class PeopleBuilderService {
 
   public appendWebsite(arr: FormArray) {
     return arr.push(this.builder.group(this.instOfWebsite()));
+  }
+
+
+  deleteItem(arr: FormArray, idx) {
+    if (arr.length  < 1) {
+      return;
+    } else {
+      arr.removeAt(idx);
+    }
   }
 }

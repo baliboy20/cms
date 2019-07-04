@@ -8,14 +8,28 @@ import {HttpClient} from '@angular/common/http';
 import {flatMap} from 'tslint/lib/utils';
 import {OrganisationFactory} from '../model/organisation.interface';
 import {ICampaign, ICampaignItem} from '../model/campaign.interface';
+import {isUndefined} from 'util';
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class CampaignDaoService {
+    isUnTouchedDirtyCampaign = true;
+    private _campaigns$: ReplaySubject<any> = new ReplaySubject<any>(1);
+    counter = 0;
 
-    private campaigns$: ReplaySubject<any> = new ReplaySubject<any>(1);
+    get campaigns$(): ReplaySubject<any> {
+        if (this.counter > 100) {
+            return;
+        }
+        this.counter++;
+        if (this.isUnTouchedDirtyCampaign) {
+            this.isUnTouchedDirtyCampaign = false;
+            this.getCampaigns();
+        }
+        return this._campaigns$;
+    }
 
     constructor(private db: AngularFirestore, private htp: HttpClient) {
 
@@ -33,14 +47,14 @@ export class CampaignDaoService {
                     };
                 });
                 this.campaigns$.next(retval);
-                console.log('retval', retval);
+                // console.log('retval', retval);
             });
         return this.campaigns$;
     }
 
     getCampaignsDropdown(): Observable<{ name: string, id: string, description: string }[]> {
         const mapper = (a) => Array.from(a).map((b: ICampaign) => ({name: b.name, id: b.id, description: b.description}));
-        return this.getCampaigns()
+        return this.campaigns$
             .pipe(map(mapper));
     }
 
@@ -55,7 +69,9 @@ export class CampaignDaoService {
         delete vo.id;
         return this.db.collection(DbCollections.CAMPAIGNS)
             .add(vo).then(retval => {
+                console.log('retval', retval);
                 vo.id = retval.id;
+                return vo;
             });
     }
 

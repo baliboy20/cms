@@ -1,0 +1,85 @@
+@import "../../../styles";
+
+.spa1-header, .spa1-row1, .spa1-row2, .spa1-footer {
+}
+
+.spa1-container {
+  display: grid;
+  grid-template-areas: ". h h ." ". r1 r1 ." ". r2 r2 ." ". f f .";
+  grid-template-columns: 25% 1fr 1fr 25%;
+  grid-template-rows: 50px 80px auto 50px;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+
+.spa1-row1, .spa1-row1, .spa1-row2 {
+
+  mat-form-field {
+    @include form-field-border;
+    font-size: .8rem;
+  }
+}
+
+.spa1-header {
+  display: flex;
+  grid-area: h;
+  justify-content: space-around;
+  @include header-background;
+
+  button {
+    height: 100%;
+    align-self: flex-end;
+  }
+}
+
+.spa1-row1 {
+  grid-area: r1;
+  display: flex;
+  justify-content: space-around;
+}
+
+.spa1-row2 {
+  grid-area: r2;
+  display: block;
+  grid-row-gap: 10px;
+}
+
+.spa1-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+  align-items: center;
+  grid-area: f;
+  @include header-background;
+
+  & > button {
+  height: 40px;
+  }
+}
+
+.dynamic-subform-tel, .dynamic-subform-email, .dynamic-subform-web {
+
+  border: 1px solid #a7bcc6;
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+
+  mat-form-field {
+    border: none;
+  }
+}
+
+.dynamic-subform-tel {
+  grid-area: dx;
+
+}
+
+.dynamic-subform-email {
+  grid-area: dx1;
+}
+
+.dynamic-subform-web {
+  grid-area: dx2;
+
+}
