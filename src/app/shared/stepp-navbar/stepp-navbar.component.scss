@@ -1,0 +1,16 @@
+@import "../../../styles";
+.snb-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+  align-items: center;
+  grid-area: f;
+  @include header-background;
+
+  & > button {
+    height: 40px;
+  }
+  .spacer {
+    flex: 1 1 90%;
+  }
+}

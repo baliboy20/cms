@@ -25,10 +25,15 @@ margin-bottom: 10px;">
 <hr>
 
 <hr style="border: transparent">
-<app-sub-campaign-add #subCampAdd (campaigneSelected)="onCampaigneSelected($event)"></app-sub-campaign-add>
+
 <hr style="border: transparent">
-<ng-container *ngIf="campSelected">
+<ng-container>
+<!--<ng-container *ngIf="campSelected">-->
     <mat-horizontal-stepper #stepper1>
+        <mat-step>
+            <ng-template matStepLabel><span style="color: #7d7d7d; font-size: .55rem">SELECT/ CREATE</span> &nbsp; <BR><span>CAMPAIGN</span></ng-template>
+            <app-sub-campaign-add #subCampAdd (campaigneSelected)="onCampaigneSelected($event)"></app-sub-campaign-add>
+        </mat-step>
         <mat-step>
             <ng-template matStepLabel>ORGANISATIONS</ng-template>
             <app-sub-campaign-item-add></app-sub-campaign-item-add>
