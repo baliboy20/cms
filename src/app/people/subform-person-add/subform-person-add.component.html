@@ -12,16 +12,31 @@
         <ng-container *ngTemplateOutlet="row1Tmpl"></ng-container>
     </div>
     <div class="spa1-row2">
-        <ng-container *ngTemplateOutlet="telEditTempl; context:{fm: formGroup, parent: me}"></ng-container>
-        <ng-container *ngTemplateOutlet="emailEditTempl; context:{fm: formGroup, parent: me}"></ng-container>
-        <ng-container *ngTemplateOutlet="webEditTempl; context:{fm: formGroup, parent: me}"></ng-container>
+
+        <app-email-editable-sf
+                [farn]="'emails'"
+                [activeFormGroup]="formGroup" >
+        </app-email-editable-sf>
+        <app-telno-editable-sf
+                [farn]="'telNos'"
+                [activeFormGroup]="formGroup" >
+        </app-telno-editable-sf>
+        <app-web-editable-sf
+                [farn]="'web'"
+                [activeFormGroup]="formGroup"
+        ></app-web-editable-sf>
+<!--        <ng-container *ngTemplateOutlet="telEditTempl; context:{fm: formGroup, parent: me}"></ng-container>-->
+<!--        <ng-container *ngTemplateOutlet="emailEditTempl; context:{fm: formGroup, parent: me}"></ng-container>-->
+<!--        <ng-container *ngTemplateOutlet="webEditTempl; context:{fm: formGroup, parent: me}"></ng-container>-->
 
     </div>
-    <div class="spa1-footer">
-        <button mat-button matStepperNext>
-            <mat-icon>arrow_forward</mat-icon>
-        </button>
-    </div>
+
+<!--    <div class="spa1-footer">-->
+<!--        <button mat-button matStepperNext>-->
+<!--            <mat-icon>arrow_forward</mat-icon>-->
+<!--        </button>-->
+<!--    </div>-->
+    <app-stepp-navbar style="grid-area:f"></app-stepp-navbar>
 </div>
 
 <ng-template #row1Tmpl>

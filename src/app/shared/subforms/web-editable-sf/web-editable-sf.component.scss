@@ -1,0 +1,14 @@
+@import "../../../../styles";
+
+.dynamic-subform-tel, .dynamic-subform-email, .dynamic-subform-web {
+  @include form-field-border();
+
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: .8rem;
+
+  mat-form-field {
+    border: none;
+  }
+}

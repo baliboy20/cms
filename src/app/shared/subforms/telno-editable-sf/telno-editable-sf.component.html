@@ -1,0 +1,41 @@
+
+<ng-container [formGroup]="fm">
+    <ng-container>
+        <table class="dynamic-subform-tel">
+            <tr [formArrayName]="formArrayName" *ngFor="let telno of getFormArrayControls(); let idx = index">
+                <ng-container [formGroupName]="idx">
+                    <td>
+                        <mat-form-field>
+                            <!--<mat-label>TelNo</mat-label>-->
+                            <input matInput formControlName="telNo" placeholder="Telephone">
+
+                            <!--<input matInput formControlName="note">-->
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <!--<mat-label></mat-label>-->
+                            <input matInput formControlName="note" placeholder="comment">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button (click)="addItem('telNos')"
+                                    mat-menu-item>
+                                <mat-icon>add</mat-icon>add one
+                            </button>
+                            <button (click)="deleteItem('telNos', idx)"
+                                    mat-menu-item>
+                                <mat-icon>delete</mat-icon>delete
+                            </button>
+                        </mat-menu>
+                    </td>
+
+                </ng-container>
+            </tr>
+        </table>
+    </ng-container>
+</ng-container>

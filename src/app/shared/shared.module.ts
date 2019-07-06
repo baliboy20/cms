@@ -8,6 +8,9 @@ import {MaterialzModule} from '../materialz/materialz.module';
 import { TypeaheadReactiveFormComponent } from './typeahead-reactive-form/typeahead-reactive-form.component';
 import { OrgOrPersonSelectComponent } from './org-or-person-select/org-or-person-select.component';
 import { SteppNavbarComponent } from './stepp-navbar/stepp-navbar.component';
+import { EmailEditableSFComponent } from './subforms/email-editable-sf/email-editable-sf.component';
+import { TelnoEditableSfComponent } from './subforms/telno-editable-sf/telno-editable-sf.component';
+import { WebEditableSfComponent } from './subforms/web-editable-sf/web-editable-sf.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +18,9 @@ import { SteppNavbarComponent } from './stepp-navbar/stepp-navbar.component';
       TypeaheadReactiveFormComponent,
       OrgOrPersonSelectComponent,
       SteppNavbarComponent,
+      EmailEditableSFComponent,
+      TelnoEditableSfComponent,
+      WebEditableSfComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +32,9 @@ import { SteppNavbarComponent } from './stepp-navbar/stepp-navbar.component';
         TypeaheadReactiveFormComponent,
         OrgOrPersonSelectComponent,
         SteppNavbarComponent,
+        EmailEditableSFComponent,
+        TelnoEditableSfComponent,
+        WebEditableSfComponent,
     ],
     providers: [ AngularFirestore, OrgDaoService],
 })

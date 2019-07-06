@@ -14,7 +14,7 @@ export class SubformPersonAddComponent implements OnInit {
         this.formGroup = builders.buildPersonForm();
     }
 
-    met = this;
+    me = this;
     ngOnInit() {
     }
 
@@ -26,6 +26,8 @@ export class SubformPersonAddComponent implements OnInit {
         console.log('deleting', event);
         this.builders.deleteItem(this.formGroup.get(arrName) as FormArray, event);
     }
+
+    addAnotherPerson(){}
 
 }
 
