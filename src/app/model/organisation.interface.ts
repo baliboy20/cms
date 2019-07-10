@@ -1,4 +1,5 @@
 import {ContactsFactory, IEmail, ITelNo, IWebSite} from './contact.classes';
+import {IDepartment} from './department.interface';
 
 export interface IOrganisation {
 
@@ -11,6 +12,7 @@ export interface IOrganisation {
     orgType: string;
     sector: string; //
     id: string;
+    departments?: IDepartment;
 }
 
 

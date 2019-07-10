@@ -14,7 +14,7 @@ export class SubCampaignItem2AddComponent implements OnInit {
   constructor(private builder: CampaignBuilderService) { }
 
   ngOnInit() {
-    this.formGroup = this.builder.newCampaignItemFormGroup();
+    this.formGroup = this.builder.initCampaignItemForm();
   }
 
 }

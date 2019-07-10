@@ -1,0 +1,49 @@
+<!--<app-find-in-list-sf></app-find-in-list-sf>-->
+<div class="dep-container">
+    <div class="dep-header">header</div>
+    <div class="dep-col1">
+                <app-find-in-list-sf></app-find-in-list-sf>
+
+    </div>
+    <div class="dep-col2">
+        <ng-container *ngTemplateOutlet="depTmpl"></ng-container>
+    </div>
+        <app-stepp-navbar style="grid-area:f"></app-stepp-navbar>
+</div>
+
+
+<ng-template #depTmpl>
+
+    <ng-container  [formGroup]="formGroup">
+
+
+        <mat-form-field>
+            <input type="text"
+                   placeholder="department name"
+                   matInput
+                   formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+            <textarea
+                    matInput
+                    placeholder="address/location"
+                    formControlName="address"
+                    cols="30" rows="5"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea
+                    matInput
+                    formControlName="note"
+                    placeholder="any notes"
+                    name=""
+                      id=""
+                      cols="30"
+                      rows="10">
+
+            </textarea>
+        </mat-form-field>
+
+    </ng-container>
+
+
+</ng-template>

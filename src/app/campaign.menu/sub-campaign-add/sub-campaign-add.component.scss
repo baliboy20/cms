@@ -47,8 +47,10 @@ $border-color: darken(#e5e5e5, 12%);
 
 .sca-col1 {
   grid-area: b;
-  background-color: rgba(179, 173, 152, 0.32);
   border-radius: 5px;
+  & > app-find-in-list-sf {
+    height: 100%;
+  }
 }
 
 .sca-col2 {

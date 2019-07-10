@@ -1,7 +1,8 @@
 import {Inject, Injectable, InjectionToken, Injector} from '@angular/core';
 import {ISFBuilder} from './isfbuilder';
-import {FormGroup, FormArray, FormBuilder} from '@angular/forms';
+import {FormGroup, FormArray, FormBuilder, Validators} from '@angular/forms';
 import {IComment, IEmail, ITelNo, IWebSite} from '../../model/contact.classes';
+import {IDepartment} from '../../model/department.interface';
 
 
 // @Injectable({
@@ -54,7 +55,13 @@ export const NEW_COMMENT = new InjectionToken<any>('NEW_COMMENT', {
 
 });
 
+export const NEW_DEPARTMENT = new InjectionToken<any>('NEW_DEPARTMENT', {
+    providedIn: 'root',
+    factory: () => Object.assign({}, {address: 'aaaaddd', employees: [], name: ['nnnnmm', Validators.required], note: 'noooooote'}),
 
+});
+
+// export const d: IDepartment = {address: '', employees: [], name: '', note: ''}
 
 
 // @Injectable({

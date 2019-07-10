@@ -24,6 +24,7 @@ export class SubCampaignAddComponent implements OnInit {
         private dao: CampaignDaoService,
         private builder: CampaignBuilderService) {
         this.campLookup$ = this.dao.getCampaignsDropdown();
+        this.dao.getCampaignsDropdown().subscribe(console.log);
     }
 
     ngOnInit() {
@@ -45,7 +46,7 @@ export class SubCampaignAddComponent implements OnInit {
 
 
     initForm() {
-        this.formGroupCam = this.builder.buildCampaignForm();
+        this.formGroupCam = this.builder.initCampaignForm();
     }
 
     selectionChange(ev) {
@@ -77,6 +78,11 @@ export class SubCampaignAddComponent implements OnInit {
         this.isCampaignChosen = false;
         this.campaigneSelected.emit('reset');
         this.showCols = true;
+    }
+
+    onCampaignSelected(ev) {
+        // console.log('selected', ev, this.builder.setFrom(ev));
+        this.formGroupCam =  this.builder.setFrom(ev);
     }
 
 

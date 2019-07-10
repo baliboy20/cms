@@ -1,0 +1,73 @@
+@import "../../../../styles";
+
+$color: #787da1;
+$border-color: #787da1;
+$list-border-color: #b9c5dd;
+$bar-background-color: rgba(179, 173, 152, 0.32);
+$bar-border-color: white;
+//darken(rgba(179, 173, 152, 0.32),10%);
+
+.fil-container {
+  //overflow: scroll;
+  display: block;
+  position: relative;
+  @include form-field-border();
+  min-height: 500px;
+  height: 100%;
+  //background-color: palegreen;
+
+  & .fil-main {
+
+
+
+    padding: 3px
+  }
+
+  & .fil-searchbar {
+    background-color: $bar-background-color;
+    display: flex;
+    justify-content: center;
+    font-size: .75rem;
+    border: solid 2px $bar-border-color;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+
+  & .button-bar {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    font-size: .75rem;
+    color: $border-color;
+    background-color: $bar-background-color;
+    border: solid 2px $bar-border-color;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    //
+    //& > button {
+    //  margin: 3px 0px;
+    //  margin-left: 3px;
+    //  border-radius: 0px;
+    //}
+  }
+}
+
+.linestyle1 {
+  display: block;
+  position: relative;
+  color: $color;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: .78rem;
+  border-bottom: solid $list-border-color 1px;
+  //border-top: none;
+  //border-bottom: none;
+  padding: 15px   5px;
+  background-color: white;
+
+  &:hover {
+    background-color: rgba(125, 125, 125, 0.08);
+    //color: whitesmoke;
+  }
+}

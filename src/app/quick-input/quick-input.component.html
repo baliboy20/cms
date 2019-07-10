@@ -9,34 +9,32 @@ margin-bottom: 10px;">
     </button>
 
 </div>
-<!--<mat-toolbar style="z-index: 1;-->
-<!--background-color: dodgerblue;-->
-<!--margin-bottom: 11px;-->
-<!--z-index: -10;-->
-<!--">-->
-<!--  <ng-container *ngTemplateOutlet="ChooseCampaignTemplate; context:{changeFunc: campaignSelectionChange}"></ng-container>-->
-<!--</mat-toolbar>-->
-
-<!--<app-campaign-item-add-stepper-->
-<!--        (itemRef)="CampaignItemRef($event)"-->
-<!--        [campaignId]="selectedCampaignId">-->
-<!---->
-<!--</app-campaign-item-add-stepper>-->
+<!--<app-whois-button [tip]="'quick-input.component'"></app-whois-button>-->
 <hr>
 
 <hr style="border: transparent">
 
 <hr style="border: transparent">
 <ng-container>
-<!--<ng-container *ngIf="campSelected">-->
+    <!--<ng-container *ngIf="campSelected">-->
     <mat-horizontal-stepper #stepper1>
+
         <mat-step>
-            <ng-template matStepLabel><span style="color: #7d7d7d; font-size: .55rem">SELECT/ CREATE</span> &nbsp; <BR><span>CAMPAIGN</span></ng-template>
+            <ng-template matStepLabel><span style="color: #7d7d7d; font-size: .55rem">SELECT/ CREATE</span> &nbsp;
+                <BR><span>CAMPAIGN</span></ng-template>
+            <!--   subCampaignAddComponent.ts -->
             <app-sub-campaign-add #subCampAdd (campaigneSelected)="onCampaigneSelected($event)"></app-sub-campaign-add>
         </mat-step>
         <mat-step>
             <ng-template matStepLabel>ORGANISATIONS</ng-template>
-            <app-sub-campaign-item-add></app-sub-campaign-item-add>
+            <!--            <app-sub-campaign-item-add></app-sub-campaign-item-add>-->
+            <app-org-add-edit-sf></app-org-add-edit-sf>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>DEPARTMENTS
+                <br>
+                <span style="font-size: .4rem">or Subsidiaries</span></ng-template>
+            <app-department></app-department>
         </mat-step>
         <mat-step>
             <ng-template matStepLabel>ACTIONS</ng-template>

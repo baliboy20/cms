@@ -1,84 +1,153 @@
-<mat-card>
-    <button mat-raised-button color="primary" (click)="removeSelectedRows()">
-    Remove Selected Rows
-</button>
-<button mat-raised-button (click)=" addtestdata()">add Test Data</button>
-    <br>
+<div class="orgli-container">
 
-<mat-form-field>
-   <mat-label> <mat-icon>search</mat-icon></mat-label>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Find organisations">
-</mat-form-field>
+    <div class="orgli-header">ADD/ EDIT ORGANISATION</div>
+    <div class="orgli-col1">
+
+        <app-find-in-list-sf
+                [dataSource$]="data$"
+                [fldName]="'name'"
+                (selected)="onOrgSelected($event)">
+        </app-find-in-list-sf>
+    </div>
+    <div class="orgli-col2">
+        <ng-container *ngTemplateOutlet="OrgTmpl;"></ng-container>
+    </div>
+    <div class="orgli-footer">footer</div>
+</div>
 
 
-<table mat-table [dataSource]="dataSource"
-       matSort>
+<!--
+~~--~~ ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~
 
-<!--- Note that these columns can be defined in any order.
-The actual rendered columns are set as a property on the row definition" -->
-    <!-- Checkbox Column -->
-    <ng-container matColumnDef="select">
-        <mat-header-cell *matHeaderCellDef>
-            <mat-checkbox (change)="$event ? masterToggle() : null"
-                          [checked]="selection.hasValue() && isAllSelected()"
-                          [indeterminate]="selection.hasValue() && !isAllSelected()">
-            </mat-checkbox>
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? selection.toggle(row) : null"
-                          [checked]="selection.isSelected(row)">
-            </mat-checkbox>
-        </mat-cell>
+
+~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~
+-->
+
+<ng-template #OrgTmpl>
+
+    <ng-container [formGroup]="formGroup">
+        <mat-form-field appearance="legacy">
+            <input type="text"
+                   placeholder="name"
+                   matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <textarea
+                    matTextareaAutosize
+                    placeholder="address"
+                    formControlName="address"
+                    matAutosize="false"
+                    matAutosizeMinRows="5"
+                    cols="160"
+                    matInput>
+
+            </textarea>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+            <mat-label>Sector</mat-label>
+            <mat-select>
+                <mat-option [value]='sector'
+                            *ngFor="let sector of ['law', 'fin']">{{sector}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>type of organisation</mat-label>
+            <mat-select>
+                <mat-option [value]="ot"
+                            *ngFor="let ot of ['bus','charity']">{{ot}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <!--        <ng-container *ngTemplateOutlet="telEditTempl; context:{fm: formGroupOrg, parent: me}"></ng-container>-->
+        <!--        <ng-container *ngTemplateOutlet="emailEditTempl; context:{fm: formGroupOrg, parent: me}"></ng-container>-->
+        <!--        <ng-container *ngTemplateOutlet="webEditTempl; context:{fm: formGroupOrg, parent: me}"></ng-container>-->
+
+        <!--        <mat-form-field>-->
+        <!--            <input type="text" matInput placeholder="placeholder">-->
+        <!--        </mat-form-field>-->
+        <!--        <mat-form-field>-->
+        <!--            <input type="text" matInput placeholder="placeholder1">-->
+        <!--        </mat-form-field>-->
+        <!--        <mat-form-field>-->
+        <!--            <input type="text" matInput placeholder="placeholder2">-->
+        <!--        </mat-form-field>-->
+
     </ng-container>
 
-<!-- Position Column -->
-<ng-container matColumnDef="name">
-<th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
-<td mat-cell *matCellDef="let item"> {{item.name}}  </td>
-</ng-container>
 
-<!-- Name Column -->
-<ng-container matColumnDef="address">
-<th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
-<td mat-cell *matCellDef="let item" (click)="highlight(item);"> {{item.address}} </td>
-</ng-container>
+</ng-template>
 
-<!-- Sector Column -->
-<ng-container matColumnDef="orgType">
-<th mat-header-cell *matHeaderCellDef mat-sort-header> Orgn. Type </th>
-<td mat-cell *matCellDef="let item" id="name"> {{item.orgType}} </td>
-</ng-container>
 
-<!-- Type Column -->
-<ng-container matColumnDef="sector">
-<th mat-header-cell *matHeaderCellDef mat-sort-header> Sector </th>
-<td mat-cell *matCellDef="let item"> {{item.sector}} </td>
-</ng-container>
+<!--<mat-card>-->
+<!--    <button mat-raised-button color="primary" (click)="removeSelectedRows()">-->
+<!--    Remove Selected Rows-->
+<!--</button>-->
+<!--<button mat-raised-button (click)=" addtestdata()">add Test Data</button>-->
+<!--    <br>-->
 
-<ng-container matColumnDef="edits">
-<th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
-<td mat-cell *matCellDef="let item">
-<a mat-button [routerLink]="['../add', {orgId: item.id}]"><mat-icon>edit</mat-icon></a>
-</td>
-</ng-container>
+<!--<mat-form-field>-->
+<!--   <mat-label> <mat-icon>search</mat-icon></mat-label>-->
+<!--    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Find organisations">-->
+<!--</mat-form-field>-->
 
-<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
 
-<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator></mat-card>
-<!--
-name: string;
-    address: string;
-    emails: IEmail[];
-    web: IWebSite[];
-    telephoneNos: ITelNo[];
-    OrgType: string;
-    sector: string; //
-    id: string;
-}
+<!--<table mat-table [dataSource]="dataSource"-->
+<!--       matSort>-->
 
--->
+<!--&lt;!&ndash;- Note that these columns can be defined in any order.-->
+<!--The actual rendered columns are set as a property on the row definition" &ndash;&gt;-->
+<!--    &lt;!&ndash; Checkbox Column &ndash;&gt;-->
+<!--&lt;!&ndash;    <ng-container matColumnDef="select">&ndash;&gt;-->
+<!--&lt;!&ndash;        <mat-header-cell *matHeaderCellDef>&ndash;&gt;-->
+<!--&lt;!&ndash;            <mat-checkbox (change)="$event ? masterToggle() : null"&ndash;&gt;-->
+<!--&lt;!&ndash;                          [checked]="selection.hasValue() && isAllSelected()"&ndash;&gt;-->
+<!--&lt;!&ndash;                          [indeterminate]="selection.hasValue() && !isAllSelected()">&ndash;&gt;-->
+<!--&lt;!&ndash;            </mat-checkbox>&ndash;&gt;-->
+<!--&lt;!&ndash;        </mat-header-cell>&ndash;&gt;-->
+<!--&lt;!&ndash;        <mat-cell *matCellDef="let row">&ndash;&gt;-->
+<!--&lt;!&ndash;            <mat-checkbox (click)="$event.stopPropagation()"&ndash;&gt;-->
+<!--&lt;!&ndash;                          (change)="$event ? selection.toggle(row) : null"&ndash;&gt;-->
+<!--&lt;!&ndash;                          [checked]="selection.isSelected(row)">&ndash;&gt;-->
+<!--&lt;!&ndash;            </mat-checkbox>&ndash;&gt;-->
+<!--&lt;!&ndash;        </mat-cell>&ndash;&gt;-->
+<!--&lt;!&ndash;    </ng-container>&ndash;&gt;-->
+
+<!--&lt;!&ndash; Position Column &ndash;&gt;-->
+<!--<ng-container matColumnDef="name">-->
+<!--<th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>-->
+<!--<td mat-cell *matCellDef="let item"> {{item.name}}  </td>-->
+<!--</ng-container>-->
+
+<!--&lt;!&ndash; Name Column &ndash;&gt;-->
+<!--&lt;!&ndash;<ng-container matColumnDef="address">&ndash;&gt;-->
+<!--&lt;!&ndash;<th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>&ndash;&gt;-->
+<!--&lt;!&ndash;<td mat-cell *matCellDef="let item" (click)="highlight(item);"> {{item.address}} </td>&ndash;&gt;-->
+<!--&lt;!&ndash;</ng-container>&ndash;&gt;-->
+
+<!--&lt;!&ndash; Sector Column &ndash;&gt;-->
+<!--&lt;!&ndash;<ng-container matColumnDef="orgType">&ndash;&gt;-->
+<!--&lt;!&ndash;<th mat-header-cell *matHeaderCellDef mat-sort-header> Orgn. Type </th>&ndash;&gt;-->
+<!--&lt;!&ndash;<td mat-cell *matCellDef="let item" id="name"> {{item.orgType}} </td>&ndash;&gt;-->
+<!--&lt;!&ndash;</ng-container>&ndash;&gt;-->
+
+<!--&lt;!&ndash; Type Column &ndash;&gt;-->
+<!--&lt;!&ndash;<ng-container matColumnDef="sector">&ndash;&gt;-->
+<!--&lt;!&ndash;<th mat-header-cell *matHeaderCellDef mat-sort-header> Sector </th>&ndash;&gt;-->
+<!--&lt;!&ndash;<td mat-cell *matCellDef="let item"> {{item.sector}} </td>&ndash;&gt;-->
+<!--&lt;!&ndash;</ng-container>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<ng-container matColumnDef="edits">&ndash;&gt;-->
+<!--&lt;!&ndash;<th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>&ndash;&gt;-->
+<!--&lt;!&ndash;<td mat-cell *matCellDef="let item">&ndash;&gt;-->
+<!--&lt;!&ndash;<a mat-button [routerLink]="['../add', {orgId: item.id}]"><mat-icon>edit</mat-icon></a>&ndash;&gt;-->
+<!--&lt;!&ndash;</td>&ndash;&gt;-->
+<!--&lt;!&ndash;</ng-container>&ndash;&gt;-->
+
+<!--<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+<!--</table>-->
+
+<!--<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator></mat-card>-->
 
 

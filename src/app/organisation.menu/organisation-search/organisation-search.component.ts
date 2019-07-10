@@ -1,11 +1,14 @@
 import {Component, Inject, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {OrgDaoService} from '../../dao/OrgDao.service';
 import {SelectionModel} from '@angular/cdk/collections';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
 import {IOrganisation} from '../../model/organisation.interface';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {Observable} from 'rxjs';
+import {OrganisationBuilderService} from '../../utils/form-builders/organisation-builder.service';
+import {FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-organisation-search',
@@ -15,16 +18,18 @@ import { MatSort } from '@angular/material/sort';
 export class TableOfOrgsComponent implements OnInit, OnDestroy {
 
 
-    dataSource: any  = [];
+    dataSource: any = [];
     data = [];
+    data$: Observable<any>;
+    formGroup: FormGroup;
     selectedRowIndex;
     displayedColumns: string[] = [
-        'select',
+        // 'select',
         'name',
-        'address',
-        'orgType',
-        'sector',
-        'edits',
+        // 'address',
+        // 'orgType',
+        // 'sector',
+        // 'edits',
     ];
     selection = new SelectionModel<IOrganisation>(true, []);
     @ViewChild('confirmDelete', {static: true}) confirmDeleteTmpl: TemplateRef<any>;
@@ -32,15 +37,17 @@ export class TableOfOrgsComponent implements OnInit, OnDestroy {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     constructor(private dao: OrgDaoService,
+                private builder: OrganisationBuilderService,
                 private dialog: MatDialog) {
-        console.log('in const');
+        this.formGroup = this.builder.buildOrgGroup();
         this.dao.enterprises$
             .subscribe(b => {
                 console.log('returned data', b);
                 this.dataSource = new MatTableDataSource<IOrganisation>(b);
                 this.data = b;
             });
-            // .unsubscribe();
+        // .unsubscribe();
+        this.data$ = this.dao.enterprises$;
     }
 
     ngOnInit(): void {
@@ -54,8 +61,8 @@ export class TableOfOrgsComponent implements OnInit, OnDestroy {
 
     highlight(row) {
         this.selectedRowIndex = row.id;
-       console.log('row', row.id);
-       this.dao.getDocRef(row, row.id);
+        console.log('row', row.id);
+        this.dao.getDocRef(row, row.id);
     }
 
     openDialog() {
@@ -138,6 +145,10 @@ export class TableOfOrgsComponent implements OnInit, OnDestroy {
     // deleteItem(idx: number) {
     //
     // }
+
+    onOrgSelected(event) {
+        console.log('org selected', event);
+    }
 
 }
 

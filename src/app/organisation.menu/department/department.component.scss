@@ -1,0 +1,52 @@
+@import "../../../styles";
+
+.dep-container{
+  display: grid;
+  grid-template-areas: ".  h  h  ." ". c1  c2 . " ". f  f .";
+  grid-template-columns: 10% 25% 55% 10%;
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+}
+
+.dep-header {
+  @include header-background();
+  grid-area: h;
+}
+
+.dep-footer {
+  grid-area: f;
+}
+
+.dep-col1 {
+  grid-area: c1;
+}
+
+.dep-col2 {
+  display: grid;
+  grid-template-areas: "a  b " "c c";
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+  grid-area: c2;
+  & > mat-form-field:nth-child(1) {
+    grid-area: a;
+    //background-color: lightcyan;
+  }
+
+  & > mat-form-field:nth-child(2) {
+    grid-area: b;
+    //background-color: lightpink;
+  }
+
+  & > mat-form-field:nth-child(3) {
+    grid-area: c;
+    //background-color: lightgoldenrodyellow;
+  }
+}
+
+mat-form-field {
+  @include form-field-border();
+  padding: 15px;
+  font-size: .8rem;
+}
+
+

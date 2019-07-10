@@ -17,6 +17,9 @@ export class QuickInputComponent implements OnInit {
     @ViewChild(SubCampaignAddComponent, {static: true}) set campcomp(arg: any) {
         this._campaignForm = arg.formGroupOrg;
     }
+    get campcom() {
+        return this._campaignForm;
+    }
 
     campaigns$: Observable<any>;
     selectedCampaignId;
@@ -54,7 +57,7 @@ export class QuickInputComponent implements OnInit {
 
     saveAll() {
 
-        console.log('Save all', this.campcomp);
+        console.log('Save all');
 
     }
 

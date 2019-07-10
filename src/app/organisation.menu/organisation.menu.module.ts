@@ -12,9 +12,13 @@ import {SubformTableModule} from '../utils/subform-table/subform-table.module';
 import {SubformTableComponent} from '../utils/subform-table/subform-table.component';
 import {PeopleModule} from '../people/people.module';
 import {EditPersonComponent} from '../people/person-edit/person-edit.component';
-import { OrganisationAddComponent } from './organisation-add/organisation-add.component';
+import {OrganisationAddComponent} from './organisation-add/organisation-add.component';
 import {PeopleAddComponent} from '../people/people-add/people-add.component';
 import {PeopleSearchComponent} from '../people/people-search/people-search.component';
+import {UtilsModule} from '../utils/utils.module';
+import {OrgAddEditSfComponent} from './subforms/org-add-edit-sf/org-add-edit-sf.component';
+import {SharedModule} from '../shared/shared.module';
+import { DepartmentComponent } from './department/department.component';
 
 const routes: Routes =
     [{
@@ -37,7 +41,8 @@ const routes: Routes =
         EditOrganisationComponent,
         TableOfOrgsComponent,
         OrganisationAddComponent,
-        // SubformTableComponent
+        OrgAddEditSfComponent,
+        DepartmentComponent,
     ],
     imports: [
         CommonModule,
@@ -47,10 +52,16 @@ const routes: Routes =
         ReactiveFormsModule,
         SubformTableModule,
         PeopleModule,
+        UtilsModule,
+        SharedModule,
     ],
-
-
-    entryComponents: [ConfirmDeleteComponent]
+    exports: [
+        OrgAddEditSfComponent,
+        DepartmentComponent,
+    ],
+    entryComponents: [
+        ConfirmDeleteComponent
+    ]
 })
 export class OrganisationMenuModule {
 }

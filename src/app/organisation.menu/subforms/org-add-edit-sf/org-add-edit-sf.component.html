@@ -1,0 +1,80 @@
+<div class="orgli-container">
+
+    <div class="orgli-header">ADD/ EDIT ORGANISATION</div>
+    <div class="orgli-col1">
+
+        <app-find-in-list-sf
+                [dataSource$]="data$"
+                [fldName]="'name'"
+                (selected)="onOrgSelected($event)">
+        </app-find-in-list-sf>
+    </div>
+    <div class="orgli-col2">
+        <ng-container *ngTemplateOutlet="OrgTmpl;"></ng-container>
+    </div>
+    <app-stepp-navbar style="grid-area:f"></app-stepp-navbar>
+</div>
+
+hello
+<!--
+~~--~~ ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~
+
+
+~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~  ~~--~~
+-->
+
+<ng-template #OrgTmpl>
+
+    <ng-container [formGroup]="formGroup">
+        <mat-form-field appearance="legacy">
+            <input type="text"
+                   placeholder="name"
+                   matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <textarea
+                    matTextareaAutosize
+                    placeholder="address"
+                    formControlName="address"
+                    matAutosize="false"
+                    matAutosizeMinRows="5"
+                    cols="160"
+                    matInput>
+
+            </textarea>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+            <mat-label>Sector</mat-label>
+            <mat-select>
+                <mat-option [value]='sector'
+                            *ngFor="let sector of ['law', 'fin']">{{sector}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>type of organisation</mat-label>
+            <mat-select>
+                <mat-option [value]="ot"
+                            *ngFor="let ot of ['bus','charity']">{{ot}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <!--        <ng-container *ngTemplateOutlet="telEditTempl; context:{fm: formGroupOrg, parent: me}"></ng-container>-->
+        <!--        <ng-container *ngTemplateOutlet="emailEditTempl; context:{fm: formGroupOrg, parent: me}"></ng-container>-->
+        <!--        <ng-container *ngTemplateOutlet="webEditTempl; context:{fm: formGroupOrg, parent: me}"></ng-container>-->
+
+        <!--        <mat-form-field>-->
+        <!--            <input type="text" matInput placeholder="placeholder">-->
+        <!--        </mat-form-field>-->
+        <!--        <mat-form-field>-->
+        <!--            <input type="text" matInput placeholder="placeholder1">-->
+        <!--        </mat-form-field>-->
+        <!--        <mat-form-field>-->
+        <!--            <input type="text" matInput placeholder="placeholder2">-->
+        <!--        </mat-form-field>-->
+
+    </ng-container>
+
+
+</ng-template>
+

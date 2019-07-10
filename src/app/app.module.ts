@@ -25,6 +25,7 @@ import {QuickInputModule} from './quick-input/quick-input.module';
 import {CampaignBuilderService} from './utils/form-builders/campaign-builder.service';
 import {PeopleBuilderService} from './utils/form-builders/people-builder.service';
 import { SpyPipe } from './utils/pipes/spy.pipe';
+import {UtilsModule} from './utils/utils.module';
 
 @NgModule({
     declarations: [
@@ -45,8 +46,7 @@ import { SpyPipe } from './utils/pipes/spy.pipe';
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-
-
+        UtilsModule,
     ],
     providers: [
         AngularFirestore,

@@ -1,26 +1,27 @@
 <div class="sca-container">
 
     <div class="sca-header">SELECTED CAMPAIGN: {{campName}}</div>
-    <div class="sca-col1" *ngIf="showCols">
-        <ng-container *ngTemplateOutlet="selectCreateOrExisting"></ng-container>
-    </div>
-    <div class="sca-col2" *ngIf="createCampaignFlag !== null && showCols">
-        <ng-container *ngIf="createCampaignFlag; else campSelect">
-            <ng-container *ngTemplateOutlet="enterNewCampaign"></ng-container>
-        </ng-container>
-    </div>
-<!--    <div class="sca-footer">-->
-<!--    <button mat-raised-button (click)="doAfterCampSelectedContinue()">CONTINUE</button>-->
-<!--    <button mat-raised-button (click)="doReset()">RESET</button>-->
-<!--        <button mat-button matStepperNext>-->
-<!--            <mat-icon>arrow_forward</mat-icon>-->
-<!--        </button>-->
-<!--        <button mat-button matStepperPrevious>-->
-<!--            <mat-icon>arrow_backward</mat-icon>-->
-<!--        </button>-->
+<!--    <div class="sca-col1" *ngIf="showCols">-->
+<!--        <ng-container *ngTemplateOutlet="selectCreateOrExisting"></ng-container>-->
 <!--    </div>-->
+
+    <div class="sca-col1">
+        <app-find-in-list-sf
+                [fldName]="'name'"
+                (selected)="onCampaignSelected($event)"
+                [dataSource$]="campLookup$">
+        </app-find-in-list-sf>
+    </div>
+    <div class="sca-col2">
+        <ng-container *ngTemplateOutlet="enterNewCampaign"></ng-container>
+    </div>
+
+
+
     <app-stepp-navbar style="grid-area:d "></app-stepp-navbar>
-<!--</div>-->
+
+
+    <!--</div>-->
 <!--
 ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - - ... - -
 

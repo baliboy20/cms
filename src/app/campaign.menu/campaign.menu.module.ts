@@ -18,6 +18,7 @@ import { CampaignItemAddStepperComponent } from './campaign-item-add-stepper/cam
 import { SubCampaignAddComponent } from './sub-campaign-add/sub-campaign-add.component';
 import {SubCampaignItemAddComponent} from './sub-campaign-item-add/sub-campaign-item-add.component';
 import { SubCampaignItem2AddComponent } from './sub-campaign-item2-add/sub-campaign-item2-add.component';
+import {UtilsModule} from '../utils/utils.module';
 
 const routes: Routes = [{path: 'campaign-menu',
     component: CampaignMenuComponent,
@@ -53,6 +54,7 @@ const routes: Routes = [{path: 'campaign-menu',
       SubformTableModule,
       SharedModule,
       HighchartsChartModule,
+      UtilsModule,
   ],
     exports: [ CampaignMenuComponent,
         CampaignItemAddComponent,
