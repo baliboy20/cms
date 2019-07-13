@@ -6,6 +6,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { WordSearchPipe } from './subforms/find-in-list-sf/word-search.pipe';
 import { WhoisButtonComponent } from './dev/whois-button/whois-button.component';
+import { DblFindInListSfComponent } from './subforms/dbl-find-in-list-sf/dbl-find-in-list-sf.component';
 
 
 
@@ -14,6 +15,7 @@ import { WhoisButtonComponent } from './dev/whois-button/whois-button.component'
     FindInListSfComponent,
     WordSearchPipe,
     WhoisButtonComponent,
+    DblFindInListSfComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +25,7 @@ import { WhoisButtonComponent } from './dev/whois-button/whois-button.component'
   exports: [
       FindInListSfComponent,
     WhoisButtonComponent,
+    DblFindInListSfComponent,
   ]
 })
 export class UtilsModule { }

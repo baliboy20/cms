@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {IComment, IEmail, ITelNo, IWebSite} from '../../model/contact.classes';
-import {FormArray, FormBuilder, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IOrganisation} from '../../model/organisation.interface';
 import {isNull} from 'util';
 import {isEmpty} from 'rxjs/operators';
@@ -68,12 +68,23 @@ export class OrganisationBuilderService {
     }
 
     buildOrgGroup() {
+        /**
+         *  org
+         *      |_ comms
+         *      |_ depts
+         *              |_persons
+         */
+
         const builder = this.builder;
+
+
+        const fm: FormGroup = builder.group({name: 'william'});
+        const fm1: FormGroup = builder.group({f: fm, age: 22});
+console.log('build a subgroup', fm1);
         const emailsArr: FormArray = builder.array([builder.group(this.instOfEmail())]);
         const telNosArr: FormArray = builder.array([builder.group(this.instOfTelnos())]);
         const webArr: FormArray = builder.array([builder.group(this.instOfWebsite())]);
         const comms: FormArray = builder.array(([builder.group(this.instOfComments())]));
-
         const org: any = {
             id: 'xx',
             address: ['1234'],

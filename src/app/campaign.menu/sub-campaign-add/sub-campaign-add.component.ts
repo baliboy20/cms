@@ -1,9 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {from, Observable, of} from 'rxjs';
-import {FormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {CampaignBuilderService} from '../../utils/form-builders/campaign-builder.service';
 import {CampaignDaoService} from '../../dao/campaignDao.service';
 import {endWith, filter, map, mergeMap, take, tap, toArray} from 'rxjs/operators';
+import {FormControllerService} from '../../quick-input/form-controller.service';
 
 @Component({
     selector: 'app-sub-campaign-add',
@@ -15,16 +16,21 @@ export class SubCampaignAddComponent implements OnInit {
     campId;
     campName;
     campLookup$: Observable<any>; // = of(this.data);
-    formGroupCam: FormGroup;
+    get formGroupCam(): FormGroup {
+        return this.formcontroller.formStates.selectedCampaignForm;
+    }
+
     isCampaignChosen = false;
     showCols = true;
     @Output() campaigneSelected = new EventEmitter();
 
     constructor(
         private dao: CampaignDaoService,
+        private formcontroller: FormControllerService,
         private builder: CampaignBuilderService) {
         this.campLookup$ = this.dao.getCampaignsDropdown();
         this.dao.getCampaignsDropdown().subscribe(console.log);
+
     }
 
     ngOnInit() {
@@ -46,7 +52,11 @@ export class SubCampaignAddComponent implements OnInit {
 
 
     initForm() {
-        this.formGroupCam = this.builder.initCampaignForm();
+        this.formcontroller.createDefaultCampaignFormWithItem();
+    }
+
+    addNew() {
+        this.formcontroller.formStates.selectedCampaignForm  = this.formcontroller.createDefaultCampaignFormWithItem();
     }
 
     selectionChange(ev) {
@@ -58,6 +68,8 @@ export class SubCampaignAddComponent implements OnInit {
         return ev.name;
     }
 
+    //jame some changnes
+    // hfdl
     doAfterCampSelectedContinue() {
         if (this.createCampaignFlag) {
             this.dao.insertCam(this.formGroupCam.getRawValue())
@@ -81,8 +93,18 @@ export class SubCampaignAddComponent implements OnInit {
     }
 
     onCampaignSelected(ev) {
-        // console.log('selected', ev, this.builder.setFrom(ev));
-        this.formGroupCam =  this.builder.setFrom(ev);
+        this.formcontroller.formStates.selectedCampaignForm =
+            this.formcontroller.createSelectedCampaignWithItems(ev);
+       this.formcontroller
+           .formStates
+           .campaignValueChange
+           .subscribe( (a: FormGroup) => {
+               console.log('formname ', a);
+               this.campName = a['controls']['name'].value;
+               a['controls']['name'].valueChanges.subscribe(aa => this.campName = aa);
+           });
+
+
     }
 
 

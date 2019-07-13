@@ -26,8 +26,8 @@ export class CampaignBuilderService {
     };
 
     campaignDefaults = {
-        name: ['ddd', Validators.required],
-        description: ['I am a very tall building', Validators.required],
+        name: ['wed blues', Validators.required],
+        description: ['sky scraper', Validators.required],
         id: ['ff', Validators.required],
         items: []
     };
@@ -36,13 +36,27 @@ export class CampaignBuilderService {
         return this.builder.group({...this.campaignItemDefaults});
     }
 
-    private _initializeCampaignForm(): FormGroup {
-        return this.builder.group({...this.campaignDefaults, items: [this._initializeCampaignItemForm()]});
+    /**  @returns tuple of campaignForm and CampaignItem form */
+    private _initializeCampaignForm(): FormGroup[] {
+        const subForm = this._initializeCampaignItemForm();
+        return [
+            this.builder.group(
+                {
+                    ...this.campaignDefaults,
+                    items: [subForm]
+                }),
+            subForm
+        ];
     }
 
 
-    public initCampaignForm = () => this._initializeCampaignForm();
-    public initCampaignItemForm = () => this._initializeCampaignItemForm();
+    /** @desc form set to defaults for campaign with a default CampaignItem
+     *  @returns tuple of campaignForm and CampaignItem form
+     **/
+    public setupCampaignForm =
+        () => this._initializeCampaignForm();
+    public setupCampaignItemForm =
+        () => this._initializeCampaignItemForm();
 
 
     /**
@@ -58,6 +72,7 @@ export class CampaignBuilderService {
         });
         return fg;
     }
+
     /** @desc  adds a campaignItem */
     setItemInForm(arr: ICampaignItem[]) {
         if (arr === undefined || arr.length === 0) {

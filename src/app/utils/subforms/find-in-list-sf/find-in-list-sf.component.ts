@@ -9,10 +9,10 @@ import {Observable} from 'rxjs';
 })
 export class FindInListSfComponent implements OnInit {
 
-    @Input() fldName = '';
+    @Input() fldName = 'xx';
     @Input() dataSource$: Observable<any>;
-    @Input() devRef: string
     @Output() selected: EventEmitter<any> = new EventEmitter();
+    @Output() addNewEvent: EventEmitter<any> = new EventEmitter();
     public term;
 
     constructor() {
@@ -23,14 +23,15 @@ export class FindInListSfComponent implements OnInit {
         }
     }
 
-    add() {
+    addNew() {
+        this.addNewEvent.emit();
     }
 
     remove(idx) {
     }
 
     applyFilter(vals) {
-        console.log('vals', vals);
+        // console.log('vals', vals);
         this.term = vals;
     }
 

@@ -5,6 +5,7 @@ import {OrgDaoService} from '../../dao/OrgDao.service';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {MatAutocompleteSelectedEvent} from '@angular/material';
+import {FormControllerService} from '../../quick-input/form-controller.service';
 
 @Component({
   selector: 'app-sub-campaign-item-add',
@@ -22,8 +23,10 @@ export class SubCampaignItemAddComponent implements OnInit {
   constructor(
       private orgBuilder: OrganisationBuilderService,
       private dao: OrgDaoService,
+      private formcontroller: FormControllerService,
   ) {
     this.orgsDrpDwn$ = this.dao.enterprises$;
+    console.log('fc services', formcontroller);
   }
   ngOnInit() {
     this.formGroupOrg = this.orgBuilder.buildOrgGroup();

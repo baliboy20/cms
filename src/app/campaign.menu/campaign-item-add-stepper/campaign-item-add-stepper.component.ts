@@ -40,10 +40,10 @@ export class CampaignItemAddStepperComponent implements OnInit {
                 public  peopleBuilder: PeopleBuilderService,
                 private daoP: OrgDaoService,
                 private dao: CampaignDaoService) {
-        this.formGroupCI = this.camBuilder.newCampaignItemFormGroup();
+        this.formGroupCI = this.camBuilder.setupCampaignItemForm();
         this.formGroupOrg = this.orgBuilder.buildOrgGroup();
         this.formGroupPerson = peopleBuilder.buildPersonForm();
-        this.formGroupCamp = camBuilder.buildCampaignForm();
+        this.formGroupCamp = camBuilder.setupCampaignItemForm();
     }
 
     ngOnInit() {

@@ -1,6 +1,6 @@
 <div class="fil-container">
     <div class="fil-searchbar">
-        <mat-form-field>
+        <mat-form-field *ngIf="false">
 
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="find">
             <mat-icon matSuffix>search</mat-icon>
@@ -21,7 +21,7 @@
     <div class="button-bar">
         <!--        s-->
         <button mat-stroked-button
-                (click)="onSelected(null)">
+                (click)="addNew()">
             <mat-icon>add</mat-icon>
         </button>
         <button mat-stroked-button

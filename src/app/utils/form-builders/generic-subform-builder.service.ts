@@ -73,7 +73,7 @@ export class GenericSubFormBuilderService {
     }
 
     constructor( public builder: FormBuilder,  public newInst: any) {
-        console.log('hello william in the srvice', newInst);
+        // console.log('hello william in the srvice', newInst);
     }
 
     build(): FormArray {
