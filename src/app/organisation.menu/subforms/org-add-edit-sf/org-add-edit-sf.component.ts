@@ -12,7 +12,7 @@ import {OrganisationBuilderService} from '../../../utils/form-builders/organisat
   templateUrl: './org-add-edit-sf.component.html',
   styleUrls: ['./org-add-edit-sf.component.scss']
 })
-export class OrgAddEditSfComponent implements OnInit,  OnDestroy {
+export class OrgAddEditSfComponent implements OnInit, OnDestroy {
 
 
   dataSource: any = [];
@@ -38,11 +38,11 @@ export class OrgAddEditSfComponent implements OnInit,  OnDestroy {
               private dialog: MatDialog) {
     this.formGroup = this.builder.buildOrgGroup();
     this.dao.enterprises$
-        .subscribe(b => {
-         // console.log('returned data', b);
-          this.dataSource = new MatTableDataSource<IOrganisation>(b);
-          this.data = b;
-        });
+      .subscribe(b => {
+        // console.log('returned data', b);
+        this.dataSource = new MatTableDataSource<IOrganisation>(b);
+        this.data = b;
+      });
     // .unsubscribe();
     this.data$ = this.dao.enterprises$;
   }
@@ -82,33 +82,15 @@ export class OrgAddEditSfComponent implements OnInit,  OnDestroy {
   }
 
   removeSelectedRows() {
-    // this.openDialog()
-    //     .subscribe(a => {
-    //       if (!a) {
-    //         this.selection.clear();
-    //         return;
-    //       }
-    //
-    //       const batch = [];
-    //       this.selection.selected.forEach(item => {
-    //         const index: number = this.data.findIndex(d => d === item);
-    //         batch.push(this.data[index].id);
-    //         console.log('ids', this.data[index].id);
-    //         this.data.splice(index, 1);
-    //         this.dataSource = new MatTableDataSource<IOrganisation>(this.data);
-    //       });
-    //
-    //       // show popup
-    //       const retval = this.dao.deleteFor(batch).then(result => {
-    //         console.log('have a delete result:', result);
-    //         this.selection = new SelectionModel<IOrganisation>(true, []);
-    //       })
-    //           .catch(err => {
-    //
-    //           });
-    //       console.log('ids to delete', retval);
-    //
-    //     });
+//do thiss
+    //chnge this
+    // ..== do this jl;sajdf;lsfl
+    //s;dfjl;sjf;ljs;lkfj;skljfl;k
+  }
+
+  onSelected(event) {
+    console.log('seleected i subform', event);
+    this.formGroup = this.builder.buildGroup(event.vo)
   }
 
 
@@ -123,8 +105,8 @@ export class OrgAddEditSfComponent implements OnInit,  OnDestroy {
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
     this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
   onOrgSelected(event) {

@@ -1,8 +1,8 @@
 <div class="orgli-container">
 
-    <div class="orgli-header">ADD/ EDIT ORGANISATION</div>
+    <div class="orgli-header">ADD/ SELECT ORGANISATION</div>
     <div class="orgli-col1">
-        <app-dbl-find-in-list-sf></app-dbl-find-in-list-sf>
+        <app-dbl-find-in-list-sf (selected)="onSelected($event)"></app-dbl-find-in-list-sf>
     </div>
     <div class="orgli-col2">
         <ng-container *ngTemplateOutlet="OrgTmpl;"></ng-container>

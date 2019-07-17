@@ -1,16 +1,18 @@
 <mat-tab-group>
-    <mat-tab label="SEARCH">
-        <app-find-in-list-sf
-                [fldName]="fldName4Search "
-                [dataSource$]="dataSource4Search$">
-        </app-find-in-list-sf>
-    </mat-tab>
-    <mat-tab label="ASSIGNED">
-        <app-find-in-list-sf
-                [fldName]="fldNameOf"
-                [dataSource$]="dataSourceOf$">
-        </app-find-in-list-sf>
+  <mat-tab label="SEARCH">
+    <app-find-in-list-sf
+      (selected)="onSelected($event,'new')"
+      [fldName]="fldName4Search "
+      [dataSource$]="dataSource4Search$">
+    </app-find-in-list-sf>
+  </mat-tab>
+  <mat-tab label="CHOSEN">
+    <app-find-in-list-sf
+      (selected)="onSelected($event,'existing')"
+      [fldName]="fldNameOf"
+      [dataSource$]="dataSourceOf$">
+    </app-find-in-list-sf>
 
 
-    </mat-tab>
+  </mat-tab>
 </mat-tab-group>

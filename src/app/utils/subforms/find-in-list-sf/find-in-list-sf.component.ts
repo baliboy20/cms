@@ -10,6 +10,7 @@ import {Observable} from 'rxjs';
 export class FindInListSfComponent implements OnInit {
 
     @Input() fldName = 'xx';
+    @Input() listId = 'unset'
     @Input() dataSource$: Observable<any>;
     @Output() selected: EventEmitter<any> = new EventEmitter();
     @Output() addNewEvent: EventEmitter<any> = new EventEmitter();

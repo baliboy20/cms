@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {from, Observable, of} from 'rxjs';
 
 @Component({
@@ -11,6 +11,7 @@ export class DblFindInListSfComponent implements OnInit {
   @Input() dataSource4Search$: Observable<any>;
   @Input() fldNameOf = 'name';
   @Input() dataSourceOf$: Observable<any>;
+  @Output() selected: EventEmitter<any> = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
@@ -23,12 +24,16 @@ export class DblFindInListSfComponent implements OnInit {
     ]);
 
     this.dataSourceOf$ = of([
-      {name: 'will2'},
+      {name: 'will23'},
       {name: 'suz2'},
       {name: 'alice2'},
       {name: 'colin2'},
       {name: 'petra2 DUKE'},
     ]);
+  }
+  onSelected(val, source) {
+    console.log('selected, source', val , source);
+    this.selected.emit({ val, source});
   }
 
 }
